@@ -1,0 +1,27 @@
+<app-admin></app-admin>
+<div >
+<h2> Detalhes dos Usuários</h2>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="hidden">Id</th>
+    <th>Nome</th>
+    <th>Email</th>
+    <th>Profile</th>
+    <th>Editar</th>
+    <th>Deletar</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td class="hidden">{{user.id}}</td>
+    <td>{{user.nome}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.profile}}</td>
+    <td><button class="btn btn-info" > Editar Usuário</button></td>
+    <td><button class="btn btn-danger" (click)="deleteUser(user)"> Deletar Usuário</button></td>
+  </tr>
+  </tbody>
+</table>
+</div>

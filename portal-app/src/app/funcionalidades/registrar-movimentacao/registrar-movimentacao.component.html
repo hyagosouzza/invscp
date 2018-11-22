@@ -1,0 +1,17 @@
+<h2 class="text-center">Registrar uma Movimentação</h2>
+<form>
+  <div class="form-group">
+    <label for="campo">Campo:</label>
+    <input required [(ngModel)]="movimentacao.campo" placeholder="Campo aqui" name="campo" class="form-control" id="campo">
+  </div>
+
+  <div class="form-group">
+    <label for="selecao">Campo de Seleção:</label>
+    <select required [(ngModel)]="movimentacao.selecao" class="form-control" name="selecao" id="selecao">
+      <option value="0">Opção 1</option>
+      <option value="1">Opção 2</option>
+    </select>
+  </div>
+
+  <button class="btn btn-success" (click)="registrar()">Registrar</button>
+</form>

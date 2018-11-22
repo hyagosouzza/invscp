@@ -1,0 +1,81 @@
+<h2> Bens Patrimoniais</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Denominação</th>
+      <th>Marca</th>
+      <th>Grupo Material</th>
+      <th>Visualizar</th>
+      <th>Baixar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bem of bens">
+      <td class="hidden">{{bem.id}}</td>
+      <td>{{bem.nome}}</td>
+      <td>{{bem.marca}}</td>
+      <td>{{bem.grupoMaterial}}</td>
+      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVer">
+          Ver Mais
+        </button></td>
+      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalBaixar">
+          Baixar este Bem
+        </button></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="modalBaixar" tabindex="-1" role="dialog" aria-labelledby="modalBaixarTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalBaixarTitle">Baixar Bem Patrimonial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="email">Data da Baixa:</label>
+            <input required id="datepicker" width="276" />
+          </div>
+
+          <div class="form-group">
+            <label for="nome">Comentários/Observações (opcional):</label>
+            <input placeholder="Texto" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+        <button type="button" (click)="baixarBem(bem)" class="btn btn-primary ">Baixar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Bem Patrinomial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<app-admin></app-admin>
+<div>
+  <h2> Detalhes dos Locais</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th class="hidden">Id</th>
+        <th>Nome</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>Un. Administrativa</th>
+        <th>Editar</th>
+        <th>Deletar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let local of locais">
+        <td class="hidden">{{local.id}}</td>
+        <td>{{local.nome}}</td>
+        <td>{{local.cidade}}</td>
+        <td>{{local.estado}}</td>
+        <td>{{local.unidadeAdminstra}}</td>
+        <td><button class="btn btn-info" > Editar Local</button></td>
+        <td><button class="btn btn-danger" (click)="deleteLocal(local)"> Deletar Local</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
