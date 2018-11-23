@@ -1,13 +1,10 @@
-# spring-boot-angular5
-This is a sample project using Angular 5 and spring Boot.Spring boot has been used to expose REST Endpoints and the client is written in angular. 
-This is a complete web application with a connectivity to mysql database. We have used spring data to connect to the database and perform CRUD
-operation.
+# InvSCP - Repositório de Desenvolvimento
+O InvSCP é um projeto feito para a disciplina de Integração 1 do curso de Engenharia de Software - UFG (Turma: 2016/1).
 
-The application has CRUD operation example for user entity. Here, you can create
-a user, read users record and also delete user. The complete explanation can be 
-found on my blog - [spring boot angular 5 example](http://www.devglan.com/spring-boot/spring-boot-angular-spring-data-example)
+Para saber mais sobre o projeto, visite este link: [a link](https://github.com/estevaocs/integracao1/tree/master/Requisitos%20do%20Sistema)
+Todos os documentos de projeto se encontram neste link: [a link](https://github.com/estevaocs/integracao1)
 
-This project uses following versions:
+Este projeto usa as seguintes versões:
 
 1. Spring Boot v1.5.9
 2. Angular v5.0.0

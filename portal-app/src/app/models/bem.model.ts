@@ -1,11 +1,10 @@
-import { Sala } from "./sala.model";
-
 export class Bem {
-    dataAquis: Date = new Date();
-    dataDaBaixa: Date = new Date();
+    id: string;
+    dataAquis: Date;
+    dataDaBaixa: Date;
     denominacao: string;
     especificacao: string;
-    garantia: Date = new Date();
+    garantia: Date;
     catDepre: number;
     grupoMaterial: number;
     marca: string;
@@ -16,6 +15,6 @@ export class Bem {
     situacao: number;
     valorAtual: number;
     valorCompra: number;
-    vidaUtil: Date = new Date();
-    sala: Sala;
+    vidaUtil: Date;
+    idSala: string;
 }
