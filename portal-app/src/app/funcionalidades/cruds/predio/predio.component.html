@@ -1,1 +1,99 @@
 <app-admin></app-admin>
+<div>
+    <h2> Prédios</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>ID da Lozalização</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let predio of predios">
+                <td>{{predio.id}}</td>
+                <td>{{predio.nome}}</td>
+                <td>{{predio.idLocal}}</td>
+                <td style="width: 20%"><button class="btn btn-info" (click)="findOne(predio)" data-toggle="modal"
+                        data-target="#modalVer">
+                        Ver
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="findOne(predio)" data-toggle="modal"
+                        data-target="#modalEditar">
+                        Editar
+                    </button>
+                    <button class="btn btn-danger" (click)="deletePredio(predio)"> Deletar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalVerTitle">Prédio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="findOneById != null" class="modal-body">
+                <p><b>ID:</b> {{findOneById.id}}</p>
+                <p><b>Nome:</b> {{findOneById.nome}}</p>
+                <p><b>ID da Localização:</b> {{findOneById.idLocal}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditarTitle">Prédio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="findOneById != null">
+                    <p><b>ID:</b> {{findOneById.id}}</p>
+                    <p><b>Nome:</b> {{findOneById.nome}}</p>
+                    <p><b>ID da Lozalização:</b> {{findOneById.idLocal}}</p>
+                </div>
+                <hr>
+                <h3 align="center">Editar</h3>
+                <div>
+                    <form>
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input required [(ngModel)]="predioUpdate.nome" placeholder="Nome" name="nome" class="form-control"
+                                id="nome">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idLocal">Localização:</label>
+                            <select required id="idLocal" [(ngModel)]="predioUpdate.idLocal" class="form-control" name="idLocal"
+                                id="idLocal">
+                                <option *ngFor="let local of locais" [value]="local.id">{{local.nome}}</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-success" (click)="updatePredio()">Editar</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+            </div>
+        </div>
+    </div>
+</div>

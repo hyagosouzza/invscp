@@ -26,6 +26,13 @@
     </select>
   </div>
 
+  <div class="form-group">
+      <label for="departamento">Departamento:</label>
+      <select required id="departamento" [(ngModel)]="user.idDepartamento" class="form-control" name="departamento" id="departamento">
+        <option *ngFor="let departamento of departamentos" [value]="departamento.id">{{departamento.nome}} - {{departamento.id}}</option>
+      </select>
+    </div>
+
   <button class="btn btn-success" (click)="createUser()">Criar</button>
 </form>
 </div>

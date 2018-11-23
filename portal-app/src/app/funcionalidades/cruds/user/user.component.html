@@ -1,27 +1,126 @@
 <app-admin></app-admin>
-<div >
-<h2> Detalhes dos Usuários</h2>
+<div>
+  <h2> Usuários</h2>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="hidden">Id</th>
-    <th>Nome</th>
-    <th>Email</th>
-    <th>Profile</th>
-    <th>Editar</th>
-    <th>Deletar</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let user of users">
-    <td class="hidden">{{user.id}}</td>
-    <td>{{user.nome}}</td>
-    <td>{{user.email}}</td>
-    <td>{{user.profile}}</td>
-    <td><button class="btn btn-info" > Editar Usuário</button></td>
-    <td><button class="btn btn-danger" (click)="deleteUser(user)"> Deletar Usuário</button></td>
-  </tr>
-  </tbody>
-</table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Profile</th>
+        <th>Departamento</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.id}}</td>
+        <td>{{user.nome}}</td>
+        <td>{{user.email}}</td>
+        <td style="width: 20%">{{user.profile}}</td>
+        <td>{{user.idDepartamento}}</td>
+        <td style="width: 20%"><button class="btn btn-info" (click)="findOne(user)" data-toggle="modal" data-target="#modalVer">
+            Ver
+          </button>
+          <button type="button" class="btn btn-primary" (click)="findOne(user)" data-toggle="modal" data-target="#modalEditar">
+            Editar
+          </button>
+          <button class="btn btn-danger" (click)="deleteUser(user)"> Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Bem Patrinomial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="findOneById != null" class="modal-body">
+        <p><b>ID:</b> {{findOneById.id}}</p>
+        <p><b>Nome:</b> {{findOneById.nome}}</p>
+        <p><b>Email:</b> {{findOneById.email}}</p>
+        <p><b>Cargo:</b> {{findOneById.profile}}</p>
+        <p><b>Departamento:</b> {{findOneById.idDepartamento}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarTitle">Bem Patrinomial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="findOneById != null">
+          <p><b>ID:</b> {{findOneById.id}}</p>
+          <p><b>Nome:</b> {{findOneById.nome}}</p>
+          <p><b>Email:</b> {{findOneById.email}}</p>
+          <p><b>Cargo:</b> {{findOneById.profile}}</p>
+          <p><b>Departamento:</b> {{findOneById.idDepartamento}}</p>
+        </div>
+        <hr>
+        <h3 align="center">Editar</h3>
+        <div>
+          <form>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input required type="email" [(ngModel)]="userUpdate.email" placeholder="Email" name="email" class="form-control"
+                id="email">
+            </div>
+
+            <div class="form-group">
+              <label for="nome">Nome:</label>
+              <input required [(ngModel)]="userUpdate.nome" placeholder="Nome" name="nome" class="form-control" id="nome">
+            </div>
+
+            <div class="form-group">
+              <label for="senha">Senha:</label>
+              <input required type="password" [(ngModel)]="userUpdate.senha" placeholder="Senha" name="senha" class="form-control"
+                id="senha">
+            </div>
+
+            <div class="form-group">
+              <label for="profile">Profile:</label>
+              <select required id="profile" [(ngModel)]="userUpdate.profile" class="form-control" name="profile" id="profile">
+                <option value="0">Chefe de departamento</option>
+                <option value="1">Funcionário</option>
+                <option value="2">Geral</option>
+              </select>
+            </div>
+
+            <div class="form-group" *ngIf="departamentos != null">
+              <label for="departamento">Departamento:</label>
+              <select required id="departamento" [(ngModel)]="userUpdate.idDepartamento" class="form-control" name="departamento"
+                id="departamento">
+                <option *ngFor="let departamento of departamentos" [value]="departamento.id">{{departamento.nome}} -
+                  {{departamento.id}}</option>
+              </select>
+            </div>
+
+            <button class="btn btn-success" (click)="updateUser()">Editar</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
 </div>

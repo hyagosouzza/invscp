@@ -20,6 +20,8 @@ public class User {
     private String email;
     @Enumerated(EnumType.STRING)
     private ProfileEnum profile;
+    @Column
+    private String idDepartamento;
 
     public int getId() {
         return id;
@@ -27,6 +29,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getIdDepartamento() {
+        return idDepartamento;
+    }
+
+    public void setIdDepartamento(String idDepartamento) {
+        this.idDepartamento = idDepartamento;
     }
 
     public String getNome() {

@@ -1,6 +1,7 @@
-import { Sala } from "./sala.model";
+import { Local } from "./local.model";
 
 export class Predio {
+    id: string;
     nome: string;
-    sala: Sala;
+    idLocal: Local;
 }

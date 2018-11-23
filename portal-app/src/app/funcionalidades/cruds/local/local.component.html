@@ -1,29 +1,121 @@
 <app-admin></app-admin>
 <div>
-  <h2> Detalhes dos Locais</h2>
+  <h2>Localização</h2>
 
   <table class="table table-striped">
     <thead>
       <tr>
-        <th class="hidden">Id</th>
+        <th>ID</th>
         <th>Nome</th>
         <th>Cidade</th>
         <th>Estado</th>
         <th>Un. Administrativa</th>
-        <th>Editar</th>
-        <th>Deletar</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let local of locais">
-        <td class="hidden">{{local.id}}</td>
+        <td>{{local.id}}</td>
         <td>{{local.nome}}</td>
         <td>{{local.cidade}}</td>
         <td>{{local.estado}}</td>
         <td>{{local.unidadeAdminstra}}</td>
-        <td><button class="btn btn-info" > Editar Local</button></td>
-        <td><button class="btn btn-danger" (click)="deleteLocal(local)"> Deletar Local</button></td>
+        <td>
+          <button class="btn btn-info" (click)="findOne(local)" data-toggle="modal" data-target="#modalVer">
+            Ver
+          </button>
+          <button type="button" class="btn btn-primary" (click)="findOne(local)" data-toggle="modal" data-target="#modalEditar">
+            Editar
+          </button><button class="btn btn-danger" (click)="deleteLocal(local)"> Deletar</button></td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Localização</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="findOneById != null" class="modal-body">
+        <p><b>ID:</b> {{findOneById.id}}</p>
+        <p><b>Nome:</b> {{findOneById.nome}}</p>
+        <p><b>Cidade:</b> {{findOneById.cidade}}</p>
+        <p><b>Estado:</b> {{findOneById.estado}}</p>
+        <p><b>Unidade Administrativa:</b> {{findOneById.unidadeAdminstra}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarTitle">Localização</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="findOneById != null">
+          <p><b>ID:</b> {{findOneById.id}}</p>
+          <p><b>Nome:</b> {{findOneById.nome}}</p>
+          <p><b>Cidade:</b> {{findOneById.cidade}}</p>
+          <p><b>Estado:</b> {{findOneById.estado}}</p>
+          <p><b>Unidade Administrativa:</b> {{findOneById.unidadeAdminstra}}</p>
+        </div>
+        <hr>
+        <h3 align="center">Editar</h3>
+        <div>
+          <form>
+            <div class="form-group">
+              <label for="nome">Nome:</label>
+              <input [(ngModel)]="localUpdate.nome" placeholder="Nome" name="nome" class="form-control" id="nome"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label for="cidade">Cidade:</label>
+              <input [(ngModel)]="localUpdate.cidade" placeholder="Cidade" name="cidade" class="form-control" id="cidade"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label for="Estado">Estado:</label>
+              <input [(ngModel)]="localUpdate.estado" placeholder="Estado" name="estado" class="form-control" id="estado"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label for="unidadeAdminstra">Unidade Administrativa:</label>
+              <select required id="unidadeAdminstra" [(ngModel)]="localUpdate.unidadeAdminstra" class="form-control"
+                name="unidadeAdminstra" id="unidadeAdminstra">
+                <option value="0">Regional Catalão</option>
+                <option value="1">Regional Jataí</option>
+                <option value="2">Regional Goiás</option>
+                <option value="3">Câmpus Colemar Natal e Silva</option>
+                <option value="4">Regional Samambaia</option>
+                <option value="5">Regional Aparecida de Goiânia</option>
+              </select>
+            </div>
+
+            <button class="btn btn-success" (click)="updateLocal()">Editar</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
 </div>

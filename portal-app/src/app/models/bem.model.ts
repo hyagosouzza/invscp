@@ -1,3 +1,5 @@
+import { Sala } from "./sala.model";
+
 export class Bem {
     dataAquis: Date = new Date();
     dataDaBaixa: Date = new Date();
@@ -15,4 +17,5 @@ export class Bem {
     valorAtual: number;
     valorCompra: number;
     vidaUtil: Date = new Date();
+    sala: Sala;
 }

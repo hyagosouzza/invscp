@@ -1,15 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Bem } from '../../../../models/bem.model';
+import { BpService } from '../bp.service';
+
 @Component({
   selector: 'app-criar-bp',
   templateUrl: './criar-bp.component.html',
-  styleUrls: ['./criar-bp.component.css']
+  styleUrls: ['./criar-bp.component.css'],
+  providers: [BpService]
 })
-export class CriarBpComponent implements OnInit {
+export class CriarBpComponent {
 
-  constructor() { }
+  bem: Bem = new Bem();
 
-  ngOnInit() {
+  constructor(private bemService: BpService) {
+
   }
+
+  createBem(): void {
+    this.bemService.createBem(this.bem)
+        .subscribe( data => {
+          alert("Bem created successfully.");
+        });
+
+  };
 
 }

@@ -34,8 +34,8 @@ const routes: Routes = [
   { path: 'admin/addbp', component: CriarBpComponent },
   { path: 'admin/salas', component: SalaComponent },
   { path: 'admin/addsala', component: CriarSalaComponent },
-  { path: 'admin/predios', component: CriarPredioComponent },
-  { path: 'admin/addpredio', component: PredioComponent }
+  { path: 'admin/addpredio', component: CriarPredioComponent },
+  { path: 'admin/predios', component: PredioComponent }
 ];
 
 @NgModule({

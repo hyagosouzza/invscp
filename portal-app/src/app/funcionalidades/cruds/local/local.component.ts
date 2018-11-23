@@ -12,6 +12,8 @@ import { Local } from '../../../models/local.model';
 export class LocalComponent implements OnInit {
 
   locais: Local[];
+  localUpdate: Local = new Local();
+  findOneById: any;
 
   constructor(private router: Router, private localService: LocalService) {
 
@@ -24,10 +26,26 @@ export class LocalComponent implements OnInit {
       });
   };
 
+  findOne(local: Local): void {
+    this.localService.findOne(local)
+      .subscribe( data => {
+        this.findOneById = data;
+      })
+  };
+
   deleteLocal(local: Local): void {
     this.localService.deleteLocal(local)
       .subscribe( data => {
         this.locais = this.locais.filter(u => u !== local);
+      })
+  };
+
+  updateLocal(): void {
+    this.localUpdate.id = this.findOneById.id;
+    this.localService.updateLocal(this.localUpdate)
+      .subscribe( data => {
+        alert('Localização editada!');
+        location.reload();
       })
   };
 

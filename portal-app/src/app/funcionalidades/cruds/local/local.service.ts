@@ -27,4 +27,12 @@ export class LocalService {
     return this.http.post<Local>(this.localUrl, local);
   }
 
+  public updateLocal(local) {
+    return this.http.put(this.localUrl + "/"+ local.id, local);
+  }
+
+  public findOne(local) {
+    return this.http.get(this.localUrl + "/"+ local.id);
+  }
+
 }
