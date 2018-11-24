@@ -14,7 +14,7 @@ public class Departamento {
     private String nome;
     @Column
     private String idPredio;
-
+    
     public int getId() {
         return id;
     }
