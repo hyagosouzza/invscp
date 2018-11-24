@@ -12,9 +12,12 @@ public class Departamento {
     private int id;
     @Column
     private String nome;
-    @Column
-    private String idPredio;
-    
+    //@Column
+    //private String idPredio;
+    @ManyToOne
+    @JoinColumn(name = "id_predio")
+    private Predio predio;
+
     public int getId() {
         return id;
     }
@@ -31,13 +34,17 @@ public class Departamento {
         this.id = id;
     }
 
-    public String getIdPredio() {
+    public Predio getPredio() { return predio; }
+
+    public void setPredio(Predio predio) { this.predio = predio; }
+
+    /*public String getIdPredio() {
         return idPredio;
     }
 
     public void setIdPredio(String idPredio) {
         this.idPredio = idPredio;
-    }
+    }*/
 
 
 }

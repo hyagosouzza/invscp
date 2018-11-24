@@ -5,14 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "predio")
 public class Predio {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String nome;
-    @Column
-    private String idLocal;
+    //@Column
+    //private String idLocal;
+    @ManyToOne
+    @JoinColumn(name = "id_local")
+    private Local local;
 
     public int getId() {
         return id;
@@ -30,13 +34,8 @@ public class Predio {
         this.id = id;
     }
 
-    public String getIdLocal() {
-        return idLocal;
-    }
+    public Local getLocal() { return local; }
 
-    public void setIdLocal(String idLocal) {
-        this.idLocal = idLocal;
-    }
-
+    public void setLocal(Local local) { this.local = local; }
 
 }

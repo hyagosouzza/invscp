@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "local")
 public class Local {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)

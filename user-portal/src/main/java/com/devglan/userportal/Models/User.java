@@ -3,10 +3,12 @@ package com.devglan.userportal.Models;
 import com.devglan.userportal.Enums.ProfileEnum;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "user")
 public class User {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +21,9 @@ public class User {
     private String email;
     @Enumerated(EnumType.STRING)
     private ProfileEnum profile;
-    @Column
-    private String idDepartamento;
+    @ManyToOne
+    @JoinColumn(name = "id_departamento")
+    private Departamento departamento;
 
     public int getId() {
         return id;
@@ -28,14 +31,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getIdDepartamento() {
-        return idDepartamento;
-    }
-
-    public void setIdDepartamento(String idDepartamento) {
-        this.idDepartamento = idDepartamento;
     }
 
     public String getNome() {
@@ -70,4 +65,7 @@ public class User {
         this.profile = profile;
     }
 
+    public Departamento getDepartamento() { return departamento; }
+
+    public void setDepartamento(Departamento departamento) { this.departamento = departamento; }
 }

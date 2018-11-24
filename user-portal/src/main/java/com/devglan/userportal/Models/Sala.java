@@ -5,15 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sala")
 public class Sala {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column
     private String num;
-    @Column
-    private String idDepartamento;
-
+    //@Column
+    //private String idDepartamento;
+    @ManyToOne
+    @JoinColumn(name = "id_departamento")
+    private Departamento departamento;
 
     public int getId() {
         return id;
@@ -31,12 +34,10 @@ public class Sala {
         this.id = id;
     }
 
-    public String getIdDepartamento() {
-        return idDepartamento;
-    }
+    public Departamento getDepartamento() { return departamento; }
 
-    public void setIdDepartamento(String idDepartamento) {
-        this.idDepartamento = idDepartamento;
+    public void setDepartamento(Departamento departamento) {
+        this.departamento = departamento;
     }
 
 }
