@@ -29,7 +29,7 @@ export class AddUserComponent implements OnInit{
   createUser(): void {
     this.userService.createUser(this.user)
         .subscribe( data => {
-          alert("User created successfully.");
+          alert("Usuário Criado com sucesso.");
         });
 
   };

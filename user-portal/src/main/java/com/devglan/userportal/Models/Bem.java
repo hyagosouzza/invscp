@@ -32,9 +32,9 @@ public class Bem {
     @Column
     private String obsrBaixa;
     @Column
-    private Number valorAtual;
+    private Float valorAtual;
     @Column
-    private Number valorCompra;
+    private Float valorCompra;
     @Column
     private String idSala;
     @Column
@@ -130,19 +130,19 @@ public class Bem {
         this.obsrBaixa = obsrBaixa;
     }
 
-    public Number getValorAtual() {
+    public Float getValorAtual() {
         return valorAtual;
     }
 
-    public void setValorAtual(Number valorAtual) {
+    public void setValorAtual(Float valorAtual) {
         this.valorAtual = valorAtual;
     }
 
-    public Number getValorCompra() {
+    public Float getValorCompra() {
         return valorCompra;
     }
 
-    public void setValorCompra(Number valorCompra) {
+    public void setValorCompra(Float valorCompra) {
         this.valorCompra = valorCompra;
     }
 

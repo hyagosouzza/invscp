@@ -20,7 +20,7 @@ export class AddLocalComponent {
   createLocal(): void {
     this.localService.createLocal(this.local)
         .subscribe( data => {
-          alert("Local created successfully.");
+          alert("Localização criada com sucesso.");
         });
 
   };

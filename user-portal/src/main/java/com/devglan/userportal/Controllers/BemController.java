@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.devglan.userportal.Enums.Situacao.INCORPORADO;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 //@RequestMapping({"/api"})
@@ -17,6 +19,10 @@ public class BemController {
 
     @PostMapping
     public Bem create(@RequestBody Bem bem){
+        if(bem.getIdSala() == null) {
+            bem.setIdSala("3");
+        }
+        bem.setSituacao(INCORPORADO);
         return bemService.create(bem);
     }
 

@@ -1,1 +1,101 @@
 <app-admin></app-admin>
+<div>
+    <h2 class="text-center">Adicionar Bem Patrimonial</h2>
+    <br>
+    <form>
+        <div class="row">
+            <div class="col-12">
+                <h4 class="text-center">Informações do Produto</h4>
+                <hr>
+            </div>
+
+            <div class="col-4">
+                <label for="denominacao">Denominação:</label>
+                <input [(ngModel)]="bem.denominacao" placeholder="Denominação" name="denominacao" class="form-control"
+                    id="denominacao" required>
+            </div>
+
+            <div class="col-6">
+                <label for="espeficicacao">Espeficicação:</label>
+                <input [(ngModel)]="bem.espeficicacao" placeholder="Espeficicação" name="espeficicacao" class="form-control"
+                    id="espeficicacao" required>
+            </div>
+
+            <div class="col-4">
+                <label for="numNotaFiscal">Número da NF:</label>
+                <input [(ngModel)]="bem.numNotaFiscal" placeholder="Número da NF" name="numNotaFiscal" class="form-control"
+                    id="numNotaFiscal" required>
+            </div>
+
+            <div class="col-4">
+                <label for="marca">Marca:</label>
+                <input [(ngModel)]="bem.marca" placeholder="Marca" name="marca" class="form-control" id="marca"
+                    required>
+            </div>
+
+            <div class="col-3">
+                <label for="garantia">Garantia:</label>
+                <input [(ngModel)]="bem.garantia" class="form-control" type="date" id="garantia" name="garantia">
+            </div>
+
+            <div class="col-12">
+                <br><br>
+                <h4 class="text-center">Informações de Controle</h4>
+                <hr>
+            </div>
+
+            <div class="col-3">
+                <label for="valorCompra">Valor da Compra:</label>
+                <input type="number" [(ngModel)]="bem.valorCompra" placeholder="Valor da Compra" name="valorCompra" class="form-control"
+                    id="valorCompra" required>
+            </div>
+
+            <div class="col-3">
+                <label for="vidaUtil">Vida Útil:</label>
+                <input [(ngModel)]="bem.vidaUtil" class="form-control" type="date" id="vidaUtil" name="vidaUtil">
+            </div>
+
+            <div class="col-3">
+                <label for="dataAquis">Data de Aquisição:</label>
+                <input [(ngModel)]="bem.dataAquis" class="form-control" type="date" id="dataAquis" name="dataAquis">
+            </div>
+
+            <div class="col-3">
+                <label for="numTombamento">Número de Tombamento:</label>
+                <input [(ngModel)]="bem.numTombamento" placeholder="Nº de Tombamento" name="numTombamento" class="form-control"
+                    id="numTombamento" required>
+            </div>
+
+
+            <div class="col-3">
+                <label for="grupoMaterial">Grupo Material:</label>
+                <select required id="grupoMaterial" [(ngModel)]="bem.grupoMaterial" class="form-control" name="grupoMaterial"
+                    id="grupoMaterial">
+                    <option value="0">Eletrodoméstico</option>
+                    <option value="1">Informática</option>
+                    <option value="2">Didático</option>
+                    <option value="3">Móveis</option>
+                </select>
+            </div>
+
+            <div class="col-3">
+                <label for="catDepre">Categoria de Depreciação:</label>
+                <select required id="catDepre" [(ngModel)]="bem.catDepre" class="form-control" name="catDepre" id="catDepre">
+                    <option value="0">Bem de Consumo</option>
+                    <option value="1">Bem Permanente</option>
+                </select>
+            </div>
+
+            <div class="col-3">
+                <label for="idSala">Sala:</label>
+                <select required id="idSala" [(ngModel)]="bem.idSala" class="form-control" name="idSala"
+                    id="idSala">
+                    <option *ngFor="let sala of salas" [value]="sala.id">{{sala.num}} - {{sala.id}}</option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <button class="btn btn-success" (click)="createBem()">Criar</button>
+    </form>
+</div>
