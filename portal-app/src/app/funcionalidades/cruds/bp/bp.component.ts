@@ -19,7 +19,6 @@ export class BpComponent implements OnInit {
   bemUpdate: Bem = new Bem();
   findOneById: any;
   salas: Sala[];
-  id_sala: string;
 
   constructor(private router: Router, private bemService: BpService, private salaService: SalaService) {
 
@@ -52,11 +51,7 @@ export class BpComponent implements OnInit {
 
   updateBem(): void {
     this.bemUpdate.id = this.findOneById.id;
-
-    this.bemUpdate.sala =  this.salas.find(obj => {
-      return obj.id == this.id_sala;
-    });
-
+    console.log(this.bemUpdate);
     this.bemService.updateBem(this.bemUpdate)
       .subscribe(data => {
         alert('Bem editado!');

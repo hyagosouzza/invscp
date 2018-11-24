@@ -16,7 +16,6 @@ export class CriarBpComponent implements OnInit {
 
   bem: Bem = new Bem();
   salas: Sala[];
-  id_sala: string;
 
   constructor(private router: Router, private bpService: BpService, private salaService: SalaService) {
 
@@ -30,10 +29,6 @@ export class CriarBpComponent implements OnInit {
   };
 
   createBem(): void {
-    this.bem.sala =  this.salas.find(obj => {
-      return obj.id == this.id_sala;
-    });
-
     this.bpService.createBem(this.bem)
       .subscribe(data => {
         alert("Bem Patrimonial criado com sucesso.");

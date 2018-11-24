@@ -10,7 +10,7 @@
 
         <div class="form-group">
             <label for="idLocal">Localização:</label>
-            <select required id="idLocal" [(ngModel)]="predio.idLocal" class="form-control" name="idLocal" id="idLocal">
+            <select required id="idLocal" [(ngModel)]="id_local" class="form-control" name="local" id="local">
                 <option *ngFor="let local of locais" [value]="local.id">{{local.nome}} - {{local.id}}</option>
             </select>
         </div>

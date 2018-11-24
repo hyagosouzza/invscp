@@ -15,6 +15,7 @@ export class CriarDepComponent implements OnInit {
 
   departamento: Departamento = new Departamento();
   predios: Predio[];
+  id_predio: string;
 
   constructor(private router: Router, private departamentoService: DeptoService, private predioService: PredioService) {
 
@@ -28,6 +29,10 @@ export class CriarDepComponent implements OnInit {
   };
 
   createDepartamento(): void {
+    this.departamento.predio =  this.predios.find(obj => {
+      return obj.id == this.id_predio;
+    });
+
     this.departamentoService.createDepartamento(this.departamento)
       .subscribe(data => {
         alert("Departamento criado com sucesso.");

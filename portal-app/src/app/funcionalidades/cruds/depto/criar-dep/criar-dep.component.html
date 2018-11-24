@@ -10,7 +10,7 @@
 
         <div class="form-group">
             <label for="idPredio">Prédio:</label>
-            <select required id="idPredio" [(ngModel)]="departamento.idPredio" class="form-control" name="idPredio" id="idPredio">
+            <select required id="idPredio" [(ngModel)]="id_predio" class="form-control" name="idPredio" id="idPredio">
                 <option *ngFor="let predio of predios" [value]="predio.id">{{predio.nome}} - {{predio.id}}</option>
             </select>
         </div>

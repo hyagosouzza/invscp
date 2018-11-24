@@ -18,6 +18,7 @@ export class PredioComponent implements OnInit {
   predioUpdate: Predio = new Predio();
   findOneById: any;
   locais: Local[];
+  id_local: string;
 
   constructor(private router: Router, private predioService: PredioService, private localService: LocalService) {
 
@@ -50,7 +51,13 @@ export class PredioComponent implements OnInit {
 
   updatePredio(): void {
     this.predioUpdate.id = this.findOneById.id;
+
+    this.predioUpdate.local =  this.locais.find(obj => {
+      return obj.id == this.id_local;
+    });
+
     console.log(this.predioUpdate);
+
     this.predioService.updatePredio(this.predioUpdate)
       .subscribe(data => {
         alert('Prédio editado!');

@@ -15,6 +15,7 @@ export class CriarSalaComponent implements OnInit {
 
   sala: Sala = new Sala();
   departamentos: Departamento[];
+  id_departamento: string;
 
   constructor(private router: Router, private departamentoService: DeptoService, private salaService: SalaService) {
 
@@ -28,6 +29,11 @@ export class CriarSalaComponent implements OnInit {
   };
 
   createSala(): void {
+    this.sala.departamento =  this.departamentos.find(obj => {
+      return obj.id == this.id_departamento;
+    });
+
+
     this.salaService.createSala(this.sala)
       .subscribe(data => {
         alert("Sala criada com sucesso.");

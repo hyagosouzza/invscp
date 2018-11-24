@@ -8,7 +8,7 @@
                 <th>ID</th>
                 <th>Descrição</th>
                 <th>Grupo Material</th>
-                <th>Sala</th>
+                <th>ID da Sala</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -17,7 +17,7 @@
                 <td>{{bem.id}}</td>
                 <td>{{bem.denominacao}}</td>
                 <td>{{bem.grupoMaterial}}</td>
-                <td>{{bem.sala.num}}</td>
+                <td>{{bem.idSala}}</td>
                 <td style="width: 20%"><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
                         data-target="#modalVer">
                         Ver
@@ -58,7 +58,7 @@
                 <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
                 <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
                 <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
-                <p><b>Sala:</b> {{findOneById.sala.num}}</p>
+                <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
                 <p><b>Data da Baixa:</b> {{findOneById.dataDaBaixa}}</p>
                 <p><b>Motivo da Baixa:</b> {{findOneById.motivoDaBaixa}}</p>
                 <p><b>Observações da Baixa:</b> {{findOneById.obsrBaixa}}</p>
@@ -94,7 +94,7 @@
                     <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
                     <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
                     <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
-                    <p><b>Sala:</b> {{findOneById.sala.num}}</p>
+                    <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
                 </div>
                 <hr>
                 <h3 align="center">Editar</h3>
@@ -114,7 +114,7 @@
 
                             <div class="col-12">
                                 <label for="espeficicacao">Espeficicação:</label>
-                                <input [(ngModel)]="bemUpdate.especificacao" placeholder="Espeficicação" name="espeficicacao"
+                                <input [(ngModel)]="bemUpdate.espeficicacao" placeholder="Espeficicação" name="espeficicacao"
                                     class="form-control" id="espeficicacao" required>
                             </div>
 
@@ -186,7 +186,7 @@
 
                             <div class="col-6">
                                 <label for="idSala">Sala:</label>
-                                <select required id="idSala" [(ngModel)]="id_sala" class="form-control" name="idSala"
+                                <select required id="idSala" [(ngModel)]="bemUpdate.idSala" class="form-control" name="idSala"
                                     id="idSala">
                                     <option *ngFor="let sala of salas" [value]="sala.id">{{sala.num}} - {{sala.id}}</option>
                                 </select>

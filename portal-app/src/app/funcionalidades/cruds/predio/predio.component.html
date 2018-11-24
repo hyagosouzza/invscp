@@ -7,7 +7,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>ID da Lozalização</th>
+                <th>Localização</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -15,7 +15,7 @@
             <tr *ngFor="let predio of predios">
                 <td>{{predio.id}}</td>
                 <td>{{predio.nome}}</td>
-                <td>{{predio.idLocal}}</td>
+                <td>{{predio.local.nome}}</td>
                 <td style="width: 20%"><button class="btn btn-info" (click)="findOne(predio)" data-toggle="modal"
                         data-target="#modalVer">
                         Ver
@@ -44,7 +44,7 @@
             <div *ngIf="findOneById != null" class="modal-body">
                 <p><b>ID:</b> {{findOneById.id}}</p>
                 <p><b>Nome:</b> {{findOneById.nome}}</p>
-                <p><b>ID da Localização:</b> {{findOneById.idLocal}}</p>
+                <p><b>Localização:</b> {{findOneById.local.nome}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
@@ -67,7 +67,7 @@
                 <div *ngIf="findOneById != null">
                     <p><b>ID:</b> {{findOneById.id}}</p>
                     <p><b>Nome:</b> {{findOneById.nome}}</p>
-                    <p><b>ID da Lozalização:</b> {{findOneById.idLocal}}</p>
+                    <p><b>Localização:</b> {{findOneById.local.nome}}</p>
                 </div>
                 <hr>
                 <h3 align="center">Editar</h3>
@@ -81,7 +81,7 @@
 
                         <div class="form-group">
                             <label for="idLocal">Localização:</label>
-                            <select required id="idLocal" [(ngModel)]="predioUpdate.idLocal" class="form-control" name="idLocal"
+                            <select required id="idLocal" [(ngModel)]="id_local" class="form-control" name="idLocal"
                                 id="idLocal">
                                 <option *ngFor="let local of locais" [value]="local.id">{{local.nome}}</option>
                             </select>

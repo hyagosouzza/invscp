@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
   updateUser(): void {
     this.userUpdate.id = this.findOneById.id;
 
-    this.userUpdate.departamento =  this.departamentos.find(obj => {
+    this.user.departamento =  this.departamentos.find(obj => {
       return obj.id == this.id_departamento;
     });
 

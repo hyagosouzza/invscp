@@ -18,6 +18,7 @@ export class DeptoComponent implements OnInit {
   departamentoUpdate: Departamento = new Departamento();
   findOneById: any;
   predios: Predio[];
+  id_predio: string;
 
   constructor(private router: Router, private departamentoService: DeptoService, private predioService: PredioService) {
 
@@ -50,7 +51,11 @@ export class DeptoComponent implements OnInit {
 
   updateDepartamento(): void {
     this.departamentoUpdate.id = this.findOneById.id;
-    console.log(this.departamentoUpdate);
+
+    this.departamentoUpdate.predio =  this.predios.find(obj => {
+      return obj.id == this.id_predio;
+    });
+
     this.departamentoService.updateDepartamento(this.departamentoUpdate)
       .subscribe(data => {
         alert('Departamento editado!');

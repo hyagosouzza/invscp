@@ -7,7 +7,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>ID do Prédio</th>
+                <th>Prédio</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -15,7 +15,7 @@
             <tr *ngFor="let departamento of departamentos">
                 <td>{{departamento.id}}</td>
                 <td>{{departamento.nome}}</td>
-                <td>{{departamento.idPredio}}</td>
+                <td>{{departamento.predio.nome}}</td>
                 <td style="width: 20%"><button class="btn btn-info" (click)="findOne(departamento)" data-toggle="modal"
                         data-target="#modalVer">
                         Ver
@@ -44,7 +44,7 @@
             <div *ngIf="findOneById != null" class="modal-body">
                     <p><b>ID:</b> {{findOneById.id}}</p>
                 <p><b>Nome:</b> {{findOneById.nome}}</p>
-                <p><b>ID do Prédio:</b> {{findOneById.idPredio}}</p>
+                <p><b>Prédio:</b> {{findOneById.predio.nome}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
@@ -67,7 +67,7 @@
                 <div *ngIf="findOneById != null">
                     <p><b>ID:</b> {{findOneById.id}}</p>
                     <p><b>Nome:</b> {{findOneById.nome}}</p>
-                    <p><b>ID do Prédio:</b> {{findOneById.idPredio}}</p>
+                    <p><b>Prédio:</b> {{findOneById.predio.nome}}</p>
                 </div>
                 <hr>
                 <h3 align="center">Editar</h3>
@@ -79,8 +79,8 @@
                         </div>
                 
                         <div class="form-group">
-                            <label for="idPredio">ID do Prédio:</label>
-                            <select required id="idPredio" [(ngModel)]="departamentoUpdate.idPredio" class="form-control" name="idPredio" id="idPredio">
+                            <label for="idPredio">Prédio:</label>
+                            <select required id="idPredio" [(ngModel)]="id_predio" class="form-control" name="idPredio" id="idPredio">
                                 <option *ngFor="let predio of predios" [value]="predio.id">{{predio.nome}}</option>
                             </select>
                         </div>

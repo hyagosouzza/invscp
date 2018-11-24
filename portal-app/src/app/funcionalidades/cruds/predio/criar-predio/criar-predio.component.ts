@@ -15,6 +15,7 @@ export class CriarPredioComponent implements OnInit {
 
   predio: Predio = new Predio();
   locais: Local[];
+  id_local: string;
 
   constructor(private router: Router, private predioService: PredioService, private localService: LocalService) {
 
@@ -28,6 +29,10 @@ export class CriarPredioComponent implements OnInit {
   };
 
   createPredio(): void {
+    this.predio.local =  this.locais.find(obj => {
+      return obj.id == this.id_local;
+    });
+
     this.predioService.createPredio(this.predio)
       .subscribe(data => {
         alert("Predio criado com sucesso.");
