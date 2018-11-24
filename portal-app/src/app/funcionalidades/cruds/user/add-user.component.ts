@@ -14,6 +14,7 @@ export class AddUserComponent implements OnInit{
 
   user: User = new User();
   departamentos: Departamento[];
+  id_departamento: string;
 
   constructor(private router: Router, private userService: UserService, private departamentoService: DeptoService) {
 
@@ -27,6 +28,10 @@ export class AddUserComponent implements OnInit{
   }
 
   createUser(): void {
+    this.user.departamento =  this.departamentos.find(obj => {
+      return obj.id == this.id_departamento;
+    });
+
     this.userService.createUser(this.user)
         .subscribe( data => {
           alert("Usuário Criado com sucesso.");

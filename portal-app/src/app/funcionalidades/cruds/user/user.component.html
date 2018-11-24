@@ -19,7 +19,7 @@
         <td>{{user.nome}}</td>
         <td>{{user.email}}</td>
         <td style="width: 20%">{{user.profile}}</td>
-        <td>{{user.idDepartamento}}</td>
+        <td>{{user.departamento.nome}}</td>
         <td style="width: 20%"><button class="btn btn-info" (click)="findOne(user)" data-toggle="modal" data-target="#modalVer">
             Ver
           </button>
@@ -48,7 +48,7 @@
         <p><b>Nome:</b> {{findOneById.nome}}</p>
         <p><b>Email:</b> {{findOneById.email}}</p>
         <p><b>Cargo:</b> {{findOneById.profile}}</p>
-        <p><b>Departamento:</b> {{findOneById.idDepartamento}}</p>
+        <p><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
@@ -73,7 +73,7 @@
           <p><b>Nome:</b> {{findOneById.nome}}</p>
           <p><b>Email:</b> {{findOneById.email}}</p>
           <p><b>Cargo:</b> {{findOneById.profile}}</p>
-          <p><b>Departamento:</b> {{findOneById.idDepartamento}}</p>
+          <p><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
         </div>
         <hr>
         <h3 align="center">Editar</h3>
@@ -107,7 +107,7 @@
 
             <div class="form-group" *ngIf="departamentos != null">
               <label for="departamento">Departamento:</label>
-              <select required id="departamento" [(ngModel)]="userUpdate.idDepartamento" class="form-control" name="departamento"
+              <select required id="departamento" [(ngModel)]="id_departamento" class="form-control" name="departamento"
                 id="departamento">
                 <option *ngFor="let departamento of departamentos" [value]="departamento.id">{{departamento.nome}} -
                   {{departamento.id}}</option>

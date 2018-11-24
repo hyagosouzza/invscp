@@ -7,7 +7,7 @@
             <tr>
                 <th>ID</th>
                 <th>Número da Sala</th>
-                <th>ID do Departamento</th>
+                <th>Departamento</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -15,7 +15,7 @@
             <tr *ngFor="let sala of salas">
                 <td>{{sala.id}}</td>
                 <td>{{sala.num}}</td>
-                <td>{{sala.idDepartamento}}</td>
+                <td>{{sala.departamento.nome}}</td>
                 <td style="width: 20%"><button class="btn btn-info" (click)="findOne(sala)" data-toggle="modal"
                         data-target="#modalVer">
                         Ver
@@ -44,7 +44,7 @@
             <div *ngIf="findOneById != null" class="modal-body">
                 <p><b>ID:</b> {{findOneById.id}}</p>
                 <p><b>Número da sala:</b> {{findOneById.num}}</p>
-                <p><b>ID do Departamento:</b> {{findOneById.idDepartamento}}</p>
+                <p><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
@@ -67,7 +67,7 @@
                 <div *ngIf="findOneById != null">
                     <p><b>ID:</b> {{findOneById.id}}</p>
                     <p><b>Número da sala:</b> {{findOneById.num}}</p>
-                    <p><b>ID do Departamento:</b> {{findOneById.idDepartamento}}</p>
+                    <p><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
                 </div>
                 <hr>
                 <h3 align="center">Editar</h3>
@@ -82,7 +82,7 @@
 
                         <div class="form-group" *ngIf="departamentos != null">
                             <label for="idDepartamento">Departamento:</label>
-                            <select required id="idDepartamento" [(ngModel)]="salaUpdate.idDepartamento" class="form-control"
+                            <select required id="idDepartamento" [(ngModel)]="id_departamento" class="form-control"
                                 name="idDepartamento" id="idDepartamento">
                                 <option *ngFor="let departamento of departamentos" [value]="departamento.id">{{departamento.nome}}
                                     - {{departamento.id}}</option>

@@ -18,6 +18,7 @@ export class SalaComponent implements OnInit {
   salaUpdate: Sala = new Sala();
   findOneById: any;
   departamentos: Departamento[];
+  id_departamento: string;
 
   constructor(private router: Router, private departamentoService: DeptoService, private salaService: SalaService) {
 
@@ -50,7 +51,11 @@ export class SalaComponent implements OnInit {
 
   updateSala(): void {
     this.salaUpdate.id = this.findOneById.id;
-    console.log(this.salaUpdate);
+
+    this.salaUpdate.departamento =  this.departamentos.find(obj => {
+      return obj.id == this.id_departamento;
+    });
+
     this.salaService.updateSala(this.salaUpdate)
       .subscribe(data => {
         alert('Sala editada!');
