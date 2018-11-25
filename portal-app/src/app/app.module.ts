@@ -25,6 +25,7 @@ import { SalaComponent } from './funcionalidades/cruds/sala/sala.component';
 import { CriarSalaComponent } from './funcionalidades/cruds/sala/criar-sala/criar-sala.component';
 import { PredioComponent } from './funcionalidades/cruds/predio/predio.component';
 import { CriarPredioComponent } from './funcionalidades/cruds/predio/criar-predio/criar-predio.component';
+import {AnonimoService} from "./profiles/anonimo/anonimo.service";
 
 @NgModule({
   declarations: [

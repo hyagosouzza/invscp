@@ -12,8 +12,6 @@ public class Predio {
     private int id;
     @Column
     private String nome;
-    //@Column
-    //private String idLocal;
     @ManyToOne
     @JoinColumn(name = "id_local")
     private Local local;
