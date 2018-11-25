@@ -1,22 +1,35 @@
 <div>
-  <h2> Bens Patrimoniais</h2>
 
+  <div class="form-group">
+    <label for="pesquisa">Pesquisar Bem Patrimonial</label>
+    <br>
+    <select [(ngModel)]="escolha" class="form-control" name="escolhaBusca" id="escolhaBusca">
+      <option value="numTomb">Número de Tombamento</option>
+      <option value="denomi">Denominação</option>
+      <option value="marca">Marca</option>
+    </select>
+    <br>
+    <input [(ngModel)]="itemPesquisa" type="pesquisa" class="form-control" id="pesquisa" aria-describedby="pesquisaBP" placeholder="Pesquisar Bem Patrimonial">
+  </div>
+  <button (click)="searchBPFilter()" type="submit" class="btn btn-primary">Pesquisar</button>
+
+  <h2> Bens Patrimoniais</h2>
   <table class="table table-striped">
+
     <thead>
       <tr>
         <th class="hidden">Id</th>
-        <th>Denominação</th>
+        <th>Num. Tombamento</th>
         <th>Marca</th>
-        <th>Grupo Material</th>
-        <th>Ação</th>
+        <th>Denominação</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let bem of bens">
         <td class="hidden">{{bem.id}}</td>
-        <td>{{bem.nome}}</td>
+        <td>{{bem.numTombamento}}</td>
         <td>{{bem.marca}}</td>
-        <td>{{bem.grupoMaterial}}</td>
+        <td>{{bem.denominacao}}</td>
         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVer">
             Ver Mais
           </button></td>

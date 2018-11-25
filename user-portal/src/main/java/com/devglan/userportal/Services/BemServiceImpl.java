@@ -5,6 +5,7 @@ import com.devglan.userportal.Repo.BemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,5 +40,47 @@ public class BemServiceImpl implements BemService{
     @Override
     public Bem update(Bem bem) {
         return repository.save(bem);
+    }
+
+    @Override
+    public List<Bem> findAllByNumTombamento(String numTombamento) {
+        List<Bem> listaTotal = repository.findAll();
+        List<Bem> listaFiltrada = new ArrayList();
+
+        for(int contador = 0; contador < listaTotal.size(); contador ++) {
+            if (listaTotal.get(contador).getNumTombamento().toLowerCase().contains(numTombamento.toLowerCase())) {
+                listaFiltrada.add(listaTotal.get(contador));
+            }
+        }
+
+        return listaFiltrada;
+    }
+
+    @Override
+    public List<Bem> findAllByMarca(String marca) {
+        List<Bem> listaTotal = repository.findAll();
+        List<Bem> listaFiltrada = new ArrayList();
+
+        for(int contador = 0; contador < listaTotal.size(); contador ++) {
+            if (listaTotal.get(contador).getMarca().toLowerCase().contains(marca.toLowerCase())) {
+                listaFiltrada.add(listaTotal.get(contador));
+            }
+        }
+
+        return listaFiltrada;
+    }
+
+    @Override
+    public List<Bem> findAllByDenominacao(String denominacao) {
+        List<Bem> listaTotal = repository.findAll();
+        List<Bem> listaFiltrada = new ArrayList();
+
+        for(int contador = 0; contador < listaTotal.size(); contador ++) {
+            if (listaTotal.get(contador).getDenominacao().toLowerCase().contains(denominacao.toLowerCase())) {
+                listaFiltrada.add(listaTotal.get(contador));
+            }
+        }
+
+        return listaFiltrada;
     }
 }
