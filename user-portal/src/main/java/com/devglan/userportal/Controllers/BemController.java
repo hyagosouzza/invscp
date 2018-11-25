@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.devglan.userportal.Enums.Situacao.BAIXADO;
 import static com.devglan.userportal.Enums.Situacao.INCORPORADO;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -34,6 +35,13 @@ public class BemController {
     @PutMapping(path = {"/{id}"})
     public Bem update(@PathVariable("id") int id, @RequestBody Bem bem){
         bem.setId(id);
+        return bemService.update(bem);
+    }
+
+    @PutMapping(path = {"/baixar/{id}"})
+    public Bem baixar(@PathVariable("id") int id, @RequestBody Bem bem){
+        bem.setId(id);
+        bem.setSituacao(BAIXADO);
         return bemService.update(bem);
     }
 

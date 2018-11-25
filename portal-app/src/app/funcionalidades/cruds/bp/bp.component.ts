@@ -59,4 +59,14 @@ export class BpComponent implements OnInit {
       })
   };
 
+  baixarBem(): void {
+    this.bemUpdate.id = this.findOneById.id;
+    console.log(this.bemUpdate);
+    this.bemService.baixarBem(this.bemUpdate)
+      .subscribe(data => {
+        alert('Bem baixado!');
+        location.reload();
+      })
+  };
+
 }
