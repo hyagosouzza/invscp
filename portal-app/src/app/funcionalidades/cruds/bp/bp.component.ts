@@ -61,6 +61,17 @@ export class BpComponent implements OnInit {
 
   baixarBem(): void {
     this.bemUpdate.id = this.findOneById.id;
+    this.bemUpdate.denominacao = this.findOneById.denominacao;
+    this.bemUpdate.especificacao = this.findOneById.especificacao;
+    this.bemUpdate.numNotaFiscal = this.findOneById.numNotaFiscal;
+    this.bemUpdate.marca = this.findOneById.marca;
+    this.bemUpdate.garantia = this.findOneById.garantia;
+    this.bemUpdate.valorCompra = this.findOneById.valorCompra;
+    this.bemUpdate.valorAtual = this.findOneById.valorAtual;
+    this.bemUpdate.vidaUtil = this.findOneById.vidaUtil;
+    this.bemUpdate.dataAquis = this.findOneById.dataAquis;
+    this.bemUpdate.numTombamento = this.findOneById.numTombamento;
+    this.bemUpdate.grupoMaterial = this.findOneById.grupoMaterial;
     console.log(this.bemUpdate);
     this.bemService.baixarBem(this.bemUpdate)
       .subscribe(data => {
