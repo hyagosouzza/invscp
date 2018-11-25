@@ -24,12 +24,12 @@
                         Ver
                     </button>
 
-                    <button type="button" class="btn btn-primary" (click)="findOne(bem)" data-toggle="modal"
+                    <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-primary" (click)="findOne(bem)" data-toggle="modal"
                         data-target="#modalEditar">
                         Editar
                     </button>
 
-                    <button type="button" class="btn btn-primary" (click)="findOne(bem)" data-toggle="modal"
+                    <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-warning" (click)="findOne(bem)" data-toggle="modal"
                             data-target="#modalBaixar">
                       Baixar
                     </button>
@@ -218,7 +218,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalEditarTitle">Bem Patrimonial</h5>
+        <h5 class="modal-title" id="modalBaixarTitle">Bem Patrimonial</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -226,6 +226,7 @@
       <div class="modal-body">
         <div *ngIf="findOneById != null">
           <p><b>ID:</b> {{findOneById.id}}</p>
+          <p><b>Situação:</b> {{findOneById.situacao}}</p>
           <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
           <p><b>Espeficicação:</b> {{findOneById.especificacao}}</p>
           <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
@@ -250,59 +251,34 @@
               </div>
 
               <div class="col-6">
-                <label for="valorCompra">Valor da Compra:</label>
-                <input type="number" [(ngModel)]="bemUpdate.valorCompra" placeholder="Valor da Compra" name="valorCompra"
-                       class="form-control" id="valorCompra" required>
+                <label for="dataBaixa">Data da Baixa:</label>
+                <input [(ngModel)]="bemUpdate.dataDaBaixa" class="form-control" type="date" id="dataBaixa" name="dataBaixa">
               </div>
 
               <div class="col-6">
-                <label for="vidaUtil">Vida Útil:</label>
-                <input [(ngModel)]="bemUpdate.vidaUtil" class="form-control" type="date" id="vidaUtil" name="vidaUtil">
-              </div>
-
-              <div class="col-6">
-                <label for="dataAquis">Data de Aquisição:</label>
-                <input [(ngModel)]="bemUpdate.dataAquis" class="form-control" type="date" id="dataAquis" name="dataAquis">
-              </div>
-
-              <div class="col-6">
-                <label for="numTombamento">Número de Tombamento:</label>
-                <input [(ngModel)]="bemUpdate.numTombamento" placeholder="Nº de Tombamento" name="numTombamento"
-                       class="form-control" id="numTombamento" required>
+                <label for="obsrBaixa">Observação da Baixa:</label>
+                <input [(ngModel)]="bemUpdate.obsrBaixa" placeholder="Obsr. Baixa" name="obsrBaixa"
+                       class="form-control" id="obsrBaixa" required>
               </div>
 
 
               <div class="col-6">
-                <label for="grupoMaterial">Grupo Material:</label>
-                <select required id="grupoMaterial" [(ngModel)]="bemUpdate.grupoMaterial" class="form-control"
-                        name="grupoMaterial" id="grupoMaterial">
-                  <option value="0">Eletrodoméstico</option>
-                  <option value="1">Informática</option>
-                  <option value="2">Didático</option>
-                  <option value="3">Móveis</option>
+                <label for="motivoBaixa">Motivo da Baixa:</label>
+                <select required id="motivoBaixa" [(ngModel)]="bemUpdate.motivoDaBaixa" class="form-control"
+                        name="motivoBaixa" id="motivoBaixa">
+                  <option value="0">Inservível</option>
+                  <option value="1">Quebra, desgaste ou avaria</option>
+                  <option value="2">Venda em exercícios anteriores</option>
+                  <option value="3">Extravio</option>
+                  <option value="4">Venda direta ou leilão</option>
+                  <option value="5">Rurto/Roubo</option>
                 </select>
               </div>
 
-              <div class="col-6">
-                <label for="catDepre">Categoria de Depreciação:</label>
-                <select required id="catDepre" [(ngModel)]="bemUpdate.catDepre" class="form-control" name="catDepre"
-                        id="catDepre">
-                  <option value="0">Bem de Consumo</option>
-                  <option value="1">Bem Permanente</option>
-                </select>
-              </div>
-
-              <div class="col-6">
-                <label for="idSala">Sala:</label>
-                <select required id="idSala" [(ngModel)]="bemUpdate.idSala" class="form-control" name="idSala"
-                        id="idSala">
-                  <option *ngFor="let sala of salas" [value]="sala.id">{{sala.num}} - {{sala.id}}</option>
-                </select>
-              </div>
             </div>
             <br>
 
-            <button class="btn btn-success" (click)="updateBem()">Editar</button>
+            <button class="btn btn-success" (click)="baixarBem()">Baixar</button>
           </form>
         </div>
       </div>

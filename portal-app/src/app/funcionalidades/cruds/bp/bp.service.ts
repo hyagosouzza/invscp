@@ -13,6 +13,7 @@ export class BpService {
   constructor(private http:HttpClient) {}
 
   private bemUrl = 'http://localhost:8080/user-portal/bens';
+  private baixarBemUrl = 'http://localhost:8080/user-portal/bens/baixar';
   private bemUrlNumTomb = 'http://localhost:8080/user-portal/bens/numTomb';
   private bemUrlMarca = 'http://localhost:8080/user-portal/bens/marca';
   private bemUrlDenomi = 'http://localhost:8080/user-portal/bens/denomi';
@@ -32,6 +33,10 @@ export class BpService {
 
   public updateBem(bem) {
     return this.http.put(this.bemUrl + "/"+ bem.id, bem);
+  }
+
+  public baixarBem(bem) {
+    return this.http.put(this.baixarBemUrl + "/"+ bem.id, bem);
   }
 
   public findOne(bem) {
