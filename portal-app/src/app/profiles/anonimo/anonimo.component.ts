@@ -9,9 +9,11 @@ import {AnonimoService} from "./anonimo.service";
   styleUrls: ['./anonimo.component.css'],
   providers: [AnonimoService]
 })
+
 export class AnonimoComponent implements OnInit {
   user: User = new User();
   constructor(private router: Router, private anonimoService: AnonimoService) { }
+
 
   ngOnInit() {
   }

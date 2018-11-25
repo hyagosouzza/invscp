@@ -46,4 +46,14 @@ public class BemController {
     public List<Bem> findAll(){
         return bemService.findAll();
     }
+
+    @GetMapping(path = {"/numTomb/{numTombamento}"})
+    public List<Bem> findAllByNumTombamento(@PathVariable("numTombamento") String numTombamento) { return bemService.findAllByNumTombamento(numTombamento); }
+
+    @GetMapping(path = {"/marca/{marca}"})
+    public List<Bem> findAllByMarca(@PathVariable("marca") String marca) { return bemService.findAllByMarca(marca); }
+
+    @GetMapping(path = {"/denomi/{denominacao}"})
+    public List<Bem> findAllByDenominacao(@PathVariable("denominacao") String denominacao) { return bemService.findAllByDenominacao(denominacao); }
+
 }
