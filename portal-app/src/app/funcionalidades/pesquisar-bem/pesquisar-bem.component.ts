@@ -17,6 +17,7 @@ export class PesquisarBemComponent implements OnInit {
   escolha: String;
   itemPesquisa: String;
   bens: Bem[];
+  findOneById: any;
 
   ngOnInit() {
   }
@@ -39,5 +40,12 @@ export class PesquisarBemComponent implements OnInit {
         });
     }
   }
+
+  findOne(bem: Bem): void {
+    this.bemService.findOne(bem)
+      .subscribe(data => {
+        this.findOneById = data;
+      })
+  };
 
 }
