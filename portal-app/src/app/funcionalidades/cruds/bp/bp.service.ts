@@ -13,6 +13,7 @@ export class BpService {
   constructor(private http:HttpClient) {}
 
   private bemUrl = 'http://localhost:8080/user-portal/bens';
+  private bemUrlNumTomb = 'http://localhost:8080/user-portal/bens/numTomb';
   //private bemUrl = '/api';
 
   public getBens() {
@@ -33,6 +34,10 @@ export class BpService {
 
   public findOne(bem) {
     return this.http.get(this.bemUrl + "/"+ bem.id);
+  }
+
+  public findNumTomb(numTomb) {
+    return this.http.get(this.bemUrlNumTomb + "/"+ numTomb);
   }
 
 }

@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './pesquisar-bem.component.html',
   styleUrls: ['./pesquisar-bem.component.css']
 })
+
+
 export class PesquisarBemComponent implements OnInit {
 
   constructor() { }

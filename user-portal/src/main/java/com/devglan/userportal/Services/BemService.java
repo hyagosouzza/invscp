@@ -14,4 +14,10 @@ public interface BemService {
     Bem findById(int id);
 
     Bem update(Bem bem);
+
+    List<Bem> findAllByNumTombamento(String numTombamento);
+
+    List<Bem> findAllByMarca(String marca);
+
+    List<Bem> findAllByDenominacao(String denominacao);
 }

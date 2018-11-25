@@ -1,8 +1,6 @@
 <br>
 <div class="row">
-  <div class="col-md-6">
-    <app-pesquisar-bem></app-pesquisar-bem>
-  </div>
+
   <div class="col-md-6">
     <form>
       <div class="form-group">
@@ -15,5 +13,20 @@
       </div>
       <button type="submit" class="btn btn-primary">Entrar</button>
     </form>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="pesquisa">Pesquisar Bem Patrimonial</label>
+      <br>
+      <select>
+        <option value="numTomb">Número de Tombamento</option>
+        <option value="denomi">Denominação</option>
+        <option value="marca">Marca</option>
+      </select>
+      <br>
+      <input type="pesquisar" class="form-control" id="pesquisa" aria-describedby="pesquisaBP" placeholder="Pesquisar Bem Patrimonial">
+    </div>
+    <button onclick="pesquisar" type="submit" class="btn btn-primary">Pesquisar</button>
+    <app-pesquisar-bem></app-pesquisar-bem>
   </div>
 </div>
