@@ -14,6 +14,8 @@ export class BpService {
 
   private bemUrl = 'http://localhost:8080/user-portal/bens';
   private bemUrlNumTomb = 'http://localhost:8080/user-portal/bens/numTomb';
+  private bemUrlMarca = 'http://localhost:8080/user-portal/bens/marca';
+  private bemUrlDenomi = 'http://localhost:8080/user-portal/bens/denomi';
   //private bemUrl = '/api';
 
   public getBens() {
@@ -37,7 +39,16 @@ export class BpService {
   }
 
   public findNumTomb(numTomb) {
-    return this.http.get(this.bemUrlNumTomb + "/"+ numTomb);
+    return this.http.get<Bem[]>(this.bemUrlNumTomb + "/"+ numTomb);
+  }
+
+  public findMarca(marca) {
+    console.log("VEIO PRO BP.SERVICE");
+    return this.http.get<Bem[]>(this.bemUrlMarca + "/"+ marca);
+  }
+
+  public findDenomi(denomi) {
+    return this.http.get<Bem[]>(this.bemUrlDenomi + "/"+ denomi);
   }
 
 }

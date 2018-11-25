@@ -48,7 +48,7 @@ public class BemServiceImpl implements BemService{
         List<Bem> listaFiltrada = new ArrayList();
 
         for(int contador = 0; contador < listaTotal.size(); contador ++) {
-            if (listaTotal.get(contador).getNumTombamento().contains(numTombamento)) {
+            if (listaTotal.get(contador).getNumTombamento().toLowerCase().contains(numTombamento.toLowerCase())) {
                 listaFiltrada.add(listaTotal.get(contador));
             }
         }
@@ -62,7 +62,7 @@ public class BemServiceImpl implements BemService{
         List<Bem> listaFiltrada = new ArrayList();
 
         for(int contador = 0; contador < listaTotal.size(); contador ++) {
-            if (listaTotal.get(contador).getMarca().contains(marca)) {
+            if (listaTotal.get(contador).getMarca().toLowerCase().contains(marca.toLowerCase())) {
                 listaFiltrada.add(listaTotal.get(contador));
             }
         }
@@ -76,7 +76,7 @@ public class BemServiceImpl implements BemService{
         List<Bem> listaFiltrada = new ArrayList();
 
         for(int contador = 0; contador < listaTotal.size(); contador ++) {
-            if (listaTotal.get(contador).getDenominacao().contains(denominacao)) {
+            if (listaTotal.get(contador).getDenominacao().toLowerCase().contains(denominacao.toLowerCase())) {
                 listaFiltrada.add(listaTotal.get(contador));
             }
         }
