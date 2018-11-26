@@ -108,7 +108,8 @@ export class PesquisarBemUserComponent implements OnInit {
   };
 
   registrarMovimentacao() : void {
-
+    this.solicitacao.bem = this.findOneById;
+    // TODO: Passar usuário junto / Fazer solicitação pro back / Implementar back
   };
 
 }
