@@ -26,6 +26,7 @@ import { CriarSalaComponent } from './funcionalidades/cruds/sala/criar-sala/cria
 import { PredioComponent } from './funcionalidades/cruds/predio/predio.component';
 import { CriarPredioComponent } from './funcionalidades/cruds/predio/criar-predio/criar-predio.component';
 import {AnonimoService} from "./profiles/anonimo/anonimo.service";
+import {PesquisarBemUserComponent} from "./funcionalidades/pesquisar-bem-user/pesquisar-bem-user.component";
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {AnonimoService} from "./profiles/anonimo/anonimo.service";
     ChefeComponent,
     AdminComponent,
     PesquisarBemComponent,
+    PesquisarBemUserComponent,
     RegistrarMovimentacaoComponent,
     BaixarBemComponent,
     CriarDepComponent,

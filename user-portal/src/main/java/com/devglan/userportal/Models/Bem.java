@@ -3,7 +3,7 @@ package com.devglan.userportal.Models;
 import com.devglan.userportal.Enums.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "bem")
@@ -13,13 +13,13 @@ public class Bem {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column
+    @Temporal(TemporalType.DATE)
     private Date dataAquis;
-    @Column
+    @Temporal(TemporalType.DATE)
     private Date dataDaBaixa;
-    @Column
+    @Temporal(TemporalType.DATE)
     private Date garantia;
-    @Column
+    @Temporal(TemporalType.DATE)
     private Date vidaUtil;
     @Column
     private String especificacao;
