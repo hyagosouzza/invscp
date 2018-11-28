@@ -15,7 +15,8 @@
             <tr *ngFor="let sala of salas">
                 <td>{{sala.id}}</td>
                 <td>{{sala.num}}</td>
-                <td>{{sala.departamento.nome}}</td>
+                <td *ngIf="sala.departamento == null">Não consta</td>
+                <td *ngIf="sala.departamento != null">{{sala.departamento.nome}}</td>
                 <td style="width: 20%"><button class="btn btn-info" (click)="findOne(sala)" data-toggle="modal"
                         data-target="#modalVer">
                         Ver
@@ -44,7 +45,8 @@
             <div *ngIf="findOneById != null" class="modal-body">
                 <p><b>ID:</b> {{findOneById.id}}</p>
                 <p><b>Número da sala:</b> {{findOneById.num}}</p>
-                <p><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
+                <p *ngIf="findOneById.departamento != null"><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
+                <p *ngIf="findOneById.departamento == null"><b>Departamento:</b> Não consta</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
@@ -67,7 +69,8 @@
                 <div *ngIf="findOneById != null">
                     <p><b>ID:</b> {{findOneById.id}}</p>
                     <p><b>Número da sala:</b> {{findOneById.num}}</p>
-                    <p><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
+                    <p *ngIf="findOneById.departamento != null"><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
+                    <p *ngIf="findOneById.departamento == null"><b>Departamento:</b> Não consta</p>
                 </div>
                 <hr>
                 <h3 align="center">Editar</h3>

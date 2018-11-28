@@ -19,7 +19,8 @@
         <td>{{user.nome}}</td>
         <td>{{user.email}}</td>
         <td style="width: 20%">{{user.profile}}</td>
-        <td>{{user.departamento.nome}}</td>
+        <td *ngIf="user.departamento == null">Não consta</td>
+        <td *ngIf="user.departamento != null">{{user.departamento.nome}}</td>
         <td style="width: 20%"><button class="btn btn-info" (click)="findOne(user)" data-toggle="modal" data-target="#modalVer">
             Ver
           </button>
@@ -48,7 +49,8 @@
         <p><b>Nome:</b> {{findOneById.nome}}</p>
         <p><b>Email:</b> {{findOneById.email}}</p>
         <p><b>Cargo:</b> {{findOneById.profile}}</p>
-        <p><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
+        <p *ngIf="findOneById.departamento != null"><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
+        <p *ngIf="findOneById.departamento == null"><b>Departamento:</b> Não consta</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
@@ -73,7 +75,8 @@
           <p><b>Nome:</b> {{findOneById.nome}}</p>
           <p><b>Email:</b> {{findOneById.email}}</p>
           <p><b>Cargo:</b> {{findOneById.profile}}</p>
-          <p><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
+          <p *ngIf="findOneById.departamento != null"><b>Departamento:</b> {{findOneById.departamento.nome}}</p>
+          <p *ngIf="findOneById.departamento == null"><b>Departamento:</b> Não consta</p>
         </div>
         <hr>
         <h3 align="center">Editar</h3>

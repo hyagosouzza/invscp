@@ -29,9 +29,6 @@ export class CriarDepComponent implements OnInit {
   };
 
   createDepartamento(): void {
-    this.departamento.predio =  this.predios.find(obj => {
-      return obj.id == this.id_predio;
-    });
 
     this.departamentoService.createDepartamento(this.departamento)
       .subscribe(data => {

@@ -13,6 +13,7 @@ import { Departamento } from '../../../models/departamento.model';
 export class AddUserComponent implements OnInit{
 
   user: User = new User();
+  users: User[];
   departamentos: Departamento[];
   id_departamento: string;
 
@@ -25,12 +26,24 @@ export class AddUserComponent implements OnInit{
       .subscribe(data => {
         this.departamentos = data;
       });
+
+      this.userService.getUsers()
+      .subscribe(data => {
+        this.users = data;
+      });
   }
 
   createUser(): void {
-    this.user.departamento =  this.departamentos.find(obj => {
-      return obj.id == this.id_departamento;
-    });
+    if(this.user.email == null || this.user.senha == null) {
+      alert("Os campos email e senha devem ser preenchidos!");
+      return;
+    }
+    for (let i in this.users) {
+      if(this.users[i].email == this.user.email) {
+        alert("Já existe um usuário com este email.");
+        return;
+      }
+   }
 
     this.userService.createUser(this.user)
         .subscribe( data => {

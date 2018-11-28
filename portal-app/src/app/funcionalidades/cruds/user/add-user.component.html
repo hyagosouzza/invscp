@@ -28,8 +28,8 @@
 
   <div class="form-group">
       <label for="departamento">Departamento:</label>
-      <select required id="departamento" [(ngModel)]="id_departamento" class="form-control" name="departamento" id="departamento">
-        <option *ngFor="let departamento of departamentos" [value]="departamento.id">{{departamento.nome}} - {{departamento.id}}</option>
+      <select required id="departamento" [(ngModel)]="user.departamento" class="form-control" name="departamento" id="departamento">
+        <option *ngFor="let departamento of departamentos" [ngValue]="departamento">{{departamento.nome}} - {{departamento.id}}</option>
       </select>
     </div>
 

@@ -1,5 +1,6 @@
 package com.devglan.userportal.Controllers;
 
+import com.devglan.userportal.Enums.ProfileEnum;
 import com.devglan.userportal.Models.User;
 import com.devglan.userportal.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class UserController {
 
     @PostMapping
     public User create(@RequestBody User user){
+        if(user.getProfile() == null) {
+            user.setProfile(ProfileEnum.GERAL);
+        }
         return userService.create(user);
     }
 

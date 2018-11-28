@@ -1,3 +1,5 @@
+import { Sala } from "./sala.model";
+
 export class Bem {
     id: string;
     dataAquis: Date;
@@ -16,5 +18,5 @@ export class Bem {
     valorAtual: number;
     valorCompra: number;
     vidaUtil: Date;
-    idSala: string;
+    sala: Sala;
 }
