@@ -36,8 +36,6 @@ public class Bem {
     @Column
     private Float valorCompra;
     @Column
-    private String idSala;
-    @Column
     private String denominacao;
     @Enumerated(EnumType.STRING)
     private CatDepre catDepre;
@@ -47,16 +45,17 @@ public class Bem {
     private Situacao situacao;
     @Enumerated(EnumType.STRING)
     private MotivoBaixa motivoDaBaixa;
+    @ManyToOne
+    @JoinColumn(name = "sala_atual")
+    private Sala sala;
 
     public int getId() {
         return id;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
-
 
     public String getEspecificacao() {
         return especificacao;
@@ -146,14 +145,6 @@ public class Bem {
         this.valorCompra = valorCompra;
     }
 
-    public String getIdSala() {
-        return idSala;
-    }
-
-    public void setIdSala(String idSala) {
-        this.idSala = idSala;
-    }
-
     public String getDenominacao() {
         return denominacao;
     }
@@ -192,5 +183,13 @@ public class Bem {
 
     public void setMotivoDaBaixa(MotivoBaixa motivoDaBaixa) {
         this.motivoDaBaixa = motivoDaBaixa;
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
 }

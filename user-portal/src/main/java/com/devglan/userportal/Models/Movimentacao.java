@@ -3,7 +3,6 @@ package com.devglan.userportal.Models;
 import com.devglan.userportal.Enums.Etapa;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -31,12 +30,12 @@ public class Movimentacao {
     private Date dataSaida;
     @ManyToOne
     @JoinColumn(name = "aprovador_saida")
-    private User aprovador_saida;
+    private User aprovadorSaida;
     @Temporal(TemporalType.DATE)
     private Date dataEntrada;
     @ManyToOne
     @JoinColumn(name = "aprovador_entrada")
-    private User aprovador_entrada;
+    private User aprovadorEntrada;
     @Temporal(TemporalType.DATE)
     private Date dataCancelamento;
     @ManyToOne
@@ -99,12 +98,12 @@ public class Movimentacao {
         this.dataSaida = dataSaida;
     }
 
-    public User getAprovador_saida() {
-        return aprovador_saida;
+    public User getAprovadorSaida() {
+        return aprovadorSaida;
     }
 
-    public void setAprovador_saida(User aprovador_saida) {
-        this.aprovador_saida = aprovador_saida;
+    public void setAprovadorSaida(User aprovadorSaida) {
+        this.aprovadorSaida = aprovadorSaida;
     }
 
     public Date getDataEntrada() {
@@ -115,12 +114,12 @@ public class Movimentacao {
         this.dataEntrada = dataEntrada;
     }
 
-    public User getAprovador_entrada() {
-        return aprovador_entrada;
+    public User getAprovadorEntrada() {
+        return aprovadorEntrada;
     }
 
-    public void setAprovador_entrada(User aprovador_entrada) {
-        this.aprovador_entrada = aprovador_entrada;
+    public void setAprovadorEntrada(User aprovadorEntrada) {
+        this.aprovadorEntrada = aprovadorEntrada;
     }
 
     public Date getDataCancelamento() {
