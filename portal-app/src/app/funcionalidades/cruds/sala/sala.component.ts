@@ -14,7 +14,7 @@ import { Sala } from '../../../models/sala.model';
 })
 export class SalaComponent implements OnInit {
 
-  salas: Sala[];
+  salas: any;
   salaUpdate: Sala = new Sala();
   findOneById: any;
   departamentos: Departamento[];

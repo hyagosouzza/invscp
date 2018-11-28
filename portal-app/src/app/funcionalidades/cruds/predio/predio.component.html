@@ -15,7 +15,8 @@
             <tr *ngFor="let predio of predios">
                 <td>{{predio.id}}</td>
                 <td>{{predio.nome}}</td>
-                <td>{{predio.local.nome}}</td>
+                <td *ngIf="predio.local == null">Não consta</td>
+                <td *ngIf="predio.local != null">{{predio.local.nome}}</td>
                 <td style="width: 20%"><button class="btn btn-info" (click)="findOne(predio)" data-toggle="modal"
                         data-target="#modalVer">
                         Ver
@@ -44,7 +45,8 @@
             <div *ngIf="findOneById != null" class="modal-body">
                 <p><b>ID:</b> {{findOneById.id}}</p>
                 <p><b>Nome:</b> {{findOneById.nome}}</p>
-                <p><b>Localização:</b> {{findOneById.local.nome}}</p>
+                <p *ngIf="findOneById.local != null"><b>Localização:</b> {{findOneById.local.nome}}</p>
+                <p *ngIf="findOneById.local == null"><b>Localização:</b>Não consta</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
@@ -67,7 +69,8 @@
                 <div *ngIf="findOneById != null">
                     <p><b>ID:</b> {{findOneById.id}}</p>
                     <p><b>Nome:</b> {{findOneById.nome}}</p>
-                    <p><b>Localização:</b> {{findOneById.local.nome}}</p>
+                    <p *ngIf="findOneById.local != null"><b>Localização:</b> {{findOneById.local.nome}}</p>
+                <p *ngIf="findOneById.local == null"><b>Localização:</b> Não consta</p>
                 </div>
                 <hr>
                 <h3 align="center">Editar</h3>

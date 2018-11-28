@@ -29,10 +29,6 @@ export class CriarSalaComponent implements OnInit {
   };
 
   createSala(): void {
-    this.sala.departamento =  this.departamentos.find(obj => {
-      return obj.id == this.id_departamento;
-    });
-
 
     this.salaService.createSala(this.sala)
       .subscribe(data => {

@@ -29,9 +29,6 @@ export class CriarPredioComponent implements OnInit {
   };
 
   createPredio(): void {
-    this.predio.local =  this.locais.find(obj => {
-      return obj.id == this.id_local;
-    });
 
     this.predioService.createPredio(this.predio)
       .subscribe(data => {

@@ -15,7 +15,8 @@
             <tr *ngFor="let departamento of departamentos">
                 <td>{{departamento.id}}</td>
                 <td>{{departamento.nome}}</td>
-                <td>{{departamento.predio.nome}}</td>
+                <td *ngIf="departamento.predio != null">{{departamento.predio.nome}}</td>
+                <td *ngIf="departamento.predio === null">Não consta</td>
                 <td style="width: 20%"><button class="btn btn-info" (click)="findOne(departamento)" data-toggle="modal"
                         data-target="#modalVer">
                         Ver
@@ -42,9 +43,10 @@
                 </button>
             </div>
             <div *ngIf="findOneById != null" class="modal-body">
-                    <p><b>ID:</b> {{findOneById.id}}</p>
+                <p><b>ID:</b> {{findOneById.id}}</p>
                 <p><b>Nome:</b> {{findOneById.nome}}</p>
-                <p><b>Prédio:</b> {{findOneById.predio.nome}}</p>
+                <p *ngIf="findOneById.predio != null"><b>Prédio:</b> {{findOneById.predio.nome}}</p>
+                <p *ngIf="findOneById.predio === null"><b>Prédio:</b> Não consta</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
@@ -67,7 +69,8 @@
                 <div *ngIf="findOneById != null">
                     <p><b>ID:</b> {{findOneById.id}}</p>
                     <p><b>Nome:</b> {{findOneById.nome}}</p>
-                    <p><b>Prédio:</b> {{findOneById.predio.nome}}</p>
+                    <p *ngIf="findOneById.predio != null"><b>Prédio:</b> {{findOneById.predio.nome}}</p>
+                    <p *ngIf="findOneById.predio === null"><b>Prédio:</b> Não consta</p>
                 </div>
                 <hr>
                 <h3 align="center">Editar</h3>
@@ -75,12 +78,14 @@
                     <form>
                         <div class="form-group">
                             <label for="nome">Nome:</label>
-                            <input required [(ngModel)]="departamentoUpdate.nome" placeholder="Nome" name="nome" class="form-control" id="nome">
+                            <input required [(ngModel)]="departamentoUpdate.nome" placeholder="Nome" name="nome" class="form-control"
+                                id="nome">
                         </div>
-                
+
                         <div class="form-group">
                             <label for="idPredio">Prédio:</label>
-                            <select required id="idPredio" [(ngModel)]="id_predio" class="form-control" name="idPredio" id="idPredio">
+                            <select required id="idPredio" [(ngModel)]="id_predio" class="form-control" name="idPredio"
+                                id="idPredio">
                                 <option *ngFor="let predio of predios" [value]="predio.id">{{predio.nome}}</option>
                             </select>
                         </div>
