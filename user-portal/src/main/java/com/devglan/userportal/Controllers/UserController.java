@@ -17,11 +17,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    public User create(@RequestBody User user){
+    public User seUserProfileNull(User user) {
         if(user.getProfile() == null) {
             user.setProfile(ProfileEnum.GERAL);
         }
+        return user;
+    }
+
+    @PostMapping
+    public User create(@RequestBody User user){
+        user = seUserProfileNull(user);
         return userService.create(user);
     }
 

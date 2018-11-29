@@ -8,7 +8,7 @@
                 <th>ID</th>
                 <th>Descrição</th>
                 <th>Grupo Material</th>
-                <th>ID da Sala</th>
+                <th>Sala</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -17,7 +17,7 @@
                 <td>{{bem.id}}</td>
                 <td>{{bem.denominacao}}</td>
                 <td>{{bem.grupoMaterial}}</td>
-                <td>{{bem.idSala}}</td>
+                <td>{{bem.sala.num}} - {{bem.sala.id}}</td>
 
                 <td style="width: 40%"><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
                         data-target="#modalVer">
@@ -66,7 +66,7 @@
                 <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
                 <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
                 <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
-                <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
+                <p><b>Sala:</b> {{findOneById.sala.num}} - {{findOneById.sala.id}}</p>
                 <p><b>Data da Baixa:</b> {{findOneById.dataDaBaixa}}</p>
                 <p><b>Motivo da Baixa:</b> {{findOneById.motivoDaBaixa}}</p>
                 <p><b>Observações da Baixa:</b> {{findOneById.obsrBaixa}}</p>
@@ -102,7 +102,7 @@
                     <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
                     <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
                     <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
-                    <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
+                    <p><b>Sala:</b> {{findOneById.sala.num}} - {{findOneById.sala.id}}</p>
                 </div>
                 <hr>
                 <h3 align="center">Editar</h3>
