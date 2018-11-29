@@ -1,5 +1,6 @@
 package com.devglan.userportal.Services;
 
+import com.devglan.userportal.Models.Departamento;
 import com.devglan.userportal.Models.Movimentacao;
 
 import java.util.List;
@@ -10,6 +11,10 @@ public interface MovimentacaoService {
     Movimentacao delete(int id);
 
     List<Movimentacao> findAll();
+
+   /* List<Movimentacao> findAllEntradas(Departamento departamento);
+
+    List<Movimentacao> findAllSaidas(Departamento departamento);*/
 
     Movimentacao findById(int id);
 

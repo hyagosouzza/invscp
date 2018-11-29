@@ -1,7 +1,9 @@
 package com.devglan.userportal.Controllers;
 
 import com.devglan.userportal.Models.Bem;
+import com.devglan.userportal.Models.Sala;
 import com.devglan.userportal.Services.BemService;
+import com.devglan.userportal.Services.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +19,14 @@ import static com.devglan.userportal.Enums.Situacao.INCORPORADO;
 public class BemController {
     @Autowired
     private BemService bemService;
+    @Autowired
+    private SalaService salaService;
 
     @PostMapping
     public Bem create(@RequestBody Bem bem){
-        if(bem.getIdSala() == null) {
-            bem.setIdSala("3");
+        if(bem.getSala() == null) {
+            Sala sala = salaService.findById(3);
+            bem.setSala(sala);
         }
         bem.setSituacao(INCORPORADO);
         return bemService.create(bem);

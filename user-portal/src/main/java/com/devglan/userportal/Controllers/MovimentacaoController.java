@@ -1,17 +1,12 @@
 package com.devglan.userportal.Controllers;
 
 import com.devglan.userportal.Enums.Etapa;
-import com.devglan.userportal.Enums.ProfileEnum;
-import com.devglan.userportal.Models.AcaoMovimentacao;
-import com.devglan.userportal.Models.Bem;
-import com.devglan.userportal.Models.Movimentacao;
-import com.devglan.userportal.Models.SolicitacaoMovimentacao;
+import com.devglan.userportal.Models.*;
 import com.devglan.userportal.Services.BemService;
 import com.devglan.userportal.Services.MovimentacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -34,21 +29,15 @@ public class MovimentacaoController {
         mov.setDestino(solicitacao.getDestino());
 
         //Caso o solicitante seja o chefe do departamento, o aceite de saída será automático
-        if (solicitacao.getSolicitante().getProfile().equals(ProfileEnum.CHEFE_DEPART)) {
-            mov.setEtapa(Etapa.AC_ENTRADA);
-            mov.setDataSaida(new Date());
-            mov.setAprovadorSaida(solicitacao.getSolicitante());
+        if (solicitacao.isChefe()) {
+            mov.aceiteSaida(solicitacao.getSolicitante());
         } else {
             mov.setEtapa(Etapa.AC_SAIDA);
         }
 
         //RF 2 - Movimentação de Bem Patrimonial Interna - MBPi
-        if (bemPatrimonial.getSala().getDepartamento().equals(solicitacao.getDestino().getDepartamento())) {
-            mov.setDataSaida(new Date());
-            mov.setAprovadorSaida(solicitacao.getSolicitante());
-            mov.setDataEntrada(new Date());
-            mov.setAprovadorEntrada(solicitacao.getSolicitante());
-            mov.setEtapa(Etapa.FINALIZADA);
+        if (solicitacao.isInternalMov()) {
+            mov.execInternalMov(solicitacao.getSolicitante());
             bemPatrimonial.setSala(solicitacao.getDestino());
 
             return movimentacaoService.update(mov) != null &&
@@ -64,26 +53,24 @@ public class MovimentacaoController {
     }
 
     @PutMapping(path = {"/aceite-saida/{id}"})
-    public boolean aceiteSaida(@PathVariable("id") int id, @RequestBody AcaoMovimentacao acao) {
+    public boolean aceiteSaida(@PathVariable("id") int id,
+                               @RequestBody AcaoMovimentacao acao) {
         Movimentacao movimentacao = acao.getMovimentacao();
 
         movimentacao.setId(id);
-        movimentacao.setAprovadorSaida(acao.getSolicitante());
-        movimentacao.setDataSaida(new Date());
-        movimentacao.setEtapa(Etapa.AC_ENTRADA);
+        movimentacao.aceiteSaida(acao.getSolicitante());
 
         return movimentacaoService.update(movimentacao) != null;
     }
 
     @PutMapping(path = {"/aceite-entrada/{id}"})
-    public boolean aceiteEntrada(@PathVariable("id") int id, @RequestBody AcaoMovimentacao acao) {
+    public boolean aceiteEntrada(@PathVariable("id") int id,
+                                 @RequestBody AcaoMovimentacao acao) {
         Movimentacao movimentacao = acao.getMovimentacao();
         Bem bemPatrimonial = movimentacao.getBem();
 
         movimentacao.setId(id);
-        movimentacao.setAprovadorEntrada(acao.getSolicitante());
-        movimentacao.setDataEntrada(new Date());
-        movimentacao.setEtapa(Etapa.FINALIZADA);
+        movimentacao.aceiteEntrada(acao.getSolicitante());
 
         bemPatrimonial.setSala(movimentacao.getDestino());
 
@@ -100,4 +87,14 @@ public class MovimentacaoController {
     public List<Movimentacao> findAll() {
         return movimentacaoService.findAll();
     }
+
+    /*@PostMapping(path = {"/saidas"})
+    public List<Movimentacao> findAllSaidas(@RequestBody Departamento departamento) {
+        return movimentacaoService.findAllSaidas(departamento);
+    }
+
+    @PostMapping(path = {"/entradas"})
+    public List<Movimentacao> findAllEntradas(@RequestBody Departamento departamento) {
+        return movimentacaoService.findAllEntradas(departamento);
+    }*/
 }

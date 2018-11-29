@@ -42,6 +42,23 @@ public class Movimentacao {
     @JoinColumn(name = "user_cancelamento")
     private User userCancelamento;
 
+    public void execInternalMov(User user) {
+        this.aceiteSaida(user);
+        this.aceiteEntrada(user);
+    }
+
+    public void aceiteSaida(User user) {
+        this.setEtapa(Etapa.AC_ENTRADA);
+        this.setDataSaida(new Date());
+        this.setAprovadorSaida(user);
+    }
+
+    public void aceiteEntrada(User user) {
+        this.setEtapa(Etapa.FINALIZADA);
+        this.setDataEntrada(new Date());
+        this.setAprovadorEntrada(user);
+    }
+
     public int getId() {
         return id;
     }
