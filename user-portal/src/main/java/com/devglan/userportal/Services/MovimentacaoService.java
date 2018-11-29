@@ -12,9 +12,9 @@ public interface MovimentacaoService {
 
     List<Movimentacao> findAll();
 
-   /* List<Movimentacao> findAllEntradas(Departamento departamento);
+    List<Movimentacao> findAllEntradas(Departamento departamento);
 
-    List<Movimentacao> findAllSaidas(Departamento departamento);*/
+    List<Movimentacao> findAllSaidas(Departamento departamento);
 
     Movimentacao findById(int id);
 

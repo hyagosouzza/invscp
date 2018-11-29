@@ -32,7 +32,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService{
         return repository.findAll();
     }
 
-   /* @Override
+    @Override
     public List<Movimentacao> findAllEntradas(Departamento departamento) {
         return repository.findAllEntradas(departamento);
     }
@@ -40,7 +40,7 @@ public class MovimentacaoServiceImpl implements MovimentacaoService{
     @Override
     public List<Movimentacao> findAllSaidas(Departamento departamento) {
         return repository.findAllSaidas(departamento);
-    }*/
+    }
 
     @Override
     public Movimentacao findById(int id) {

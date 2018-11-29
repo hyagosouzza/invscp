@@ -13,11 +13,11 @@ public interface MovimentacaoRepository extends Repository<Movimentacao, Integer
 
     List<Movimentacao> findAll();
 
-    /*@Query("SELECT m FROM Movimentacao m  INNER JOIN m.destino s WHERE s.departamento = :departamento")
+    @Query("SELECT m FROM Movimentacao m  INNER JOIN m.destino s WHERE s.departamento = :departamento")
     List<Movimentacao> findAllEntradas(@Param("departamento") Departamento departamento);
 
     @Query("SELECT m FROM Movimentacao m INNER JOIN m.origem s WHERE s.departamento = :departamento")
-    List<Movimentacao> findAllSaidas(@Param("departamento") Departamento departamento);*/
+    List<Movimentacao> findAllSaidas(@Param("departamento") Departamento departamento);
 
     Movimentacao findOne(int id);
 

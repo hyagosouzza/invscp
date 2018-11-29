@@ -88,7 +88,7 @@ public class MovimentacaoController {
         return movimentacaoService.findAll();
     }
 
-    /*@PostMapping(path = {"/saidas"})
+    @PostMapping(path = {"/saidas"})
     public List<Movimentacao> findAllSaidas(@RequestBody Departamento departamento) {
         return movimentacaoService.findAllSaidas(departamento);
     }
@@ -96,5 +96,5 @@ public class MovimentacaoController {
     @PostMapping(path = {"/entradas"})
     public List<Movimentacao> findAllEntradas(@RequestBody Departamento departamento) {
         return movimentacaoService.findAllEntradas(departamento);
-    }*/
+    }
 }
