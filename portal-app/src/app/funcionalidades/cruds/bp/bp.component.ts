@@ -19,12 +19,22 @@ export class BpComponent implements OnInit {
   bemUpdate: Bem = new Bem();
   findOneById: any;
   salas: Sala[];
+  admin: boolean;
 
   constructor(private router: Router, private bemService: BpService, private salaService: SalaService) {
 
   }
 
   ngOnInit() {
+    if (localStorage.length > 0) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      console.log("DENTRO DE BP: " + user.departamento.nome);
+      if (user.departamento.nome == "Departamento de Patrimônio"){
+        this.admin = true;
+      } else {
+        this.admin = false;
+      }
+    }
     this.bemService.getBens()
       .subscribe(data => {
         this.bens = data;
@@ -79,5 +89,9 @@ export class BpComponent implements OnInit {
         location.reload();
       })
   };
+
+  getAdmin(): boolean {
+    return this.admin;
+  }
 
 }
