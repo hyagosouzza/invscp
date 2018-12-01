@@ -2,6 +2,7 @@ package com.devglan.userportal.Services;
 
 import com.devglan.userportal.Models.Bem;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BemService {
@@ -21,5 +22,5 @@ public interface BemService {
 
     List<Bem> findAllByDenominacao(String denominacao);
 
-    List<Bem> findInventario();
+    List<Bem> findInventario() throws ParseException;
 }

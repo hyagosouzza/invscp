@@ -90,7 +90,7 @@ public class BemServiceImpl implements BemService{
     }
 
     @Override
-    public List<Bem> findInventario() {
+    public List<Bem> findInventario() throws ParseException {
         List<Bem> listaTotal = repository.findAll();
         List<Bem> listaFiltrada = new ArrayList();
         Situacao sit;
@@ -100,6 +100,10 @@ public class BemServiceImpl implements BemService{
             sit = listaTotal.get(contador).getSituacao();
             sitStr = sit.toString();
             if (!(sitStr.equals("BAIXADO"))){
+                String dataAquis = dataAquisFormat(listaTotal.get(contador).getDataAquis());
+                String dataAtual = dataAtual();
+                System.out.println("DATA DE AQUISIÇÃO: " + dataAquis + "\n");
+                System.out.println("DATA ATUAL: " + dataAtual);
                 listaFiltrada.add(listaTotal.get(contador));
             }
         }
