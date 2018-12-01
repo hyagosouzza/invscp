@@ -61,6 +61,7 @@ export class BpComponent implements OnInit {
 
   updateBem(): void {
     this.bemUpdate.id = this.findOneById.id;
+    this.bemUpdate.sala = this.findOneById.sala;
     console.log(this.bemUpdate);
     this.bemService.updateBem(this.bemUpdate)
       .subscribe(data => {

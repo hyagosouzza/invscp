@@ -56,7 +56,7 @@
                 <p><b>ID:</b> {{findOneById.id}}</p>
                 <p><b>Situação:</b> {{findOneById.situacao}}</p>
                 <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
-                <p><b>Espeficicação:</b> {{findOneById.especificacao}}</p>
+                <p><b>Especificação:</b> {{findOneById.especificacao}}</p>
                 <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
                 <p><b>Marca:</b> {{findOneById.marca}}</p>
                 <p><b>Garantia:</b> {{findOneById.garantia}}</p>
@@ -92,7 +92,7 @@
                 <div *ngIf="findOneById != null">
                     <p><b>ID:</b> {{findOneById.id}}</p>
                     <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
-                    <p><b>Espeficicação:</b> {{findOneById.espeficicacao}}</p>
+                    <p><b>Especificação:</b> {{findOneById.especificacao}}</p>
                     <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
                     <p><b>Marca:</b> {{findOneById.marca}}</p>
                     <p><b>Garantia:</b> {{findOneById.garantia}}</p>
@@ -175,20 +175,17 @@
                                 <label for="grupoMaterial">Grupo Material:</label>
                                 <select required id="grupoMaterial" [(ngModel)]="bemUpdate.grupoMaterial" class="form-control"
                                     name="grupoMaterial" id="grupoMaterial">
-                                    <option value="0">Eletrodoméstico</option>
-                                    <option value="1">Informática</option>
-                                    <option value="2">Didático</option>
-                                    <option value="3">Móveis</option>
+                                  <option value="0">Eletrodoméstico</option>
+                                  <option value="1">Informática</option>
+                                  <option value="2">Didático</option>
+                                  <option value="3">Móveis</option>
+                                  <option value="4">Ferramenta</option>
+                                  <option value="5">Máquina ou equipamento industrial</option>
+                                  <option value="6">Veículo leve</option>
+                                  <option value="7">Veículo Pesado</option>
                                 </select>
                             </div>
 
-                            <div class="col-6">
-                                <label for="idSala">Sala:</label>
-                                <select required id="idSala" [(ngModel)]="bemUpdate.idSala" class="form-control" name="idSala"
-                                    id="idSala">
-                                    <option *ngFor="let sala of salas" [value]="sala.id">{{sala.num}} - {{sala.id}}</option>
-                                </select>
-                            </div>
                         </div>
                         <br>
 
