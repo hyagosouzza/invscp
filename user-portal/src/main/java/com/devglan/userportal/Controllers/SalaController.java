@@ -40,4 +40,7 @@ public class SalaController {
     public List<Sala> findAll(){
         return salaService.findAll();
     }
+
+    @GetMapping(path = {"/depart/{depart}"})
+    public List<Sala> findAllPerDepart(@PathVariable("depart") String depart) { return salaService.findAllPerDepart(depart);}
 }

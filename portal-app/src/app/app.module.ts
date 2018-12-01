@@ -28,6 +28,8 @@ import { CriarPredioComponent } from './funcionalidades/cruds/predio/criar-predi
 import {AnonimoService} from "./profiles/anonimo/anonimo.service";
 import {PesquisarBemUserComponent} from "./funcionalidades/pesquisar-bem-user/pesquisar-bem-user.component";
 import { EmitirInventarioComponent } from './funcionalidades/emitir-inventario/emitir-inventario.component';
+import { RelatorioComponent } from './funcionalidades/relatorio/relatorio.component';
+import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo-mateiral-por-sala/grupo-mateiral-por-sala.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { EmitirInventarioComponent } from './funcionalidades/emitir-inventario/e
     PredioComponent,
     CriarPredioComponent,
     EmitirInventarioComponent,
+    RelatorioComponent,
+    GrupoMateiralPorSalaComponent,
   ],
   imports: [
     BrowserModule,

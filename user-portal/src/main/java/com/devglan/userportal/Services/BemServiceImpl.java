@@ -77,6 +77,19 @@ public class BemServiceImpl implements BemService{
     }
 
     @Override
+    public List<Bem> findAllBySalaGm(String sala){
+        List<Bem> listaTotal = repository.findAll();
+        List<Bem> listaFiltrada = new ArrayList();
+
+        for(int contador = 0; contador < listaTotal.size(); contador ++) {
+            if(listaTotal.get(contador).getSala().getNum().equals(sala)){
+                listaFiltrada.add(listaTotal.get(contador));
+                }
+        }
+        return listaFiltrada;
+    }
+
+    @Override
     public List<Bem> findAllByDenominacao(String denominacao) {
         List<Bem> listaTotal = repository.findAll();
         List<Bem> listaFiltrada = new ArrayList();
@@ -114,8 +127,8 @@ public class BemServiceImpl implements BemService{
                 mat = listaTotal.get(contador).getGrupoMaterial();
                 materialStr = mat.toString();
                 valorAtual = listaTotal.get(contador).getValorCompra();
-                if (quantAnos == 0){
-                    listaTotal.get(contador).setValorAtual(listaTotal.get(contador).getValorAtual());
+                if (quantAnos < 1){
+                    listaTotal.get(contador).setValorAtual(listaTotal.get(contador).getValorCompra());
                 } else {
                     for (int contador2 = 1; contador2 <= quantAnos; contador2++) {
                         if ((materialStr.equals("ELETRO")) || (materialStr.equals("MOVEIS")) || (materialStr.equals("DIDATICO"))) {

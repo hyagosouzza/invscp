@@ -21,6 +21,8 @@ public class BemController {
     private BemService bemService;
     @Autowired
     private SalaService salaService;
+    private String sala;
+    private String gm;
 
     @PostMapping
     public Bem create(@RequestBody Bem bem){
@@ -70,5 +72,8 @@ public class BemController {
 
     @GetMapping(path = {"/inventario"})
     public List<Bem> findInventario() throws ParseException { return bemService.findInventario(); }
+
+    @GetMapping(path = {"/relat/{sala}"})
+    public List<Bem> findAllBySalaGm(@PathVariable("sala") String sala) { return bemService.findAllBySalaGm(sala);}
 
 }
