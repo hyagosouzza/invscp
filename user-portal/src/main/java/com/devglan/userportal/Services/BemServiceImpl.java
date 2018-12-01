@@ -1,5 +1,6 @@
 package com.devglan.userportal.Services;
 
+import com.devglan.userportal.Enums.GrupoMaterialEnum;
 import com.devglan.userportal.Enums.Situacao;
 import com.devglan.userportal.Models.Bem;
 import com.devglan.userportal.Repo.BemRepository;
@@ -94,16 +95,47 @@ public class BemServiceImpl implements BemService{
         List<Bem> listaTotal = repository.findAll();
         List<Bem> listaFiltrada = new ArrayList();
         Situacao sit;
-        String sitStr;
+        GrupoMaterialEnum mat;
+        String situacaoStr;
+        String materialStr;
+        String dataAquis;
+        String dataAtual;
+        int quantAnos;
+        float valorAtual;
 
         for(int contador = 0; contador < listaTotal.size(); contador ++){
             sit = listaTotal.get(contador).getSituacao();
-            sitStr = sit.toString();
-            if (!(sitStr.equals("BAIXADO"))){
-                String dataAquis = dataAquisFormat(listaTotal.get(contador).getDataAquis());
-                String dataAtual = dataAtual();
-                System.out.println("DATA DE AQUISIÇÃO: " + dataAquis + "\n");
-                System.out.println("DATA ATUAL: " + dataAtual);
+            situacaoStr = sit.toString();
+            if (!(situacaoStr.equals("BAIXADO"))){
+                dataAquis = dataAquisFormat(listaTotal.get(contador).getDataAquis());
+                dataAtual = dataAtual();
+                quantAnos = quantidadeAnosDiferenca(dataAquis, dataAtual);
+                quantAnos = quantAnos - 1;
+                mat = listaTotal.get(contador).getGrupoMaterial();
+                materialStr = mat.toString();
+                valorAtual = listaTotal.get(contador).getValorCompra();
+                if (quantAnos == 0){
+                    listaTotal.get(contador).setValorAtual(listaTotal.get(contador).getValorAtual());
+                } else {
+                    for (int contador2 = 1; contador2 <= quantAnos; contador2++) {
+                        if ((materialStr.equals("ELETRO")) || (materialStr.equals("MOVEIS")) || (materialStr.equals("DIDATICO"))) {
+                            valorAtual = (valorAtual - (valorAtual / 10));
+                            listaTotal.get(contador).setValorAtual(valorAtual);
+                        } else if ((materialStr.equals("INFORMATICA"))) {
+                            valorAtual = (valorAtual - (valorAtual / 5));
+                            listaTotal.get(contador).setValorAtual(valorAtual);
+                        } else if ((materialStr.equals("FERRAMENTA"))) {
+                            valorAtual = (valorAtual - (valorAtual / 10));
+                            listaTotal.get(contador).setValorAtual(valorAtual);
+                        } else if ((materialStr.equals("EQUIPAMENTO_INDUSTRIAL"))) {
+                            valorAtual = (valorAtual - (valorAtual / 10));
+                            listaTotal.get(contador).setValorAtual(valorAtual);
+                        } else if ((materialStr.equals("VEICULO_LEVE")) || (materialStr.equals("VEICULO_PESADO"))) {
+                            valorAtual = (valorAtual - (valorAtual / 5));
+                            listaTotal.get(contador).setValorAtual(valorAtual);
+                        }
+                    }
+                }
                 listaFiltrada.add(listaTotal.get(contador));
             }
         }
