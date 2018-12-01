@@ -6,6 +6,7 @@ import com.devglan.userportal.Services.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static com.devglan.userportal.Enums.Situacao.BAIXADO;
@@ -66,5 +67,8 @@ public class BemController {
 
     @GetMapping(path = {"/denomi/{denominacao}"})
     public List<Bem> findAllByDenominacao(@PathVariable("denominacao") String denominacao) { return bemService.findAllByDenominacao(denominacao); }
+
+    @GetMapping(path = {"/inventario"})
+    public List<Bem> findInventario() throws ParseException { return bemService.findInventario(); }
 
 }

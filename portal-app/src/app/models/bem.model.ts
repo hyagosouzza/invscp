@@ -3,14 +3,14 @@ import { Sala } from "./sala.model";
 export class Bem {
     id: string;
     dataAquis: Date;
-        dataDaBaixa: Date;
+    dataDaBaixa: Date;
     denominacao: string;
     especificacao: string;
     garantia: Date;
     catDepre: number;
     grupoMaterial: number;
     marca: string;
-        motivoDaBaixa: number;
+    motivoDaBaixa: number;
     numNotaFiscal: string;
     numTombamento: string;
     obsrBaixa: string;

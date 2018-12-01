@@ -17,7 +17,8 @@
                 <td>{{bem.id}}</td>
                 <td>{{bem.denominacao}}</td>
                 <td>{{bem.grupoMaterial}}</td>
-                <td>{{bem.sala.num}} - {{bem.sala.id}}</td>
+                <td *ngIf="bem.situacao != 'BAIXADO'">{{bem.sala.num}} - {{bem.sala.id}}</td>
+                <td *ngIf="bem.situacao == 'BAIXADO'">Bem Patrimonial Baixado - Não esta mais nos dominios da instituição</td>
 
                 <td style="width: 40%"><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
                         data-target="#modalVer">
@@ -29,7 +30,7 @@
                         Editar
                     </button>
 
-                    <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-warning" (click)="findOne(bem)" data-toggle="modal"
+                    <button *ngIf="(bem.situacao != 'BAIXADO') && (getAdmin())" type="button" class="btn btn-warning" (click)="findOne(bem)" data-toggle="modal"
                             data-target="#modalBaixar">
                       Baixar
                     </button>
@@ -65,7 +66,6 @@
                 <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
                 <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
                 <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-                <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
                 <p><b>Sala:</b> {{findOneById.sala.num}} - {{findOneById.sala.id}}</p>
                 <p><b>Data da Baixa:</b> {{findOneById.dataDaBaixa}}</p>
                 <p><b>Motivo da Baixa:</b> {{findOneById.motivoDaBaixa}}</p>
@@ -101,7 +101,6 @@
                     <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
                     <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
                     <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-                    <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
                     <p><b>Sala:</b> {{findOneById.sala.num}} - {{findOneById.sala.id}}</p>
                 </div>
                 <hr>
@@ -184,15 +183,6 @@
                             </div>
 
                             <div class="col-6">
-                                <label for="catDepre">Categoria de Depreciação:</label>
-                                <select required id="catDepre" [(ngModel)]="bemUpdate.catDepre" class="form-control" name="catDepre"
-                                    id="catDepre">
-                                    <option value="0">Bem de Consumo</option>
-                                    <option value="1">Bem Permanente</option>
-                                </select>
-                            </div>
-
-                            <div class="col-6">
                                 <label for="idSala">Sala:</label>
                                 <select required id="idSala" [(ngModel)]="bemUpdate.idSala" class="form-control" name="idSala"
                                     id="idSala">
@@ -237,7 +227,6 @@
           <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
           <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
           <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-          <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
           <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
         </div>
         <hr>
