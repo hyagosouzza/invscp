@@ -14,4 +14,6 @@ public interface SalaService {
     Sala findById(int id);
 
     Sala update(Sala sala);
+
+    List<Sala> findAllPerDepart(String depart);
 }

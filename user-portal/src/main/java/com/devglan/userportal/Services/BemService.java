@@ -23,4 +23,6 @@ public interface BemService {
     List<Bem> findAllByDenominacao(String denominacao);
 
     List<Bem> findInventario() throws ParseException;
+
+    List<Bem> findAllBySalaGm(String sala);
 }

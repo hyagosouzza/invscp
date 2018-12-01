@@ -14,6 +14,7 @@ export class SalaService {
   constructor(private http:HttpClient) {}
 
   private salaUrl = 'http://localhost:8080/user-portal/salas';
+  private salaUrlDepart = 'http://localhost:8080/user-portal/salas/depart';
   //private salaUrl = '/api';
 
   public getSalas() {
@@ -34,6 +35,10 @@ export class SalaService {
 
   public findOne(sala) {
     return this.http.get(this.salaUrl + "/"+ sala.id);
+  }
+
+  public findAllPerDepart(depart){
+    return this.http.get(this.salaUrlDepart + "/"+ depart);
   }
 
 

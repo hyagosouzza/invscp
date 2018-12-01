@@ -14,4 +14,5 @@ public interface BemRepository extends Repository<Bem, Integer> {
 
     Bem save(Bem bem);
 
+
 }
