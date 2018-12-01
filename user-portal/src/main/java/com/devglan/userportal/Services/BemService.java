@@ -20,4 +20,6 @@ public interface BemService {
     List<Bem> findAllByMarca(String marca);
 
     List<Bem> findAllByDenominacao(String denominacao);
+
+    List<Bem> findInventario();
 }

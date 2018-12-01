@@ -67,4 +67,7 @@ public class BemController {
     @GetMapping(path = {"/denomi/{denominacao}"})
     public List<Bem> findAllByDenominacao(@PathVariable("denominacao") String denominacao) { return bemService.findAllByDenominacao(denominacao); }
 
+    @GetMapping(path = {"/inventario"})
+    public List<Bem> findInventario() { return bemService.findInventario(); }
+
 }
