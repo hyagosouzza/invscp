@@ -30,6 +30,7 @@ export class LocalComponent implements OnInit {
     this.localService.findOne(local)
       .subscribe( data => {
         this.findOneById = data;
+        this.localUpdate = this.findOneById;
       })
   };
 
@@ -41,7 +42,7 @@ export class LocalComponent implements OnInit {
   };
 
   updateLocal(): void {
-    this.localUpdate.id = this.findOneById.id;
+
     this.localService.updateLocal(this.localUpdate)
       .subscribe( data => {
         alert('Localização editada!');

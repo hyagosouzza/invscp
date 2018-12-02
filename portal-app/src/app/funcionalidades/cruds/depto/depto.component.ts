@@ -3,24 +3,20 @@ import { Router } from '@angular/router';
 
 import { Departamento } from '../../../models/departamento.model';
 import { DeptoService } from './depto.service';
-import { PredioService } from '../predio/predio.service';
-import { Predio } from '../../../models/predio.model';
 
 @Component({
   selector: 'app-depto',
   templateUrl: './depto.component.html',
   styleUrls: ['./depto.component.css'],
-  providers: [PredioService, DeptoService]
+  providers: [DeptoService]
 })
 export class DeptoComponent implements OnInit {
 
   departamentos: Departamento[];
   departamentoUpdate: Departamento = new Departamento();
   findOneById: any;
-  predios: Predio[];
-  id_predio: string;
 
-  constructor(private router: Router, private departamentoService: DeptoService, private predioService: PredioService) {
+  constructor(private router: Router, private departamentoService: DeptoService) {
 
   }
 
@@ -29,16 +25,14 @@ export class DeptoComponent implements OnInit {
       .subscribe(data => {
         this.departamentos = data;
       });
-    this.predioService.getPredios()
-      .subscribe(data => {
-        this.predios = data;
-      });
+
   };
 
   findOne(departamento: Departamento): void {
     this.departamentoService.findOne(departamento)
       .subscribe(data => {
         this.findOneById = data;
+        this.departamentoUpdate = this.findOneById;
       })
   };
 
@@ -50,11 +44,6 @@ export class DeptoComponent implements OnInit {
   };
 
   updateDepartamento(): void {
-    this.departamentoUpdate.id = this.findOneById.id;
-
-    this.departamentoUpdate.predio =  this.predios.find(obj => {
-      return obj.id == this.id_predio;
-    });
 
     this.departamentoService.updateDepartamento(this.departamentoUpdate)
       .subscribe(data => {

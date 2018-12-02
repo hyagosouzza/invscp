@@ -3,24 +3,21 @@ import { Router } from '@angular/router';
 
 import { Predio } from '../../../models/predio.model';
 import { PredioService } from './predio.service';
-import { LocalService } from '../local/local.service';
-import { Local } from '../../../models/local.model';
 
 @Component({
   selector: 'app-predio',
   templateUrl: './predio.component.html',
   styleUrls: ['./predio.component.css'],
-  providers: [LocalService, PredioService]
+  providers: [PredioService]
 })
 export class PredioComponent implements OnInit {
 
   predios: Predio[];
   predioUpdate: Predio = new Predio();
   findOneById: any;
-  locais: Local[];
-  id_local: string;
 
-  constructor(private router: Router, private predioService: PredioService, private localService: LocalService) {
+
+  constructor(private router: Router, private predioService: PredioService) {
 
   }
 
@@ -29,16 +26,13 @@ export class PredioComponent implements OnInit {
       .subscribe(data => {
         this.predios = data;
       });
-    this.localService.getLocais()
-      .subscribe(data => {
-        this.locais = data;
-      });
   };
 
   findOne(predio: Predio): void {
     this.predioService.findOne(predio)
       .subscribe(data => {
         this.findOneById = data;
+        this.predioUpdate = this.findOneById;
       })
   };
 
@@ -50,11 +44,6 @@ export class PredioComponent implements OnInit {
   };
 
   updatePredio(): void {
-    this.predioUpdate.id = this.findOneById.id;
-
-    this.predioUpdate.local =  this.locais.find(obj => {
-      return obj.id == this.id_local;
-    });
 
     console.log(this.predioUpdate);
 
