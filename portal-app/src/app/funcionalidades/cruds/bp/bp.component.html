@@ -1,220 +1,233 @@
 <app-admin></app-admin>
 <div>
-    <h2> Bens Patrimoniais</h2>
+  <h2> Bens Patrimoniais</h2>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Descrição</th>
-                <th>Grupo Material</th>
-                <th>ID da Sala</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let bem of bens">
-                <td>{{bem.id}}</td>
-                <td>{{bem.denominacao}}</td>
-                <td>{{bem.grupoMaterial}}</td>
-                <td>{{bem.idSala}}</td>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descrição</th>
+      <th>Grupo Material</th>
+      <th>ID da Sala</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let bem of bens">
+      <td>{{bem.id}}</td>
+      <td>{{bem.denominacao}}</td>
+      <td>{{bem.grupoMaterial}}</td>
+      <td>{{bem.sala.num}}</td>
 
-                <td style="width: 40%"><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
-                        data-target="#modalVer">
-                        Ver
-                    </button>
+      <td style="width: 40%">
+        <button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
+                data-target="#modalVer">
+          Ver
+        </button>
 
-                    <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-primary" (click)="findOne(bem)" data-toggle="modal"
-                        data-target="#modalEditar">
-                        Editar
-                    </button>
+        <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-primary" (click)="findOne(bem)"
+                data-toggle="modal"
+                data-target="#modalEditar">
+          Editar
+        </button>
 
-                    <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-warning" (click)="findOne(bem)" data-toggle="modal"
-                            data-target="#modalBaixar">
-                      Baixar
-                    </button>
+        <button class="btn btn-primar" (click)="findOne(bem)" data-toggle="modal"
+                data-target="#modalMov" *ngIf="user.departamento.id == bem.sala.departamento.id">
+          Reg. Movimentação
+        </button>
 
-                    <button class="btn btn-danger" (click)="deleteBem(bem)"> Deletar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-warning" (click)="findOne(bem)"
+                data-toggle="modal"
+                data-target="#modalBaixar">
+          Baixar
+        </button>
+
+        <button class="btn btn-danger" (click)="deleteBem(bem)"> Deletar</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalVerTitle">Bem Patrimonial</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div *ngIf="findOneById != null" class="modal-body">
-                <p><b>ID:</b> {{findOneById.id}}</p>
-                <p><b>Situação:</b> {{findOneById.situacao}}</p>
-                <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
-                <p><b>Espeficicação:</b> {{findOneById.especificacao}}</p>
-                <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
-                <p><b>Marca:</b> {{findOneById.marca}}</p>
-                <p><b>Garantia:</b> {{findOneById.garantia}}</p>
-                <p><b>Valor da Compra:</b> {{findOneById.valorCompra}}</p>
-                <p><b>Valor Atual:</b> {{findOneById.valorAtual}}</p>
-                <p><b>Vida útil:</b> {{findOneById.vidaUtil}}</p>
-                <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
-                <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
-                <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-                <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
-                <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
-                <p><b>Data da Baixa:</b> {{findOneById.dataDaBaixa}}</p>
-                <p><b>Motivo da Baixa:</b> {{findOneById.motivoDaBaixa}}</p>
-                <p><b>Observações da Baixa:</b> {{findOneById.obsrBaixa}}</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
-            </div>
-        </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Bem Patrimonial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="findOneById != null" class="modal-body">
+        <p><b>ID:</b> {{findOneById.id}}</p>
+        <p><b>Situação:</b> {{findOneById.situacao}}</p>
+        <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
+        <p><b>Espeficicação:</b> {{findOneById.especificacao}}</p>
+        <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
+        <p><b>Marca:</b> {{findOneById.marca}}</p>
+        <p><b>Garantia:</b> {{findOneById.garantia}}</p>
+        <p><b>Valor da Compra:</b> {{findOneById.valorCompra}}</p>
+        <p><b>Valor Atual:</b> {{findOneById.valorAtual}}</p>
+        <p><b>Vida útil:</b> {{findOneById.vidaUtil}}</p>
+        <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
+        <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
+        <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
+        <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
+        <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
+        <p><b>Data da Baixa:</b> {{findOneById.dataDaBaixa}}</p>
+        <p><b>Motivo da Baixa:</b> {{findOneById.motivoDaBaixa}}</p>
+        <p><b>Observações da Baixa:</b> {{findOneById.obsrBaixa}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalEditarTitle">Bem Patrimonial</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div *ngIf="findOneById != null">
-                    <p><b>ID:</b> {{findOneById.id}}</p>
-                    <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
-                    <p><b>Espeficicação:</b> {{findOneById.espeficicacao}}</p>
-                    <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
-                    <p><b>Marca:</b> {{findOneById.marca}}</p>
-                    <p><b>Garantia:</b> {{findOneById.garantia}}</p>
-                    <p><b>Valor da Compra:</b> {{findOneById.valorCompra}}</p>
-                    <p><b>Vida útil:</b> {{findOneById.vidaUtil}}</p>
-                    <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
-                    <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
-                    <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-                    <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
-                    <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
-                </div>
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarTitle">Bem Patrimonial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="findOneById != null">
+          <p><b>ID:</b> {{findOneById.id}}</p>
+          <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
+          <p><b>Espeficicação:</b> {{findOneById.espeficicacao}}</p>
+          <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
+          <p><b>Marca:</b> {{findOneById.marca}}</p>
+          <p><b>Garantia:</b> {{findOneById.garantia}}</p>
+          <p><b>Valor da Compra:</b> {{findOneById.valorCompra}}</p>
+          <p><b>Vida útil:</b> {{findOneById.vidaUtil}}</p>
+          <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
+          <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
+          <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
+          <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
+          <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
+        </div>
+        <hr>
+        <h3 align="center">Editar</h3>
+        <div>
+          <form>
+            <div class="row">
+              <div class="col-12">
+                <h4 class="text-center">Informações do Produto</h4>
                 <hr>
-                <h3 align="center">Editar</h3>
-                <div>
-                    <form>
-                        <div class="row">
-                            <div class="col-12">
-                                <h4 class="text-center">Informações do Produto</h4>
-                                <hr>
-                            </div>
+              </div>
 
-                            <div class="col-6">
-                                <label for="denominacao">Denominação:</label>
-                                <input [(ngModel)]="bemUpdate.denominacao" placeholder="Denominação" name="denominacao" class="form-control"
-                                    id="denominacao" required>
-                            </div>
+              <div class="col-6">
+                <label for="denominacao">Denominação:</label>
+                <input [(ngModel)]="bemUpdate.denominacao" placeholder="Denominação" name="denominacao"
+                       class="form-control"
+                       id="denominacao" required>
+              </div>
 
-                            <div class="col-12">
-                                <label for="espeficicacao">Espeficicação:</label>
-                                <input [(ngModel)]="bemUpdate.especificacao" placeholder="Espeficicação" name="espeficicacao"
-                                    class="form-control" id="espeficicacao" required>
-                            </div>
+              <div class="col-12">
+                <label for="espeficicacao">Espeficicação:</label>
+                <input [(ngModel)]="bemUpdate.especificacao" placeholder="Espeficicação" name="espeficicacao"
+                       class="form-control" id="espeficicacao" required>
+              </div>
 
-                            <div class="col-6">
-                                <label for="numNotaFiscal">Número da NF:</label>
-                                <input [(ngModel)]="bemUpdate.numNotaFiscal" placeholder="Número da NF" name="numNotaFiscal"
-                                    class="form-control" id="numNotaFiscal" required>
-                            </div>
+              <div class="col-6">
+                <label for="numNotaFiscal">Número da NF:</label>
+                <input [(ngModel)]="bemUpdate.numNotaFiscal" placeholder="Número da NF" name="numNotaFiscal"
+                       class="form-control" id="numNotaFiscal" required>
+              </div>
 
-                            <div class="col-6">
-                                <label for="marca">Marca:</label>
-                                <input [(ngModel)]="bemUpdate.marca" placeholder="Marca" name="marca" class="form-control" id="marca"
-                                    required>
-                            </div>
+              <div class="col-6">
+                <label for="marca">Marca:</label>
+                <input [(ngModel)]="bemUpdate.marca" placeholder="Marca" name="marca" class="form-control" id="marca"
+                       required>
+              </div>
 
-                            <div class="col-6">
-                                <label for="garantia">Garantia:</label>
-                                <input [(ngModel)]="bemUpdate.garantia" class="form-control" type="date" id="garantia" name="garantia">
-                            </div>
+              <div class="col-6">
+                <label for="garantia">Garantia:</label>
+                <input [(ngModel)]="bemUpdate.garantia" class="form-control" type="date" id="garantia" name="garantia">
+              </div>
 
-                            <div class="col-12">
-                                <br><br>
-                                <h4 class="text-center">Informações de Controle</h4>
-                                <hr>
-                            </div>
+              <div class="col-12">
+                <br><br>
+                <h4 class="text-center">Informações de Controle</h4>
+                <hr>
+              </div>
 
-                            <div class="col-6">
-                                <label for="valorCompra">Valor da Compra:</label>
-                                <input type="number" [(ngModel)]="bemUpdate.valorCompra" placeholder="Valor da Compra" name="valorCompra"
-                                    class="form-control" id="valorCompra" required>
-                            </div>
+              <div class="col-6">
+                <label for="valorCompra">Valor da Compra:</label>
+                <input type="number" [(ngModel)]="bemUpdate.valorCompra" placeholder="Valor da Compra"
+                       name="valorCompra"
+                       class="form-control" id="valorCompra" required>
+              </div>
 
-                            <div class="col-6">
-                                <label for="vidaUtil">Vida Útil:</label>
-                                <input [(ngModel)]="bemUpdate.vidaUtil" class="form-control" type="date" id="vidaUtil" name="vidaUtil">
-                            </div>
+              <div class="col-6">
+                <label for="vidaUtil">Vida Útil:</label>
+                <input [(ngModel)]="bemUpdate.vidaUtil" class="form-control" type="date" id="vidaUtil" name="vidaUtil">
+              </div>
 
-                            <div class="col-6">
-                                <label for="dataAquis">Data de Aquisição:</label>
-                                <input [(ngModel)]="bemUpdate.dataAquis" class="form-control" type="date" id="dataAquis" name="dataAquis">
-                            </div>
+              <div class="col-6">
+                <label for="dataAquis">Data de Aquisição:</label>
+                <input [(ngModel)]="bemUpdate.dataAquis" class="form-control" type="date" id="dataAquis"
+                       name="dataAquis">
+              </div>
 
-                            <div class="col-6">
-                                <label for="numTombamento">Número de Tombamento:</label>
-                                <input [(ngModel)]="bemUpdate.numTombamento" placeholder="Nº de Tombamento" name="numTombamento"
-                                    class="form-control" id="numTombamento" required>
-                            </div>
+              <div class="col-6">
+                <label for="numTombamento">Número de Tombamento:</label>
+                <input [(ngModel)]="bemUpdate.numTombamento" placeholder="Nº de Tombamento" name="numTombamento"
+                       class="form-control" id="numTombamento" required>
+              </div>
 
 
-                            <div class="col-6">
-                                <label for="grupoMaterial">Grupo Material:</label>
-                                <select required id="grupoMaterial" [(ngModel)]="bemUpdate.grupoMaterial" class="form-control"
-                                    name="grupoMaterial" id="grupoMaterial">
-                                    <option value="0">Eletrodoméstico</option>
-                                    <option value="1">Informática</option>
-                                    <option value="2">Didático</option>
-                                    <option value="3">Móveis</option>
-                                </select>
-                            </div>
+              <div class="col-6">
+                <label for="grupoMaterial">Grupo Material:</label>
+                <select required id="grupoMaterial" [(ngModel)]="bemUpdate.grupoMaterial" class="form-control"
+                        name="grupoMaterial" id="grupoMaterial">
+                  <option value="0">Eletrodoméstico</option>
+                  <option value="1">Informática</option>
+                  <option value="2">Didático</option>
+                  <option value="3">Móveis</option>
+                </select>
+              </div>
 
-                            <div class="col-6">
-                                <label for="catDepre">Categoria de Depreciação:</label>
-                                <select required id="catDepre" [(ngModel)]="bemUpdate.catDepre" class="form-control" name="catDepre"
-                                    id="catDepre">
-                                    <option value="0">Bem de Consumo</option>
-                                    <option value="1">Bem Permanente</option>
-                                </select>
-                            </div>
+              <div class="col-6">
+                <label for="catDepre">Categoria de Depreciação:</label>
+                <select required id="catDepre" [(ngModel)]="bemUpdate.catDepre" class="form-control" name="catDepre"
+                        id="catDepre">
+                  <option value="0">Bem de Consumo</option>
+                  <option value="1">Bem Permanente</option>
+                </select>
+              </div>
 
-                            <div class="col-6">
-                                <label for="idSala">Sala:</label>
-                                <select required id="idSala" [(ngModel)]="bemUpdate.idSala" class="form-control" name="idSala"
-                                    id="idSala">
-                                    <option *ngFor="let sala of salas" [value]="sala.id">{{sala.num}} - {{sala.id}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <br>
-
-                        <button class="btn btn-success" (click)="updateBem()">Editar</button>
-                    </form>
-                </div>
+              <div class="col-6">
+                <label for="idSala">Sala:</label>
+                <select required id="idSala" [(ngModel)]="bemUpdate.sala" class="form-control" name="idSala"
+                        id="idSala">
+                  <option *ngFor="let sala of salas" [value]="sala">{{sala.num}} - {{sala.id}}</option>
+                </select>
+              </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
-            </div>
+            <br>
+
+            <button class="btn btn-success" (click)="updateBem()">Editar</button>
+          </form>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalBaixar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle" aria-hidden="true">
+<div class="modal fade" id="modalBaixar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle"
+     aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -252,7 +265,8 @@
 
               <div class="col-6">
                 <label for="dataBaixa">Data da Baixa:</label>
-                <input [(ngModel)]="bemUpdate.dataDaBaixa" class="form-control" type="date" id="dataBaixa" name="dataBaixa">
+                <input [(ngModel)]="bemUpdate.dataDaBaixa" class="form-control" type="date" id="dataBaixa"
+                       name="dataBaixa">
               </div>
 
               <div class="col-6">

@@ -3,7 +3,7 @@ package com.devglan.userportal.Models;
 import com.devglan.userportal.Enums.ProfileEnum;
 
 public class SolicitacaoMovimentacao {
-    private Bem bemPatrimonial;
+    private Bem bem;
     private Sala destino;
     private User solicitante;
 
@@ -12,16 +12,16 @@ public class SolicitacaoMovimentacao {
     }
 
     public boolean isInternalMov() {
-        return this.bemPatrimonial.getSala().getDepartamento()
+        return this.bem.getSala().getDepartamento()
                 .equals(this.destino.getDepartamento());
     }
 
-    public Bem getBemPatrimonial() {
-        return bemPatrimonial;
+    public Bem getBem() {
+        return bem;
     }
 
-    public void setBemPatrimonial(Bem bemPatrimonial) {
-        this.bemPatrimonial = bemPatrimonial;
+    public void setBem(Bem bem) {
+        this.bem = bem;
     }
 
     public Sala getDestino() {

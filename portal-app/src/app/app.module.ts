@@ -15,7 +15,7 @@ import { UsuariosComponent } from './profiles/usuarios/usuarios.component';
 import { ChefeComponent } from './profiles/chefe/chefe.component';
 import { AdminComponent } from './profiles/admin/admin.component';
 import { PesquisarBemComponent } from './funcionalidades/pesquisar-bem/pesquisar-bem.component';
-import { RegistrarMovimentacaoComponent } from './funcionalidades/registrar-movimentacao/registrar-movimentacao.component';
+import { RegistrarMovimentacaoComponent } from './funcionalidades/movimentacao/registrar-movimentacao.component';
 import { BaixarBemComponent } from './funcionalidades/baixar-bem/baixar-bem.component';
 import { CriarDepComponent } from './funcionalidades/cruds/depto/criar-dep/criar-dep.component';
 import { CriarBpComponent } from './funcionalidades/cruds/bp/criar-bp/criar-bp.component';

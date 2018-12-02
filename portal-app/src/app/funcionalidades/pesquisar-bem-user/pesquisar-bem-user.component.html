@@ -35,7 +35,7 @@
           Ver
         </button></td>
         <td><button class="btn btn-primar" (click)="findOne(bem)" data-toggle="modal"
-                    data-target="#modalMov">
+                    data-target="#modalMov" *ngIf="user.departamento.id == bem.sala.departamento.id">
           Reg. Movimentação
         </button></td>
       </tr>

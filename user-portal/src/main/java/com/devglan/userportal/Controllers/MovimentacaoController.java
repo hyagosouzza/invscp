@@ -21,9 +21,9 @@ public class MovimentacaoController {
     @PostMapping(path = "/registrar")
     public boolean create(@RequestBody SolicitacaoMovimentacao solicitacao) {
         Movimentacao mov = new Movimentacao();
-        Bem bemPatrimonial = solicitacao.getBemPatrimonial();
+        Bem bemPatrimonial = solicitacao.getBem();
 
-        mov.setBem(solicitacao.getBemPatrimonial());
+        mov.setBem(solicitacao.getBem());
         mov.setSolicitante(solicitacao.getSolicitante());
         mov.setOrigem(bemPatrimonial.getSala());
         mov.setDestino(solicitacao.getDestino());
