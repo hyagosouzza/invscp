@@ -82,14 +82,6 @@
                                 id="nome">
                         </div>
 
-                        <div class="form-group">
-                            <label for="idPredio">Prédio:</label>
-                            <select required id="idPredio" [(ngModel)]="id_predio" class="form-control" name="idPredio"
-                                id="idPredio">
-                                <option *ngFor="let predio of predios" [value]="predio.id">{{predio.nome}}</option>
-                            </select>
-                        </div>
-
                         <button class="btn btn-success" (click)="updateDepartamento()">Editar</button>
                     </form>
                 </div>

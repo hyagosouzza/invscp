@@ -17,6 +17,10 @@ import { CriarPredioComponent } from './funcionalidades/cruds/predio/criar-predi
 import { PredioComponent } from './funcionalidades/cruds/predio/predio.component';
 import { SalaComponent } from './funcionalidades/cruds/sala/sala.component';
 import { CriarSalaComponent } from './funcionalidades/cruds/sala/criar-sala/criar-sala.component';
+import { EmitirInventarioComponent } from './funcionalidades/emitir-inventario/emitir-inventario.component';
+import { RelatorioComponent } from './funcionalidades/relatorio/relatorio.component';
+import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo-mateiral-por-sala/grupo-mateiral-por-sala.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'anonimo', pathMatch: 'full' },
@@ -35,7 +39,10 @@ const routes: Routes = [
   { path: 'admin/salas', component: SalaComponent },
   { path: 'admin/addsala', component: CriarSalaComponent },
   { path: 'admin/addpredio', component: CriarPredioComponent },
-  { path: 'admin/predios', component: PredioComponent }
+  { path: 'admin/predios', component: PredioComponent },
+  { path: 'admin/invent', component: EmitirInventarioComponent },
+  { path: 'admin/relat', component: RelatorioComponent},
+  { path: 'admin/relat/gm', component: GrupoMateiralPorSalaComponent}
 ];
 
 @NgModule({

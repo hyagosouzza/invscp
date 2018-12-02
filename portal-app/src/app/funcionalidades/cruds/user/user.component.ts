@@ -18,7 +18,6 @@ export class UserComponent implements OnInit {
   userUpdate: User = new User();
   findOneById: any;
   departamentos: Departamento[];
-  id_departamento: string;
 
   constructor(private router: Router, private userService: UserService, private departamentoService: DeptoService) {
 
@@ -39,6 +38,7 @@ export class UserComponent implements OnInit {
     this.userService.findOne(user)
       .subscribe( data => {
         this.findOneById = data;
+        this.userUpdate = this.findOneById;
       })
   };
 
@@ -50,11 +50,6 @@ export class UserComponent implements OnInit {
   };
 
   updateUser(): void {
-    this.userUpdate.id = this.findOneById.id;
-
-    this.userUpdate.departamento =  this.departamentos.find(obj => {
-      return obj.id == this.id_departamento;
-    });
 
     this.userService.updateUser(this.userUpdate)
       .subscribe( data => {

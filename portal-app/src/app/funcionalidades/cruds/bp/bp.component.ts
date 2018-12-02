@@ -64,8 +64,8 @@ export class BpComponent implements OnInit {
     this.bemService.deleteBem(bem)
       .subscribe(data => {
         this.bens = this.bens.filter(u => u !== bem);
-      })
-  };
+      });
+  }
 
   updateBem(): void {
 
@@ -74,8 +74,8 @@ export class BpComponent implements OnInit {
       .subscribe(data => {
         alert('Bem editado!');
         location.reload();
-      })
-  };
+      });
+  }
 
   baixarBem(): void {
 
@@ -83,8 +83,8 @@ export class BpComponent implements OnInit {
       alert("Informe o motivo da baixa.");
       return;
     }
-    let tomorrow = new Date();
-    let today = new Date();
+    const tomorrow = new Date();
+    const today = new Date();
     tomorrow.setDate(today.getDate() + 1);
     this.date = tomorrow.toLocaleDateString('fr-CA');
 
@@ -94,8 +94,8 @@ export class BpComponent implements OnInit {
       .subscribe(data => {
         alert('Bem baixado!');
         location.reload();
-      })
-  };
+      });
+  }
 
   getAdmin(): boolean {
     return this.admin;

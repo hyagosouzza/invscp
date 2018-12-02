@@ -13,7 +13,8 @@
     <div class="dropdown-menu">
       <a class="btn dropdown-item" routerLink="/admin/addbp">Criar Bem Patrimonial</a>
       <a class="btn dropdown-item" routerLink="/admin/bps">Ver Bens</a>
-      <a class="btn dropdown-item" routerLink="">Emitir Inventário</a>
+      <a *ngIf="getAdmin()" class="btn dropdown-item" routerLink="/admin/invent">Emitir Inventário</a>
+      <a class="btn dropdown-item" routerLink="/admin/relat">Relatorios de Bem Patrimonial por Sala</a>
     </div>
   </li>
   <li class="nav-item dropdown">

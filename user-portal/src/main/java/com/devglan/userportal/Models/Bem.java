@@ -38,8 +38,6 @@ public class Bem {
     @Column
     private String denominacao;
     @Enumerated(EnumType.STRING)
-    private CatDepre catDepre;
-    @Enumerated(EnumType.STRING)
     private GrupoMaterialEnum grupoMaterial;
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
@@ -151,14 +149,6 @@ public class Bem {
 
     public void setDenominacao(String denominacao) {
         this.denominacao = denominacao;
-    }
-
-    public CatDepre getCatDepre() {
-        return catDepre;
-    }
-
-    public void setCatDepre(CatDepre catDepre) {
-        this.catDepre = catDepre;
     }
 
     public GrupoMaterialEnum getGrupoMaterial() {

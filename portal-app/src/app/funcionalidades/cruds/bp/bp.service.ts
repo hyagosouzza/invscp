@@ -17,10 +17,16 @@ export class BpService {
   private bemUrlNumTomb = 'http://localhost:8080/user-portal/bens/numTomb';
   private bemUrlMarca = 'http://localhost:8080/user-portal/bens/marca';
   private bemUrlDenomi = 'http://localhost:8080/user-portal/bens/denomi';
+  private bemUrlInvent = 'http://localhost:8080/user-portal/bens/inventario';
+  private bemUrlRelat = 'http://localhost:8080/user-portal/bens/relat';
   //private bemUrl = '/api';
 
   public getBens() {
     return this.http.get<Bem[]>(this.bemUrl);
+  }
+
+  public getInventario(){
+    return this.http.get<Bem[]>(this.bemUrlInvent);
   }
 
   public deleteBem(bem) {
@@ -54,6 +60,10 @@ export class BpService {
 
   public findDenomi(denomi) {
     return this.http.get<Bem[]>(this.bemUrlDenomi + "/"+ denomi);
+  }
+
+  public findAllBySalaGm(sala) {
+    return this.http.get<Bem[]>(this.bemUrlRelat + "/"+ sala);
   }
 
 }

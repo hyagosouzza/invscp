@@ -1,40 +1,36 @@
+<app-admin></app-admin>
 <div>
+  <h2> Iventário dos Bens Patrimoniais</h2>
 
-  <div class="form-group">
-    <label for="pesquisa">Pesquisar Bem Patrimonial</label>
-    <br>
-    <select [(ngModel)]="escolha" class="form-control" name="escolhaBusca" id="escolhaBusca">
-      <option value="numTomb">Número de Tombamento</option>
-      <option value="denomi">Denominação</option>
-      <option value="marca">Marca</option>
-    </select>
-    <br>
-    <input [(ngModel)]="itemPesquisa" type="pesquisa" class="form-control" id="pesquisa" aria-describedby="pesquisaBP" placeholder="Pesquisar Bem Patrimonial">
-  </div>
-  <button (click)="searchBPFilter()" type="submit" class="btn btn-primary">Pesquisar</button>
-
-  <h2> Bens Patrimoniais</h2>
   <table class="table table-striped">
-
     <thead>
-      <tr>
-        <th class="hidden">Id</th>
-        <th>Num. Tombamento</th>
-        <th>Marca</th>
-        <th>Denominação</th>
-      </tr>
+    <tr>
+      <th>Num Tomb.</th>
+      <th>Descrição</th>
+      <th>Grupo Material</th>
+      <th>Sala</th>
+      <th>Data Aquisição</th>
+      <th>Valor de Compra(R$)</th>
+      <th>Valor Atual(R$)</th>
+      <th>Ações</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let bem of bens">
-        <td class="hidden">{{bem.id}}</td>
-        <td>{{bem.numTombamento}}</td>
-        <td>{{bem.marca}}</td>
-        <td>{{bem.denominacao}}</td>
-        <td><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
-                    data-target="#modalVer">
-          Ver
-        </button></td>
-      </tr>
+    <tr *ngFor="let bem of bens">
+      <td>{{bem.numTombamento}}</td>
+      <td>{{bem.denominacao}}</td>
+      <td>{{bem.grupoMaterial}}</td>
+      <td>{{bem.sala.num}} - {{bem.sala.id}}</td>
+      <td>{{bem.dataAquis}}</td>
+      <td>{{bem.valorCompra}}</td>
+      <td>{{bem.valorAtual}}</td>
+
+      <td><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
+                                     data-target="#modalVer">
+        Ver
+      </button>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>
@@ -63,7 +59,7 @@
         <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
         <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
         <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-        <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
+        <p><b>Sala:</b> {{findOneById.sala.num}} - {{findOneById.sala.id}}</p>
         <p><b>Data da Baixa:</b> {{findOneById.dataDaBaixa}}</p>
         <p><b>Motivo da Baixa:</b> {{findOneById.motivoDaBaixa}}</p>
         <p><b>Observações da Baixa:</b> {{findOneById.obsrBaixa}}</p>

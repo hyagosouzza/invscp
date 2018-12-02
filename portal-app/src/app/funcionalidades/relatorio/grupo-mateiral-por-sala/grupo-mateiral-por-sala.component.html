@@ -1,0 +1,64 @@
+<app-admin></app-admin>
+<div>
+  <h2> Lista de Grupo de Materiais</h2>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Grupo de Material</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let gm of gms" >
+      <td>{{gm}}</td>
+
+      <td style="width: 40%"><button class="btn btn-info" data-toggle="modal"
+                                     data-target="#modalVer" (click)="verBens(gm)">
+        Ver Bens Patrimoniais
+      </button>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Bens Patrimoniais</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="bens != null" class="modal-body">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Num. Tomb.</th>
+            <th>Descrição</th>
+            <th>Grupo Material</th>
+            <th>Sala</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let bem of bens">
+            <td *ngIf="bem.grupoMaterial.toString() == gmClick">{{bem.numTombamento}}</td>
+            <td *ngIf="bem.grupoMaterial.toString() == gmClick">{{bem.denominacao}}</td>
+            <td *ngIf="bem.grupoMaterial.toString() == gmClick">{{bem.grupoMaterial}}</td>
+            <td *ngIf="(bem.situacao != 'BAIXADO') && (bem.grupoMaterial.toString() == gmClick)">{{bem.sala.num}} - {{bem.sala.id}}</td>
+            <td *ngIf="(bem.situacao == 'BAIXADO') && (bem.grupoMaterial.toString() == gmClick)">Bem Patrimonial Baixado - Não esta mais nos dominios da instituição</td>
+            <td *ngIf="!(bem.grupoMaterial.toString() == gmClick)"> Não possue Bem Patrimonial com este Material nesta Sala</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>
+
