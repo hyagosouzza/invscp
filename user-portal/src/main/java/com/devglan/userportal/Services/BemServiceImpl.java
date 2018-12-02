@@ -191,7 +191,7 @@ public class BemServiceImpl implements BemService{
         return data;
     }
 
-    private int quantidadeAnosDiferenca(String dataInit, String dataFinish){
+    public int quantidadeAnosDiferenca(String dataInit, String dataFinish){
         int[] data1 = new int[3];
         int[] data2 = new int[3];
         int dias = 0;
@@ -269,7 +269,7 @@ public class BemServiceImpl implements BemService{
         return mes[month - 1];
     }
 
-    private boolean yearIsBisext(int year) {
+    public boolean yearIsBisext(int year) {
         //Ano Bisexto (Regras do Calendário Gregoriano):
         // 1 - Todo ano divisível por 4 é bissexto
         // 2 - Todo ano divisível por 100 não é bissexto
