@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './funcionalidades/cruds/user/user.component';
 import { AppRoutingModule } from './app.routing.module';
 import {UserService} from './funcionalidades/cruds/user/user.service';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
 import {AddUserComponent} from './funcionalidades/cruds/user/add-user.component';
 import { LocalComponent } from './funcionalidades/cruds/local/local.component';
 import { AddLocalComponent } from './funcionalidades/cruds/local/add-local/add-local.component';
@@ -25,11 +25,12 @@ import { SalaComponent } from './funcionalidades/cruds/sala/sala.component';
 import { CriarSalaComponent } from './funcionalidades/cruds/sala/criar-sala/criar-sala.component';
 import { PredioComponent } from './funcionalidades/cruds/predio/predio.component';
 import { CriarPredioComponent } from './funcionalidades/cruds/predio/criar-predio/criar-predio.component';
-import {AnonimoService} from "./profiles/anonimo/anonimo.service";
-import {PesquisarBemUserComponent} from "./funcionalidades/pesquisar-bem-user/pesquisar-bem-user.component";
+import {PesquisarBemUserComponent} from './funcionalidades/pesquisar-bem-user/pesquisar-bem-user.component';
 import { EmitirInventarioComponent } from './funcionalidades/emitir-inventario/emitir-inventario.component';
 import { RelatorioComponent } from './funcionalidades/relatorio/relatorio.component';
 import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo-mateiral-por-sala/grupo-mateiral-por-sala.component';
+import {MovimentacaoEntradaComponent} from './funcionalidades/movimentacao/movimentacao-entrada.component';
+import {MovimentacaoSaidaComponent} from './funcionalidades/movimentacao/movimentacao-saida.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,8 @@ import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo
     EmitirInventarioComponent,
     RelatorioComponent,
     GrupoMateiralPorSalaComponent,
+    MovimentacaoEntradaComponent,
+    MovimentacaoSaidaComponent
   ],
   imports: [
     BrowserModule,

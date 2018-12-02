@@ -60,6 +60,8 @@ public class MovimentacaoController {
         movimentacao.setId(id);
         movimentacao.aceiteSaida(acao.getSolicitante());
 
+        System.out.println(movimentacao.getEtapa());
+
         return movimentacaoService.update(movimentacao) != null;
     }
 

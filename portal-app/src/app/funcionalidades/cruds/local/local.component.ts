@@ -24,22 +24,22 @@ export class LocalComponent implements OnInit {
       .subscribe( data => {
         this.locais = data;
       });
-  };
+  }
 
   findOne(local: Local): void {
     this.localService.findOne(local)
       .subscribe( data => {
         this.findOneById = data;
         this.localUpdate = this.findOneById;
-      })
-  };
+      });
+  }
 
   deleteLocal(local: Local): void {
     this.localService.deleteLocal(local)
       .subscribe( data => {
         this.locais = this.locais.filter(u => u !== local);
-      })
-  };
+      });
+  }
 
   updateLocal(): void {
 
@@ -47,7 +47,6 @@ export class LocalComponent implements OnInit {
       .subscribe( data => {
         alert('Localização editada!');
         location.reload();
-      })
-  };
-
+      });
+  }
 }

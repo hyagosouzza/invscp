@@ -5,12 +5,21 @@ import { BpService } from './bp.service';
 import { SalaService } from '../sala/sala.service';
 import { Sala } from '../../../models/sala.model';
 import { Router } from '@angular/router';
+import {User} from '../../../models/user.model';
+import {Local} from '../../../models/local.model';
+import {Predio} from '../../../models/predio.model';
+import {Departamento} from '../../../models/departamento.model';
+import {SolicitacaoMov} from '../../../models/solicitacao-mov.model';
+import {LocalService} from '../local/local.service';
+import {PredioService} from '../predio/predio.service';
+import {DeptoService} from '../depto/depto.service';
+import {MovimentacaoService} from '../../movimentacao/movimentacao.service';
 
 @Component({
   selector: 'app-bp',
   templateUrl: './bp.component.html',
   styleUrls: ['./bp.component.css'],
-  providers: [BpService, SalaService]
+  providers: [BpService, SalaService, LocalService, PredioService, DeptoService, MovimentacaoService]
 })
 
 export class BpComponent implements OnInit {
@@ -22,17 +31,29 @@ export class BpComponent implements OnInit {
   admin: boolean;
   dateHtml: any;
   date: any;
+  user: User = new User();
+  locais: Local[];
+  predios: Predio[];
+  predios1: Predio[];
+  departamentos: Departamento[];
+  departamentos1: Departamento[];
+  salas1: Sala[];
+  solicitacao: SolicitacaoMov = new SolicitacaoMov();
+  local: Local;
+  departamento: Departamento;
+  predio: Predio;
 
-  constructor(private router: Router, private bemService: BpService, private salaService: SalaService) {
+  constructor(private router: Router, private bemService: BpService, private salaService: SalaService,
+              private localService: LocalService, private predioService: PredioService,
+              private deptoService: DeptoService, private movService: MovimentacaoService) {
 
   }
 
   ngOnInit() {
 
     if (localStorage.length > 0) {
-      let user = JSON.parse(localStorage.getItem('user'));
-      console.log("DENTRO DE BP: " + user.departamento.nome);
-      if (user.departamento.nome == "Departamento de Patrimônio") {
+      this.user = JSON.parse(localStorage.getItem('user'));
+      if (this.user.departamento.nome == 'Departamento de Patrimônio') {
         this.admin = true;
       } else {
         this.admin = false;
@@ -46,7 +67,22 @@ export class BpComponent implements OnInit {
       .subscribe(data => {
         this.salas = data;
       });
-  };
+
+    this.localService.getLocais()
+      .subscribe( data => {
+        this.locais = data;
+      });
+
+    this.predioService.getPredios()
+      .subscribe( data => {
+        this.predios = data;
+      });
+
+    this.deptoService.getDepartamentos()
+      .subscribe( data => {
+        this.departamentos = data;
+      });
+  }
 
   findOne(bem: Bem): void {
 
@@ -56,8 +92,8 @@ export class BpComponent implements OnInit {
       .subscribe(data => {
         this.findOneById = data;
         this.bemUpdate = this.findOneById;
-      })
-  };
+      });
+  }
 
   deleteBem(bem: Bem): void {
 
@@ -80,7 +116,7 @@ export class BpComponent implements OnInit {
   baixarBem(): void {
 
     if (this.bemUpdate.motivoDaBaixa == null) {
-      alert("Informe o motivo da baixa.");
+      alert('Informe o motivo da baixa.');
       return;
     }
     const tomorrow = new Date();
@@ -99,6 +135,43 @@ export class BpComponent implements OnInit {
 
   getAdmin(): boolean {
     return this.admin;
+  }
+
+  filterPredio(): void {
+    this.predios1 = this.predios.filter(prd => {
+      return prd.local.id === this.local.id;
+    });
+  }
+
+  filterDepto(): void {
+    console.table(this.departamentos);
+    console.log(this.predio);
+    this.departamentos1 = this.departamentos.filter(dpt => {
+      if (dpt.predio) {
+        return dpt.predio.id === this.predio.id;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  filterSala(): void {
+    this.salas1 = this.salas.filter(sl => {
+      return sl.departamento.id === this.departamento.id;
+    });
+  }
+
+  registrarMovimentacao(): void {
+    this.solicitacao.bem = this.findOneById;
+    this.solicitacao.solicitante = JSON.parse(localStorage.getItem('user'));
+    console.log(this.solicitacao);
+    this.movService.registrarMovimentacao(this.solicitacao).subscribe(data => {
+      if (data) {
+        alert('Movimentação registrada.');
+      } else {
+        alert('Erro na movimentação');
+      }
+    });
   }
 
 }

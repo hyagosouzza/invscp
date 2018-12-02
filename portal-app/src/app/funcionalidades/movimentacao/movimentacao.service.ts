@@ -26,4 +26,15 @@ export class MovimentacaoService {
     return this.http.post(this.movUrl + '/registrar', solicitacao);
   }
 
+  public aceiteEntrada(acao) {
+    return this.http.put(this.movUrl + '/aceite-entrada/' + acao.movimentacao.id, acao);
+  }
+
+  public aceiteSaida(acao) {
+    return this.http.put(this.movUrl + '/aceite-saida/' + acao.movimentacao.id, acao);
+  }
+
+  public findOne(mov) {
+    return this.http.get(this.movUrl + '/' + mov.id);
+  }
 }

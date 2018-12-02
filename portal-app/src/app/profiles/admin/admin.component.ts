@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-admin',
@@ -9,19 +10,19 @@ import { Router } from '@angular/router';
 export class AdminComponent implements OnInit {
 
   admin: boolean;
+  user: User = new User();
 
   constructor(private router: Router) { }
 
   ngOnInit() {
     if (localStorage.length > 0) {
-      let user = JSON.parse(localStorage.getItem('user'));
-      //console.log(user);
-      if (user.departamento.nome == "Departamento de Patrimônio"){
+      this.user = JSON.parse(localStorage.getItem('user'));
+      if (this.user.departamento.nome == 'Departamento de Patrimônio'){
         this.admin = true;
       } else {
         this.admin = false;
       }
-      if (user.profile != 'CHEFE_DEPART') {
+      if (this.user.profile != 'CHEFE_DEPART') {
         this.router.navigate(['/usuarios']);
       }
     } else {

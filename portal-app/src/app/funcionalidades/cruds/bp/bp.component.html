@@ -31,6 +31,11 @@
           Editar
         </button>
 
+        <button class="btn btn-primar" (click)="findOne(bem)" data-toggle="modal"
+                data-target="#modalMov" *ngIf="user.departamento.id == bem.sala.departamento.id">
+          Reg. Movimentação
+        </button>
+
         <button *ngIf="(bem.situacao != 'BAIXADO') && (getAdmin())" type="button" class="btn btn-warning"
                 (click)="findOne(bem)" data-toggle="modal" data-target="#modalBaixar">
           Baixar
@@ -272,6 +277,54 @@
         </div>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalMov" tabindex="-1" role="dialog" aria-labelledby="modalMovTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMovTitle">Registrar Movimentação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <form>
+            <div class="form-group">
+              <label for="Local">Localização Destino:</label>
+              <select required id="Local" [(ngModel)]="local" class="form-control" name="Local"
+                      (change)="filterPredio()">
+                <option *ngFor="let lcl of locais" [ngValue]="lcl">{{lcl.nome}}</option>
+              </select>
+
+              <label for="Predio">Predio Destino:</label>
+              <select required id="Predio" [(ngModel)]="predio" class="form-control" name="Predio"
+                      (change)="filterDepto()">
+                <option *ngFor="let prd of predios1" [ngValue]="prd">{{prd.nome}}</option>
+              </select>
+
+              <label for="Depto">Departamento Destino:</label>
+              <select required id="Depto" [(ngModel)]="departamento" class="form-control" name="Depto"
+                      (change)="filterSala()">
+                <option *ngFor="let dpt of departamentos1" [ngValue]="dpt">{{dpt.nome}}</option>
+              </select>
+
+              <label for="Sala">Sala Destino:</label>
+              <select required id="Sala" [(ngModel)]="solicitacao.destino" class="form-control" name="Sala">
+                <option *ngFor="let sl of salas1" [ngValue]="sl">{{sl.num}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="registrarMovimentacao()">Registrar</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
       </div>
     </div>
