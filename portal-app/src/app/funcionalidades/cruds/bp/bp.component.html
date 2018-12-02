@@ -8,7 +8,7 @@
       <th>ID</th>
       <th>Descrição</th>
       <th>Grupo Material</th>
-      <th>ID da Sala</th>
+      <th>Sala</th>
       <th>Ações</th>
     </tr>
     </thead>
@@ -17,28 +17,22 @@
       <td>{{bem.id}}</td>
       <td>{{bem.denominacao}}</td>
       <td>{{bem.grupoMaterial}}</td>
-      <td>{{bem.sala.num}}</td>
+      <td *ngIf="bem.situacao != 'BAIXADO'">{{bem.sala.num}} - {{bem.sala.id}}</td>
+      <td *ngIf="bem.situacao == 'BAIXADO'">Bem Patrimonial Baixado - Não esta mais nos dominios da
+        instituição</td>
 
-      <td style="width: 40%">
-        <button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
-                data-target="#modalVer">
-          Ver
-        </button>
+      <td style="width: 40%"><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
+                                     data-target="#modalVer">
+        Ver
+      </button>
 
         <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-primary" (click)="findOne(bem)"
-                data-toggle="modal"
-                data-target="#modalEditar">
+                data-toggle="modal" data-target="#modalEditar">
           Editar
         </button>
 
-        <button class="btn btn-primar" (click)="findOne(bem)" data-toggle="modal"
-                data-target="#modalMov" *ngIf="user.departamento.id == bem.sala.departamento.id">
-          Reg. Movimentação
-        </button>
-
-        <button *ngIf="bem.situacao != 'BAIXADO'" type="button" class="btn btn-warning" (click)="findOne(bem)"
-                data-toggle="modal"
-                data-target="#modalBaixar">
+        <button *ngIf="(bem.situacao != 'BAIXADO') && (getAdmin())" type="button" class="btn btn-warning"
+                (click)="findOne(bem)" data-toggle="modal" data-target="#modalBaixar">
           Baixar
         </button>
 
@@ -63,7 +57,7 @@
         <p><b>ID:</b> {{findOneById.id}}</p>
         <p><b>Situação:</b> {{findOneById.situacao}}</p>
         <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
-        <p><b>Espeficicação:</b> {{findOneById.especificacao}}</p>
+        <p><b>Especificação:</b> {{findOneById.especificacao}}</p>
         <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
         <p><b>Marca:</b> {{findOneById.marca}}</p>
         <p><b>Garantia:</b> {{findOneById.garantia}}</p>
@@ -73,8 +67,7 @@
         <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
         <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
         <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-        <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
-        <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
+        <p><b>Sala:</b> {{findOneById.sala.num}} - {{findOneById.sala.id}}</p>
         <p><b>Data da Baixa:</b> {{findOneById.dataDaBaixa}}</p>
         <p><b>Motivo da Baixa:</b> {{findOneById.motivoDaBaixa}}</p>
         <p><b>Observações da Baixa:</b> {{findOneById.obsrBaixa}}</p>
@@ -87,8 +80,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle"
-     aria-hidden="true">
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -101,7 +93,7 @@
         <div *ngIf="findOneById != null">
           <p><b>ID:</b> {{findOneById.id}}</p>
           <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
-          <p><b>Espeficicação:</b> {{findOneById.espeficicacao}}</p>
+          <p><b>Especificação:</b> {{findOneById.especificacao}}</p>
           <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
           <p><b>Marca:</b> {{findOneById.marca}}</p>
           <p><b>Garantia:</b> {{findOneById.garantia}}</p>
@@ -110,8 +102,7 @@
           <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
           <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
           <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-          <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
-          <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
+          <p><b>Sala:</b> {{findOneById.sala.num}} - {{findOneById.sala.id}}</p>
         </div>
         <hr>
         <h3 align="center">Editar</h3>
@@ -126,8 +117,7 @@
               <div class="col-6">
                 <label for="denominacao">Denominação:</label>
                 <input [(ngModel)]="bemUpdate.denominacao" placeholder="Denominação" name="denominacao"
-                       class="form-control"
-                       id="denominacao" required>
+                       class="form-control" id="denominacao" required>
               </div>
 
               <div class="col-12">
@@ -144,13 +134,14 @@
 
               <div class="col-6">
                 <label for="marca">Marca:</label>
-                <input [(ngModel)]="bemUpdate.marca" placeholder="Marca" name="marca" class="form-control" id="marca"
-                       required>
+                <input [(ngModel)]="bemUpdate.marca" placeholder="Marca" name="marca" class="form-control"
+                       id="marca" required>
               </div>
 
               <div class="col-6">
                 <label for="garantia">Garantia:</label>
-                <input [(ngModel)]="bemUpdate.garantia" class="form-control" type="date" id="garantia" name="garantia">
+                <input [(ngModel)]="bemUpdate.garantia" class="form-control" type="date" id="garantia"
+                       name="garantia">
               </div>
 
               <div class="col-12">
@@ -162,13 +153,13 @@
               <div class="col-6">
                 <label for="valorCompra">Valor da Compra:</label>
                 <input type="number" [(ngModel)]="bemUpdate.valorCompra" placeholder="Valor da Compra"
-                       name="valorCompra"
-                       class="form-control" id="valorCompra" required>
+                       name="valorCompra" class="form-control" id="valorCompra" required>
               </div>
 
               <div class="col-6">
                 <label for="vidaUtil">Vida Útil:</label>
-                <input [(ngModel)]="bemUpdate.vidaUtil" class="form-control" type="date" id="vidaUtil" name="vidaUtil">
+                <input [(ngModel)]="bemUpdate.vidaUtil" class="form-control" type="date" id="vidaUtil"
+                       name="vidaUtil">
               </div>
 
               <div class="col-6">
@@ -192,25 +183,13 @@
                   <option value="1">Informática</option>
                   <option value="2">Didático</option>
                   <option value="3">Móveis</option>
+                  <option value="4">Ferramenta</option>
+                  <option value="5">Máquina ou equipamento industrial</option>
+                  <option value="6">Veículo leve</option>
+                  <option value="7">Veículo Pesado</option>
                 </select>
               </div>
 
-              <div class="col-6">
-                <label for="catDepre">Categoria de Depreciação:</label>
-                <select required id="catDepre" [(ngModel)]="bemUpdate.catDepre" class="form-control" name="catDepre"
-                        id="catDepre">
-                  <option value="0">Bem de Consumo</option>
-                  <option value="1">Bem Permanente</option>
-                </select>
-              </div>
-
-              <div class="col-6">
-                <label for="idSala">Sala:</label>
-                <select required id="idSala" [(ngModel)]="bemUpdate.sala" class="form-control" name="idSala"
-                        id="idSala">
-                  <option *ngFor="let sala of salas" [value]="sala">{{sala.num}} - {{sala.id}}</option>
-                </select>
-              </div>
             </div>
             <br>
 
@@ -226,8 +205,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalBaixar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle"
-     aria-hidden="true">
+<div class="modal fade" id="modalBaixar" tabindex="-1" role="dialog" aria-labelledby="modalEditarTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -250,7 +228,6 @@
           <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
           <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
           <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
-          <p><b>Categoria de Depreciação:</b> {{findOneById.catDepre}}</p>
           <p><b>ID da Sala:</b> {{findOneById.idSala}}</p>
         </div>
         <hr>
@@ -263,10 +240,8 @@
                 <hr>
               </div>
 
-              <div class="col-6">
-                <label for="dataBaixa">Data da Baixa:</label>
-                <input [(ngModel)]="bemUpdate.dataDaBaixa" class="form-control" type="date" id="dataBaixa"
-                       name="dataBaixa">
+              <div class="col-12">
+                <b>Data da Baixa</b>: {{dateHtml}}
               </div>
 
               <div class="col-6">
@@ -281,11 +256,11 @@
                 <select required id="motivoBaixa" [(ngModel)]="bemUpdate.motivoDaBaixa" class="form-control"
                         name="motivoBaixa" id="motivoBaixa">
                   <option value="0">Inservível</option>
-                  <option value="1">Quebra, desgaste ou avaria</option>
+                  <option value="1" selected="true">Quebra, desgaste ou avaria</option>
                   <option value="2">Venda em exercícios anteriores</option>
                   <option value="3">Extravio</option>
-                  <option value="4">Venda direta ou leilão</option>
-                  <option value="5">Rurto/Roubo</option>
+                  <option value="5">Venda direta ou leilão</option>
+                  <option value="4">Rurto/Roubo</option>
                 </select>
               </div>
 
@@ -302,4 +277,3 @@
     </div>
   </div>
 </div>
-

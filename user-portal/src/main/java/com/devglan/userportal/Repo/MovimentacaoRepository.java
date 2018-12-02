@@ -24,5 +24,5 @@ public interface MovimentacaoRepository extends Repository<Movimentacao, Integer
 
     Movimentacao findOne(int id);
 
-    Movimentacao save(Movimentacao mov);    
+    Movimentacao save(Movimentacao mov);
 }
