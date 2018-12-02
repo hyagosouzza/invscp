@@ -115,6 +115,7 @@ public class BemServiceImpl implements BemService{
         String dataAtual;
         int quantAnos;
         float valorAtual;
+        float valorCompra;
 
         for(int contador = 0; contador < listaTotal.size(); contador ++){
             sit = listaTotal.get(contador).getSituacao();
@@ -126,33 +127,35 @@ public class BemServiceImpl implements BemService{
                 quantAnos = quantAnos - 1;
                 mat = listaTotal.get(contador).getGrupoMaterial();
                 materialStr = mat.toString();
+                valorCompra = listaTotal.get(contador).getValorCompra();
                 valorAtual = listaTotal.get(contador).getValorCompra();
-                if (quantAnos < 1){
-                    listaTotal.get(contador).setValorAtual(listaTotal.get(contador).getValorCompra());
-                } else {
-                    for (int contador2 = 1; contador2 <= quantAnos; contador2++) {
-                        if ((materialStr.equals("ELETRO")) || (materialStr.equals("MOVEIS")) || (materialStr.equals("DIDATICO"))) {
-                            valorAtual = (valorAtual - (valorAtual / 10));
-                            listaTotal.get(contador).setValorAtual(valorAtual);
-                        } else if ((materialStr.equals("INFORMATICA"))) {
-                            valorAtual = (valorAtual - (valorAtual / 5));
-                            listaTotal.get(contador).setValorAtual(valorAtual);
-                        } else if ((materialStr.equals("FERRAMENTA"))) {
-                            valorAtual = (valorAtual - (valorAtual / 10));
-                            listaTotal.get(contador).setValorAtual(valorAtual);
-                        } else if ((materialStr.equals("EQUIPAMENTO_INDUSTRIAL"))) {
-                            valorAtual = (valorAtual - (valorAtual / 10));
-                            listaTotal.get(contador).setValorAtual(valorAtual);
-                        } else if ((materialStr.equals("VEICULO_LEVE")) || (materialStr.equals("VEICULO_PESADO"))) {
-                            valorAtual = (valorAtual - (valorAtual / 5));
-                            listaTotal.get(contador).setValorAtual(valorAtual);
-                        }
-                    }
-                }
+                calculoDepcreciacao(valorCompra, valorAtual, materialStr, quantAnos);
+                listaTotal.get(contador).setValorAtual(valorAtual);
                 listaFiltrada.add(listaTotal.get(contador));
             }
         }
         return listaFiltrada;
+    }
+
+    public float calculoDepcreciacao(float valorCompra, float valorAtual, String materialStr, int quantAnos){
+        if (quantAnos < 1){
+            valorAtual = valorCompra;
+        } else {
+            for (int contador2 = 1; contador2 <= quantAnos; contador2++) {
+                if ((materialStr.equals("ELETRO")) || (materialStr.equals("MOVEIS")) || (materialStr.equals("DIDATICO"))) {
+                    valorAtual = (valorAtual - (valorAtual / 10));
+                } else if ((materialStr.equals("INFORMATICA"))) {
+                    valorAtual = (valorAtual - (valorAtual / 5));
+                } else if ((materialStr.equals("FERRAMENTA"))) {
+                    valorAtual = (valorAtual - (valorAtual / 10));
+                } else if ((materialStr.equals("EQUIPAMENTO_INDUSTRIAL"))) {
+                    valorAtual = (valorAtual - (valorAtual / 10));
+                } else if ((materialStr.equals("VEICULO_LEVE")) || (materialStr.equals("VEICULO_PESADO"))) {
+                    valorAtual = (valorAtual - (valorAtual / 5));
+                }
+            }
+        }
+        return valorAtual;
     }
 
     private String dataAquisFormat(Date dataAquis) throws ParseException {
@@ -247,7 +250,7 @@ public class BemServiceImpl implements BemService{
         return anos;
     }
 
-    private int getDaysMonth(int month, int year) {
+    public int getDaysMonth(int month, int year) {
         //O ano valor do ano será usado para verificar se o ano é bisexto
         int[] mes = new int[12];
         mes[0] = 31;
