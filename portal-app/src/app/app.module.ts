@@ -32,6 +32,7 @@ import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo
 import {MovimentacaoEntradaComponent} from './funcionalidades/movimentacao/movimentacao-entrada.component';
 import {MovimentacaoSaidaComponent} from './funcionalidades/movimentacao/movimentacao-saida.component';
 import { GuiaComponent } from './funcionalidades/guia/guia.component';
+import { PesquisarBensComponent } from './funcionalidades/cruds/bp/pesquisar-bens/pesquisar-bens.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { GuiaComponent } from './funcionalidades/guia/guia.component';
     GrupoMateiralPorSalaComponent,
     MovimentacaoEntradaComponent,
     MovimentacaoSaidaComponent,
-    GuiaComponent
+    GuiaComponent,
+    PesquisarBensComponent
   ],
   imports: [
     BrowserModule,
