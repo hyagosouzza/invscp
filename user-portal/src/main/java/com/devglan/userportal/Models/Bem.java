@@ -100,11 +100,7 @@ public class Bem {
     }
 
     public String getMarca() {
-        if (marca != null) {
             return marca;
-        } else {
-            return "";
-        }
     }
 
     public void setMarca(String marca) {
@@ -112,11 +108,7 @@ public class Bem {
     }
 
     public String getNumNotaFiscal() {
-        if (numNotaFiscal != null) {
             return numNotaFiscal;
-        } else {
-            return "";
-        }
     }
 
     public void setNumNotaFiscal(String numNotaFiscal) {
@@ -124,11 +116,7 @@ public class Bem {
     }
 
     public String getNumTombamento() {
-        if (numTombamento != null) {
             return numTombamento;
-        } else {
-            return "";
-        }
     }
 
     public void setNumTombamento(String numTombamento) {

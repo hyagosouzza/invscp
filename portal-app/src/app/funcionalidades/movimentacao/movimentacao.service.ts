@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Movimentacao} from '../../models/movimentacao.model';
+import {MovimentacaoResponse} from '../../models/mov-response';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,7 +24,7 @@ export class MovimentacaoService {
   }
 
   public registrarMovimentacao(solicitacao) {
-    return this.http.post(this.movUrl + '/registrar', solicitacao);
+    return this.http.post<MovimentacaoResponse>(this.movUrl + '/registrar', solicitacao);
   }
 
   public aceiteEntrada(acao) {

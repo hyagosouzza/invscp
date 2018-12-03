@@ -14,6 +14,7 @@ import {LocalService} from '../local/local.service';
 import {PredioService} from '../predio/predio.service';
 import {DeptoService} from '../depto/depto.service';
 import {MovimentacaoService} from '../../movimentacao/movimentacao.service';
+import {MovimentacaoResponse} from '../../../models/mov-response';
 
 @Component({
   selector: 'app-bp',
@@ -166,10 +167,12 @@ export class BpComponent implements OnInit {
     this.solicitacao.solicitante = JSON.parse(localStorage.getItem('user'));
     console.log(this.solicitacao);
     this.movService.registrarMovimentacao(this.solicitacao).subscribe(data => {
-      if (data !== '500') {
-        alert('Movimentação registrada.');
-        if (data.toString().includes('html')) {
-          // TODO: chamar html em nova guia
+      let response: MovimentacaoResponse;
+      response = data;
+      if (response.success) {
+        alert('Movimentação registrada!');
+        if (response.crossCity) {
+          // TODO: Chamar página com o conteúdo do atributo "html"
         }
       } else {
         alert('Erro na movimentação');

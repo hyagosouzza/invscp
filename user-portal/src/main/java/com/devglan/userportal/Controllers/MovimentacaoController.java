@@ -25,7 +25,8 @@ public class MovimentacaoController {
     private BemService bemPatrimonialService;
 
     @PostMapping(path = "/registrar")
-    public String create(@RequestBody SolicitacaoMovimentacao solicitacao) {
+    public MovimentacaoResponse create(@RequestBody SolicitacaoMovimentacao solicitacao) {
+        MovimentacaoResponse response = new MovimentacaoResponse();
         Movimentacao mov = new Movimentacao();
         Bem bemPatrimonial = solicitacao.getBem();
 
@@ -47,14 +48,15 @@ public class MovimentacaoController {
             bemPatrimonial.setSala(solicitacao.getDestino());
 
             if (movimentacaoService.update(mov) != null) {
-                return "100";
+                response.setSuccess(true);
             } else {
-                return "500";
+                response.setSuccess(false);
             }
         }
 
         if (movimentacaoService.create(mov) != null) {
             // RF 6 - Emitir guia de autorização de transporte
+            response.setSuccess(true);
             if (solicitacao.isCrossCity()) {
                 try {
                     BufferedReader rd = new BufferedReader(new FileReader("./guia_autorizacao.html"));
@@ -68,19 +70,20 @@ public class MovimentacaoController {
                     retorno = retorno.replace("&numero_tombamento&", bemPatrimonial.getNumTombamento());
                     retorno = retorno.replace("&numero_nf&", bemPatrimonial.getNumNotaFiscal());
 
-                    return retorno;
+                    response.setCrossCity(true);
+                    response.setHtml(retorno);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                return "100";
+                response.setSuccess(true);
             }
         } else {
-            return "500";
+            response.setSuccess(false);
         }
-        return "500";
+        return response;
     }
 
     @GetMapping(path = {"/{id}"})
