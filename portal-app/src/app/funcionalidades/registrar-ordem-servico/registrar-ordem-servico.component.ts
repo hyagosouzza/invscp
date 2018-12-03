@@ -6,7 +6,8 @@ import { OrdemServicoService } from './ordem-servico.service';
 @Component({
   selector: 'app-registrar-ordem-servico',
   templateUrl: './registrar-ordem-servico.component.html',
-  styleUrls: ['./registrar-ordem-servico.component.css']
+  styleUrls: ['./registrar-ordem-servico.component.css'],
+  providers: [OrdemServicoService, BpService]
 })
 export class RegistrarOrdemServicoComponent implements OnInit {
 
@@ -23,14 +24,15 @@ export class RegistrarOrdemServicoComponent implements OnInit {
 
   buscarBem() {
     this._bemService.findById(this.id).subscribe(data => {
+      console.log(data);
       this.findById = data;
+      if(String(this.findById.situacao) == 'INCORPORADO') {
+        this.bool = true;
+        this.ordemServico.bem = this.findById; 
+      } else {
+        this.bool = false;
+      }
     });
-    if(this.findById.situacao == 'INCORPORADO') {
-      this.bool = true;
-      this.ordemServico.bem = this.findById; 
-    } else {
-      this.bool = false;
-    }
   }
 
   criarOrdem() {

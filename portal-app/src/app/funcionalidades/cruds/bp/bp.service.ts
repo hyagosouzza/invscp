@@ -44,7 +44,7 @@ export class BpService {
   }
 
   public findById(id: String) {
-    return this.http.get(this.bemUrl + "/"+ id);
+    return this.http.get<Bem>(this.bemUrl + "/"+ id);
   }
 
   public findNumTomb(numTomb) {

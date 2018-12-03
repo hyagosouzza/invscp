@@ -34,6 +34,11 @@ public class BemController {
     public Bem findOne(@PathVariable("id") int id){
         return bemService.findById(id);
     }
+    
+   /* @GetMapping(path = {"historico/{id}"})
+    public Bem historico(@PathVariable("id") int id){
+        return bemService.findById(id);
+    }*/
 
     @PutMapping(path = {"/{id}"})
     public Bem update(@PathVariable("id") int id, @RequestBody Bem bem){
