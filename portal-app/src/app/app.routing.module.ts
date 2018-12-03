@@ -22,6 +22,7 @@ import { RelatorioComponent } from './funcionalidades/relatorio/relatorio.compon
 import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo-mateiral-por-sala/grupo-mateiral-por-sala.component';
 import {MovimentacaoEntradaComponent} from './funcionalidades/movimentacao/movimentacao-entrada.component';
 import {MovimentacaoSaidaComponent} from './funcionalidades/movimentacao/movimentacao-saida.component';
+import { GuiaComponent } from './funcionalidades/guia/guia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'anonimo', pathMatch: 'full' },
@@ -45,7 +46,8 @@ const routes: Routes = [
   { path: 'admin/relat', component: RelatorioComponent},
   { path: 'admin/relat/gm', component: GrupoMateiralPorSalaComponent},
   { path: 'admin/entradas', component: MovimentacaoEntradaComponent},
-  { path: 'admin/saidas', component: MovimentacaoSaidaComponent}
+  { path: 'admin/saidas', component: MovimentacaoSaidaComponent},
+  { path: 'admin/guia', component: GuiaComponent}
 ];
 
 @NgModule({

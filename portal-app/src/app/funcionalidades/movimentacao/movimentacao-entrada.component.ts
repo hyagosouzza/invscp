@@ -16,7 +16,7 @@ export class MovimentacaoEntradaComponent implements OnInit {
   user: User = new User();
   entradas: Movimentacao[];
   findOneById: any;
-  motivo: string;
+  motivo: string = '';
 
   constructor(private router: Router, private movService: MovimentacaoService) {
 
@@ -40,18 +40,34 @@ export class MovimentacaoEntradaComponent implements OnInit {
     this.movService.aceiteEntrada(acao).subscribe(data => {
       if (data) {
         alert('Movimentação aprovada!');
+        location.reload();
       } else {
         alert('Erro na aprovação');
+        location.reload();
       }
     });
   }
 
   cancelar(movimentacao) {
+    console.log(this.motivo);
+    if(this.motivo == '') {
+      alert("O motivo do cancelamento é obrigatório.");
+      return;
+    }
     const acao = new AcaoMovimentacao();
     acao.movimentacao = movimentacao;
     acao.movimentacao.motivoCancelamento = this.motivo;
     acao.solicitante = this.user;
-    this.movService.cancelar(acao);
+    this.movService.cancelar(acao).subscribe(data => {
+      if (data) {
+        alert('Movimentação cancelada!');
+        location.reload();
+      } else {
+        alert('Erro no cancelamento');
+        location.reload();
+      }
+    });
+    this.motivo = '';
   }
 
   findOne(mov: Movimentacao): void {

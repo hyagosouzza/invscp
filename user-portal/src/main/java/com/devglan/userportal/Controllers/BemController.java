@@ -28,7 +28,7 @@ public class BemController {
     @PostMapping
     public Bem create(@RequestBody Bem bem){
         if(bem.getSala() == null) {
-            bem.setSala(salaService.findById(3));
+            bem.setSala(salaService.findById(17));
         }
         bem.setSituacao(INCORPORADO);
         return bemService.create(bem);

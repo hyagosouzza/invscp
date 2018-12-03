@@ -29,6 +29,10 @@ export class CriarSalaComponent implements OnInit {
   };
 
   createSala(): void {
+    if(this.sala.departamento == null || this.sala.num == null || this.sala.num == '') {
+      alert('Todos os campos devem ser preenchidos!');
+      return;
+    }
 
     this.salaService.createSala(this.sala)
       .subscribe(data => {

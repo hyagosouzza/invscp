@@ -23,7 +23,7 @@ export class AdminComponent implements OnInit {
         this.admin = false;
       }
       // @ts-ignore
-      if (this.user.profile != 'CHEFE_DEPART') {
+      if (String(this.user.profile) != 'CHEFE_DEPART') {
         this.router.navigate(['/usuarios']);
       }
     } else {

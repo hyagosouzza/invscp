@@ -88,7 +88,6 @@ export class BpComponent implements OnInit {
   findOne(bem: Bem): void {
 
     this.dateHtml = new Date().toLocaleDateString('pt-BR');
-    console.log();
     this.bemService.findOne(bem)
       .subscribe(data => {
         this.findOneById = data;
@@ -163,6 +162,10 @@ export class BpComponent implements OnInit {
   }
 
   registrarMovimentacao(): void {
+    if(this.solicitacao.destino == null) {
+        alert("Todos os campos devem ser preenchidos.");
+        return;
+      }
     this.solicitacao.bem = this.findOneById;
     this.solicitacao.solicitante = JSON.parse(localStorage.getItem('user'));
     console.log(this.solicitacao);
@@ -172,10 +175,12 @@ export class BpComponent implements OnInit {
       if (response.success) {
         alert('Movimentação registrada!');
         if (response.crossCity) {
-          // TODO: Chamar página com o conteúdo do atributo "html"
+          localStorage.setItem('guia', response.html);
+          window.location.href = 'http://localhost:4200/admin/guia';
         }
       } else {
         alert('Erro na movimentação');
+        location.reload();
       }
     });
   }

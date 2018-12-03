@@ -31,6 +31,7 @@ import { RelatorioComponent } from './funcionalidades/relatorio/relatorio.compon
 import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo-mateiral-por-sala/grupo-mateiral-por-sala.component';
 import {MovimentacaoEntradaComponent} from './funcionalidades/movimentacao/movimentacao-entrada.component';
 import {MovimentacaoSaidaComponent} from './funcionalidades/movimentacao/movimentacao-saida.component';
+import { GuiaComponent } from './funcionalidades/guia/guia.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import {MovimentacaoSaidaComponent} from './funcionalidades/movimentacao/movimen
     RelatorioComponent,
     GrupoMateiralPorSalaComponent,
     MovimentacaoEntradaComponent,
-    MovimentacaoSaidaComponent
+    MovimentacaoSaidaComponent,
+    GuiaComponent
   ],
   imports: [
     BrowserModule,

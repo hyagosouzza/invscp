@@ -59,7 +59,7 @@ public class MovimentacaoController {
             response.setSuccess(true);
             if (solicitacao.isCrossCity()) {
                 try {
-                    BufferedReader rd = new BufferedReader(new FileReader("./guia_autorizacao.html"));
+                    BufferedReader rd = new BufferedReader(new FileReader("C:\\Users\\hyago\\Desktop\\invscp\\user-portal\\src\\main\\resources\\guia_autorizacao.html"));
                     String retorno = IOUtils.toString(rd);
                     retorno = retorno.replace("&cidade_origem&", bemPatrimonial.getLocal().getCidade());
                     retorno = retorno.replace("&estado_origem&", bemPatrimonial.getLocal().getEstado());
@@ -72,6 +72,7 @@ public class MovimentacaoController {
 
                     response.setCrossCity(true);
                     response.setHtml(retorno);
+                    rd.close();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -98,7 +99,9 @@ public class MovimentacaoController {
 
         movimentacao.setId(id);
         movimentacao.setUserCancelamento(acao.getSolicitante());
+        movimentacao.setEtapa(Etapa.CANCELADA);
         movimentacao.setDataCancelamento(new Date());
+        movimentacao.setMotivoCancelamento(acao.getMovimentacao().getMotivoCancelamento());
 
         return movimentacaoService.update(movimentacao) != null;
     }

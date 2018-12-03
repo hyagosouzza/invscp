@@ -34,8 +34,9 @@ export class AddUserComponent implements OnInit{
   }
 
   createUser(): void {
-    if(this.user.email == null || this.user.senha == null) {
-      alert("Os campos email e senha devem ser preenchidos!");
+    if(this.user.email == null || this.user.senha == null || this.user.departamento == null
+      || this.user.email == '' || this.user.senha == '') {
+      alert("Os campos email, senha e departamento devem ser preenchidos!");
       return;
     }
     for (let i in this.users) {

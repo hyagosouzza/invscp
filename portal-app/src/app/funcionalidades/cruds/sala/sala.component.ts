@@ -12,7 +12,7 @@ import { Sala } from '../../../models/sala.model';
 })
 export class SalaComponent implements OnInit {
 
-  salas: any;
+  salas: Sala[];
   salaUpdate: Sala = new Sala();
   findOneById: any;
 

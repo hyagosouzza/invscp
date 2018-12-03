@@ -156,4 +156,12 @@ public class Movimentacao {
     public void setUserCancelamento(User userCancelamento) {
         this.userCancelamento = userCancelamento;
     }
+
+    public String getMotivoCancelamento() {
+        return motivoCancelamento;
+    }
+
+    public void setMotivoCancelamento(String motivoCancelamento) {
+        this.motivoCancelamento = motivoCancelamento;
+    }
 }

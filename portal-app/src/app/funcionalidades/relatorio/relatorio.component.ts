@@ -12,7 +12,7 @@ import {Sala} from '../../models/sala.model';
 })
 export class RelatorioComponent implements OnInit {
 
-  salas: Sala[];
+  salas: any;
   depart: String;
   salaEscolha: String;
 

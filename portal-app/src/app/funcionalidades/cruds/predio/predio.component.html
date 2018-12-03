@@ -21,11 +21,11 @@
                         data-target="#modalVer">
                         Ver
                     </button>
-                    <button type="button" class="btn btn-primary" (click)="findOne(predio)" data-toggle="modal"
+                    <button *ngIf="predio.id != 6"  type="button" class="btn btn-primary" (click)="findOne(predio)" data-toggle="modal"
                         data-target="#modalEditar">
                         Editar
                     </button>
-                    <button class="btn btn-danger" (click)="deletePredio(predio)"> Deletar</button>
+                    <button *ngIf="predio.id != 6" class="btn btn-danger" (click)="deletePredio(predio)"> Deletar</button>
                 </td>
             </tr>
         </tbody>
