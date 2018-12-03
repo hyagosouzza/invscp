@@ -3,7 +3,6 @@ package com.devglan.userportal.Models;
 import com.devglan.userportal.Enums.ProfileEnum;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "user")

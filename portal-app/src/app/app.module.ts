@@ -27,6 +27,8 @@ import { PredioComponent } from './funcionalidades/cruds/predio/predio.component
 import { CriarPredioComponent } from './funcionalidades/cruds/predio/criar-predio/criar-predio.component';
 import {AnonimoService} from "./profiles/anonimo/anonimo.service";
 import {PesquisarBemUserComponent} from "./funcionalidades/pesquisar-bem-user/pesquisar-bem-user.component";
+import { RegistrarOrdemServicoComponent } from './funcionalidades/registrar-ordem-servico/registrar-ordem-servico.component';
+import { BpService } from './funcionalidades/cruds/bp/bp.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import {PesquisarBemUserComponent} from "./funcionalidades/pesquisar-bem-user/pe
     SalaComponent,
     CriarSalaComponent,
     PredioComponent,
-    CriarPredioComponent
+    CriarPredioComponent,
+    RegistrarOrdemServicoComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,7 @@ import {PesquisarBemUserComponent} from "./funcionalidades/pesquisar-bem-user/pe
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService],
+  providers: [UserService, BpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

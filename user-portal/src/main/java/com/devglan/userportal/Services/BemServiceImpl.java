@@ -45,7 +45,7 @@ public class BemServiceImpl implements BemService{
     @Override
     public List<Bem> findAllByNumTombamento(String numTombamento) {
         List<Bem> listaTotal = repository.findAll();
-        List<Bem> listaFiltrada = new ArrayList();
+        List<Bem> listaFiltrada = new ArrayList<Bem>();
 
         for(int contador = 0; contador < listaTotal.size(); contador ++) {
             if (listaTotal.get(contador).getNumTombamento().toLowerCase().contains(numTombamento.toLowerCase())) {
@@ -59,7 +59,7 @@ public class BemServiceImpl implements BemService{
     @Override
     public List<Bem> findAllByMarca(String marca) {
         List<Bem> listaTotal = repository.findAll();
-        List<Bem> listaFiltrada = new ArrayList();
+        List<Bem> listaFiltrada = new ArrayList<Bem>();
 
         for(int contador = 0; contador < listaTotal.size(); contador ++) {
             if (listaTotal.get(contador).getMarca().toLowerCase().contains(marca.toLowerCase())) {
@@ -73,7 +73,7 @@ public class BemServiceImpl implements BemService{
     @Override
     public List<Bem> findAllByDenominacao(String denominacao) {
         List<Bem> listaTotal = repository.findAll();
-        List<Bem> listaFiltrada = new ArrayList();
+        List<Bem> listaFiltrada = new ArrayList<Bem>();
 
         for(int contador = 0; contador < listaTotal.size(); contador ++) {
             if (listaTotal.get(contador).getDenominacao().toLowerCase().contains(denominacao.toLowerCase())) {

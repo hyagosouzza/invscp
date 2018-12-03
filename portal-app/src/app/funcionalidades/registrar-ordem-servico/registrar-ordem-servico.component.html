@@ -1,0 +1,28 @@
+<app-admin></app-admin>
+<div>
+    <h2>Registro de Ordem de Serviço</h2>
+    <form>
+      <div class="form-group">
+        <label for="campo">Bem Patrimônial:</label>
+        <input required [(ngModel)]="id" placeholder="Número de tombamento" name="id" id="id" class="form-control" id="bem">
+      </div>
+      <button class="btn btn-success" (click)="buscarBem()">Buscar</button>
+      <div *ngIf="bool">
+        <div class="row">
+          <div class="col-3">
+            <label for="campo">Data de Abertura:</label>
+            <input required [(ngModel)]="this.ordemServico.dataAbertura" class="form-control" type="date" id="dataAbertura" name="dataAbertura">
+          </div>
+          <div class="col-3">
+            <label for="valorCompra">Valor do Serviço:</label>
+            <input type="number" [(ngModel)]="this.ordemServico.valor" placeholder="Valor da Compra" name="valorCompra" class="form-control">
+          </div>
+          <div class="col-6">
+            <label for="campo">Prestadora de Serviço:</label>
+            <input required [(ngModel)]="this.ordemServico.prestadoraDeServico" placeholder="Prestadora de Serviço" class="form-control" id="prestadoraDeServico" name="prestadoraDeServico">
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+
