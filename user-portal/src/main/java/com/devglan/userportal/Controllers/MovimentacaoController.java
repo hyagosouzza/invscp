@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -87,6 +88,18 @@ public class MovimentacaoController {
         return movimentacaoService.findById(id);
     }
 
+    @PutMapping(path = {"/cancelar/{id}"})
+    public boolean cancelar(@PathVariable("id") int id,
+                               @RequestBody AcaoMovimentacao acao) {
+        Movimentacao movimentacao = acao.getMovimentacao();
+
+        movimentacao.setId(id);
+        movimentacao.setUserCancelamento(acao.getSolicitante());
+        movimentacao.setDataCancelamento(new Date());
+
+        return movimentacaoService.update(movimentacao) != null;
+    }
+
     @PutMapping(path = {"/aceite-saida/{id}"})
     public boolean aceiteSaida(@PathVariable("id") int id,
                                @RequestBody AcaoMovimentacao acao) {
@@ -94,8 +107,6 @@ public class MovimentacaoController {
 
         movimentacao.setId(id);
         movimentacao.aceiteSaida(acao.getSolicitante());
-
-        System.out.println(movimentacao.getEtapa());
 
         return movimentacaoService.update(movimentacao) != null;
     }
