@@ -20,7 +20,7 @@ export class RelatorioComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.length > 0) {
-      let user = JSON.parse(localStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem('user'));
       this.depart = user.departamento.nome;
     }
     this.salaService.findAllPerDepart(this.depart)
@@ -34,6 +34,6 @@ export class RelatorioComponent implements OnInit {
     this.salaEscolha = salaEscolha;
     localStorage.setItem('salaEscolha', JSON.stringify(this.salaEscolha));
     this.router.navigate(['/admin/relat/gm']);
-  };
+  }
 
 }

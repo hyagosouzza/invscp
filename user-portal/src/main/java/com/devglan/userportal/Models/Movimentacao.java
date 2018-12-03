@@ -41,6 +41,8 @@ public class Movimentacao {
     @ManyToOne
     @JoinColumn(name = "user_cancelamento")
     private User userCancelamento;
+    @Column
+    private String motivoCancelamento;
 
     public void execInternalMov(User user) {
         this.aceiteSaida(user);

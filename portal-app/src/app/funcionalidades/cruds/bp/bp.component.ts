@@ -166,8 +166,11 @@ export class BpComponent implements OnInit {
     this.solicitacao.solicitante = JSON.parse(localStorage.getItem('user'));
     console.log(this.solicitacao);
     this.movService.registrarMovimentacao(this.solicitacao).subscribe(data => {
-      if (data) {
+      if (data !== '500') {
         alert('Movimentação registrada.');
+        if (data.toString().includes('html')) {
+          // TODO: chamar html em nova guia
+        }
       } else {
         alert('Erro na movimentação');
       }

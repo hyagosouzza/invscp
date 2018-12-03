@@ -4,9 +4,14 @@ import com.devglan.userportal.Enums.Etapa;
 import com.devglan.userportal.Models.*;
 import com.devglan.userportal.Services.BemService;
 import com.devglan.userportal.Services.MovimentacaoService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -19,7 +24,7 @@ public class MovimentacaoController {
     private BemService bemPatrimonialService;
 
     @PostMapping(path = "/registrar")
-    public boolean create(@RequestBody SolicitacaoMovimentacao solicitacao) {
+    public String create(@RequestBody SolicitacaoMovimentacao solicitacao) {
         Movimentacao mov = new Movimentacao();
         Bem bemPatrimonial = solicitacao.getBem();
 
@@ -40,11 +45,41 @@ public class MovimentacaoController {
             mov.execInternalMov(solicitacao.getSolicitante());
             bemPatrimonial.setSala(solicitacao.getDestino());
 
-            return movimentacaoService.update(mov) != null &&
-                    bemPatrimonialService.update(bemPatrimonial) != null;
+            if (movimentacaoService.update(mov) != null) {
+                return "100";
+            } else {
+                return "500";
+            }
         }
 
-        return movimentacaoService.create(mov) != null;
+        if (movimentacaoService.create(mov) != null) {
+            // RF 6 - Emitir guia de autorização de transporte
+            if (solicitacao.isCrossCity()) {
+                try {
+                    BufferedReader rd = new BufferedReader(new FileReader("./guia_autorizacao.html"));
+                    String retorno = IOUtils.toString(rd);
+                    retorno = retorno.replace("&cidade_origem&", bemPatrimonial.getLocal().getCidade());
+                    retorno = retorno.replace("&estado_origem&", bemPatrimonial.getLocal().getEstado());
+                    retorno = retorno.replace("&cidade_destino&", solicitacao.getDestino().getLocal().getCidade());
+                    retorno = retorno.replace("&estado_destino&", solicitacao.getDestino().getLocal().getEstado());
+                    retorno = retorno.replace("&denominacao&", bemPatrimonial.getDenominacao());
+                    retorno = retorno.replace("&marca&", bemPatrimonial.getMarca());
+                    retorno = retorno.replace("&numero_tombamento&", bemPatrimonial.getNumTombamento());
+                    retorno = retorno.replace("&numero_nf&", bemPatrimonial.getNumNotaFiscal());
+
+                    return retorno;
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return "100";
+            }
+        } else {
+            return "500";
+        }
+        return "500";
     }
 
     @GetMapping(path = {"/{id}"})

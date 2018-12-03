@@ -17,6 +17,7 @@ export class MovimentacaoSaidaComponent implements OnInit {
   user: User = new User();
   saidas: Movimentacao[];
   findOneById: any;
+  motivo: string;
 
   constructor(private router: Router, private movService: MovimentacaoService) {
 
@@ -34,7 +35,7 @@ export class MovimentacaoSaidaComponent implements OnInit {
   }
 
   aprovarSaida(movimentacao) {
-    let acao = new AcaoMovimentacao();
+    const acao = new AcaoMovimentacao();
     acao.movimentacao = movimentacao;
     acao.solicitante = this.user;
     this.movService.aceiteSaida(acao).subscribe(data => {
@@ -46,12 +47,13 @@ export class MovimentacaoSaidaComponent implements OnInit {
     });
   }
 
-  /*cancelar(movimentacao) {
-    let acao = new AcaoMovimentacao();
+  cancelar(movimentacao) {
+    const acao = new AcaoMovimentacao();
     acao.movimentacao = movimentacao;
+    acao.movimentacao.motivoCancelamento = this.motivo;
     acao.solicitante = this.user;
-    this.movService.aceiteEntrada(acao);
-  }*/
+    this.movService.cancelar(acao);
+  }
 
   findOne(mov: Movimentacao): void {
     this.movService.findOne(mov)

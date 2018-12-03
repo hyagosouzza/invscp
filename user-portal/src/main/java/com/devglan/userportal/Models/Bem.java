@@ -47,6 +47,10 @@ public class Bem {
     @JoinColumn(name = "sala_atual")
     private Sala sala;
 
+    public Local getLocal() {
+        return this.getSala().getDepartamento().getPredio().getLocal();
+    }
+
     public int getId() {
         return id;
     }
@@ -96,7 +100,11 @@ public class Bem {
     }
 
     public String getMarca() {
-        return marca;
+        if (marca != null) {
+            return marca;
+        } else {
+            return "";
+        }
     }
 
     public void setMarca(String marca) {
@@ -104,7 +112,11 @@ public class Bem {
     }
 
     public String getNumNotaFiscal() {
-        return numNotaFiscal;
+        if (numNotaFiscal != null) {
+            return numNotaFiscal;
+        } else {
+            return "";
+        }
     }
 
     public void setNumNotaFiscal(String numNotaFiscal) {
@@ -112,7 +124,11 @@ public class Bem {
     }
 
     public String getNumTombamento() {
-        return numTombamento;
+        if (numTombamento != null) {
+            return numTombamento;
+        } else {
+            return "";
+        }
     }
 
     public void setNumTombamento(String numTombamento) {

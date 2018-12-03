@@ -16,6 +16,10 @@ public class SolicitacaoMovimentacao {
                 .equals(this.destino.getDepartamento());
     }
 
+    public boolean isCrossCity() {
+        return !this.bem.getLocal().getCidade().equals(this.destino.getLocal().getCidade());
+    }
+
     public Bem getBem() {
         return bem;
     }

@@ -34,6 +34,10 @@ export class MovimentacaoService {
     return this.http.put(this.movUrl + '/aceite-saida/' + acao.movimentacao.id, acao);
   }
 
+  public cancelar(acao) {
+    return this.http.put(this.movUrl + '/cancelar/' + acao.movimentacao.id, acao);
+  }
+
   public findOne(mov) {
     return this.http.get(this.movUrl + '/' + mov.id);
   }

@@ -15,4 +15,5 @@ export class Movimentacao {
     aprovadorEntrada: User;
     dataCancelamento: Date;
     userCancelamento: User;
+    motivoCancelamento: string;
 }

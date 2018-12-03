@@ -103,6 +103,23 @@
           <p><b>Destino:</b> {{findOneById.destino.departamento.nome}} - {{findOneById.destino.num}}</p>
           <p><b>Solicitante:</b> {{findOneById.solicitante.nome}}</p>
         </div>
+        <hr>
+        <h3 align="center">Cancelar Movimentação</h3>
+        <div>
+          <form>
+            <div class="row">
+              <div class="col-12">
+                <h4 class="text-center">Informações de Cancelamento</h4>
+                <hr>
+              </div>
+              <div class="col-6">
+                <label for="motivo">Motivo do cancelamento:</label>
+                <input [(ngModel)]="motivo" placeholder="Motivo" name="motivo"
+                       class="form-control" id="motivo" required>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
