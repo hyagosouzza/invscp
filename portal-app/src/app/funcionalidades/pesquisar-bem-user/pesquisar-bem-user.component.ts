@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { BpService } from '../../funcionalidades/cruds/bp/bp.service';
+import {Component, OnInit} from '@angular/core';
+import {BpService} from '../../funcionalidades/cruds/bp/bp.service';
 import {Bem} from '../../models/bem.model';
 import {Local} from '../../models/local.model';
 import {Predio} from '../../models/predio.model';
@@ -12,6 +12,7 @@ import {SalaService} from '../cruds/sala/sala.service';
 import {SolicitacaoMov} from '../../models/solicitacao-mov.model';
 import {MovimentacaoService} from '../movimentacao/movimentacao.service';
 import {User} from '../../models/user.model';
+import {MovimentacaoResponse} from '../../models/mov-response';
 
 @Component({
   selector: 'app-pesquisar-bem-user',
@@ -25,7 +26,8 @@ export class PesquisarBemUserComponent implements OnInit {
 
   constructor(private bemService: BpService, private localService: LocalService,
               private predioService: PredioService, private deptoService: DeptoService,
-              private salaService: SalaService, private movService: MovimentacaoService) { }
+              private salaService: SalaService, private movService: MovimentacaoService) {
+  }
 
   escolha: String;
   itemPesquisa: String;
@@ -50,22 +52,22 @@ export class PesquisarBemUserComponent implements OnInit {
     }
 
     this.localService.getLocais()
-      .subscribe( data => {
+      .subscribe(data => {
         this.locais = data;
       });
 
     this.predioService.getPredios()
-      .subscribe( data => {
+      .subscribe(data => {
         this.predios = data;
       });
 
     this.deptoService.getDepartamentos()
-      .subscribe( data => {
+      .subscribe(data => {
         this.departamentos = data;
       });
 
     this.salaService.getSalas()
-      .subscribe( data => {
+      .subscribe(data => {
         this.salas = data;
       });
   }
@@ -76,14 +78,14 @@ export class PesquisarBemUserComponent implements OnInit {
         .subscribe(data => {
           this.bens = data;
         });
-    }else if (this.escolha === 'denomi') {
+    } else if (this.escolha === 'denomi') {
       this.bemService.findDenomi(this.itemPesquisa)
         .subscribe(data => {
           this.bens = data;
         });
     } else if (this.escolha === 'marca') {
       this.bemService.findMarca(this.itemPesquisa)
-        .subscribe( data => {
+        .subscribe(data => {
           this.bens = data;
         });
     }
@@ -121,14 +123,24 @@ export class PesquisarBemUserComponent implements OnInit {
   }
 
   registrarMovimentacao(): void {
+    if (this.solicitacao.destino == null) {
+      alert('Todos os campos devem ser preenchidos.');
+      return;
+    }
     this.solicitacao.bem = this.findOneById;
     this.solicitacao.solicitante = JSON.parse(localStorage.getItem('user'));
-    console.log(this.solicitacao);
     this.movService.registrarMovimentacao(this.solicitacao).subscribe(data => {
-      if (data) {
-        alert('Movimentação registrada.');
+      let response: MovimentacaoResponse;
+      response = data;
+      if (response.success) {
+        alert('Movimentação registrada!');
+        if (response.crossCity) {
+          localStorage.setItem('guia', response.html);
+          window.location.href = 'http://localhost:4200/admin/guia';
+        }
       } else {
         alert('Erro na movimentação');
+        location.reload();
       }
     });
   }
