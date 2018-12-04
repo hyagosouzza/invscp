@@ -42,7 +42,7 @@
           Baixar
         </button>
 
-        <button type="button" class="btn btn-primary" (click)="findOne(bem)"
+        <button type="button" class="btn btn-primary" (click)="getHistorico(bem)"
         data-toggle="modal" data-target="#modalHistorico">
           Histórico
         </button>
@@ -340,15 +340,15 @@
 <!-- Modal -->
 <div class="modal fade" id="modalHistorico" tabindex="-1" role="dialog" aria-labelledby="modalHistoricoTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+    <div class="modal-content " style="width: 150%;"> 
       <div class="modal-header">
-        <h5 class="modal-title" id="modalVerTitle">Registrar Ordem de Serviço</h5>
+        <h5 class="modal-title" id="modalVerTitle">Histórico</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <h4>Bem Patrimonial</h4>
-      <div *ngIf="findOneById != null" class="modal-body">
+      <div class="modal-body">
         <div class="row">
           <p class="col-5"><b>ID:</b> {{bem.id}}</p>
           <p class="col-5"><b>Situação:</b> {{bem.situacao}}</p>

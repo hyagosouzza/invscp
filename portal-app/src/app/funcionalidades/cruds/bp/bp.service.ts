@@ -76,4 +76,8 @@ export class BpService {
     return this.http.get<Historico>(this.bemUrlHist + "/"+ bem.id);
   }
 
+  public getBensIncorps() {
+    return this.http.get<Bem[]>(this.bemUrl + "/incorps");
+  }
+
 }

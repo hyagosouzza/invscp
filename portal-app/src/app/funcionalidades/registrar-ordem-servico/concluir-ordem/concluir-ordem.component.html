@@ -1,39 +1,34 @@
 <app-admin></app-admin>
 <div>
     <h2>Registro de Ordem de Serviço</h2>
-    <form>
-      <div class="form-group">
-        <label for="campo">Bem Patrimônial:</label>
-        <input required [(ngModel)]="id" placeholder="Número de tombamento" name="id" id="id" class="form-control" id="bem">
-      </div>
-      <button class="btn btn-success" (click)="buscarBems()">Buscar</button>
-    </form>
     <table class="table table-striped">
       <thead>
         <tr>
           <th class="hidden">Id</th>
           <th>Num. Tombamento</th>
-          <th>Marca</th>
-          <th>Denominação</th>
+          <th>Data de Abertura</th>
+          <th>Valor do Serviço</th>
+          <th>Prestadora</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let bem of bens">
-          <td class="hidden" >{{bem.id}}</td>
-          <td>{{bem.numTombamento}}</td>
-          <td>{{bem.marca}}</td>
-          <td>{{bem.denominacao}}</td>
-          <td><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
-                      data-target="#modalVer">
-            Registrar
-          </button></td>
+        <tr *ngFor="let ordem of ordens" >
+            <td class="hidden" >{{ordem.id}}</td>
+            <td>{{ordem.bem.numTombamento}}</td>
+            <td>{{ordem.dataAbertura}}</td>
+            <td>{{ordem.valor}}</td>
+            <td>{{ordem.prestadoraDeServico}}</td>
+            <td><button class="btn btn-info" (click)="findOne(ordem)" data-toggle="modal"
+                        data-target="#modalVer">
+              Concluir
+            </button></td>
         </tr>
       </tbody>
     </table>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+<div  class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -73,25 +68,30 @@
         <div class="row">
           <div class="col-6">
             <label for="campo">Data de Abertura:</label>
-            <input required [(ngModel)]="ordemServico.dataAbertura" class="form-control" type="date" id="dataAbertura" name="dataAbertura">
+            <input required [(ngModel)]="ordemServico.dataAbertura" value="{{ordemServico.dataAbertura}}" class="form-control" type="date" id="dataAbertura" name="dataAbertura">
           </div>
           <div class="col-6">
             <label for="valorCompra">Valor do Serviço:</label>
-            <input type="number" [(ngModel)]="ordemServico.valor" placeholder="Valor da Compra" name="valorCompra" class="form-control">
+            <input type="number" [(ngModel)]="ordemServico.valor" value="{{ordemServico.valor}}" name="valorCompra" class="form-control">
           </div>
         </div>
         <div class="row">
-          <div class="col-10">
+          <div class="col-6">
             <label for="campo">Prestadora de Serviço:</label>
-            <input required [(ngModel)]="ordemServico.prestadoraDeServico" placeholder="Prestadora de Serviço" class="form-control" id="prestadoraDeServico" name="prestadoraDeServico">
+            <input required [(ngModel)]="ordemServico.prestadoraDeServico" value="{{ordemServico.prestadoraDeServico}}"  class="form-control" id="prestadoraDeServico" name="prestadoraDeServico">
+          </div>
+          <div class="col-6">
+            <label for="campo">Data de Fechamento:</label>
+            <input required [(ngModel)]="ordemServico.dataFechamento" value="{{ordemServico.dataFechamento}}" class="form-control" type="date" id="dataAbertura" name="dataAbertura">
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" (click)="criarOrdem()" data-dismiss="modal">Registrar Ordem</button>
+        <button class="btn btn-success" (click)="concluir()" data-dismiss="modal">Concluir Ordem</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
       </div>
     </div>
   </div>
 </div>
+
 

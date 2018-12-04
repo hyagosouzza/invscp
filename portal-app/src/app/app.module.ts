@@ -35,7 +35,8 @@ import { GuiaComponent } from './funcionalidades/guia/guia.component';
 import { RegistrarOrdemServicoComponent } from './funcionalidades/registrar-ordem-servico/registrar-ordem-servico.component';
 import { BpService } from './funcionalidades/cruds/bp/bp.service';
 import { OrdemServicoService } from './funcionalidades/registrar-ordem-servico/ordem-servico.service';
-import { PesquisarBensComponent } from './funcionalidades/cruds/bp/pesquisar-bens/pesquisar-bens.component'
+import { PesquisarBensComponent } from './funcionalidades/cruds/bp/pesquisar-bens/pesquisar-bens.component';
+import { ConcluirOrdemComponent } from './funcionalidades/registrar-ordem-servico/concluir-ordem/concluir-ordem.component'
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { PesquisarBensComponent } from './funcionalidades/cruds/bp/pesquisar-ben
     MovimentacaoEntradaComponent,
     MovimentacaoSaidaComponent,
     GuiaComponent,
-    PesquisarBensComponent
+    PesquisarBensComponent,
+    ConcluirOrdemComponent
   ],
   imports: [
     BrowserModule,

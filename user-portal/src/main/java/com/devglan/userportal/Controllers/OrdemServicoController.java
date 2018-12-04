@@ -1,5 +1,6 @@
 package com.devglan.userportal.Controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,37 +32,45 @@ public class OrdemServicoController {
 	@Autowired
 	private BemServiceImpl bemService;
 
-	@PostMapping
-	public OrdemServico create(@RequestBody OrdemServico ordemServico) {
-		Bem bem = bemService.findById(ordemServico.getBem().getId());
-		
-		if (bem.getSituacao() == Situacao.INCORPORADO) {
+    @PostMapping
+    public OrdemServico create(@RequestBody OrdemServico ordemServico) {
+    	Bem bem = bemService.findById(ordemServico.getBem().getId());
+    	OrdemServico ordem = new OrdemServico();
+    	if (bem.getSituacao() == Situacao.EM_CONSERTO || bem.getSituacao() == Situacao.BAIXADO) {
+    		return null;
+		} else {
 			bem.setSituacao(Situacao.EM_CONSERTO);
 			ordemServico.setBem(bem);
 			ordemServico.setSituacao(SituacaoServico.EM_CONSERTO);
-			bemService.update(bem);
-			return service.save(ordemServico);
-		} 
-		return null;
-	}
-	
-	@PutMapping(path = "/concluir/{id}")
-	public OrdemServico concluir(@RequestBody OrdemServico ordemServico) {
-		Bem bem = ordemServico.getBem();
-		if (bem.getSituacao() == Situacao.EM_CONSERTO 
-				&& ordemServico.getSituacao() == SituacaoServico.EM_CONSERTO) {
-			bem.setSituacao(Situacao.INCORPORADO);
-			ordemServico.setBem(bem);
-			ordemServico.setSituacao(SituacaoServico.CONCLUIDA);
-			bemService.update(bem);
-			return service.save(ordemServico);
+			ordem = service.save(ordemServico);
+			if(ordem != null) {
+				bemService.update(bem);
+			}
+			System.out.println(ordem.toString());
+			return ordem;
 		}
-		return null;
+    }
+
+	
+    @PutMapping(path = "/concluir/{id}")
+	public OrdemServico concluir(@RequestBody OrdemServico ordemServico, @PathVariable("id") int id) {
+		Bem bem = ordemServico.getBem();
+		OrdemServico ordem = service.findOne(id);
+		ordem.setDataAbertura(ordemServico.getDataAbertura());
+		ordem.setDataFechamento(ordemServico.getDataFechamento());
+		ordem.setMotivo(ordemServico.getMotivo());
+		ordem.setPrestadoraDeServico(ordemServico.getPrestadoraDeServico());
+		ordem.setValor(ordemServico.getValor());
+		bem.setSituacao(Situacao.INCORPORADO);
+		ordem.setBem(bem);
+		ordem.setSituacao(SituacaoServico.CONCLUIDA);
+		bemService.update(bem);
+		return service.save(ordem);
 	}
 	
 	@PutMapping(path = "/update/{id}")
-	public OrdemServico update(@RequestBody OrdemServico ordemServico) {
-		OrdemServico ordem = service.findOne(ordemServico.getId());
+	public OrdemServico update(@PathVariable("id") int id, @RequestBody OrdemServico ordemServico) {
+		OrdemServico ordem = service.findOne(id);
 		ordem.setDataAbertura(ordemServico.getDataAbertura());
 		ordem.setDataFechamento(ordem.getDataFechamento());
 		ordem.setMotivo(ordemServico.getMotivo());
@@ -83,7 +92,14 @@ public class OrdemServicoController {
 
 	 @GetMapping
 	 public List<OrdemServico> findAll() {
-	     return service.findAll();
+		 List<OrdemServico> list = service.findAll();
+		 List<OrdemServico> list1 = new ArrayList<OrdemServico>();
+		 for (OrdemServico ordemServico : list) {
+			if(ordemServico.getSituacao() != SituacaoServico.CONCLUIDA) {
+				list1.add(ordemServico);
+			}
+		}
+	     return list1;
 	 }
 	
 }

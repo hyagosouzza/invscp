@@ -44,4 +44,9 @@ public class OrdemServicoServiceImpl implements OrdemServicoService {
 		return repository.save(ordemServico);
 	}
 
+	@Override
+    public OrdemServico update(OrdemServico ordem) {
+        return repository.save(ordem);
+    }
+
 }

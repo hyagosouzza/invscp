@@ -47,7 +47,7 @@ export class BpComponent implements OnInit {
   departamento: Departamento;
   predio: Predio;
   historico: Historico;
-  bem:  Bem;
+  bem:  Bem =  new Bem();
   movimentacoes: Movimentacao[];
   ordens: OrdemServico[];
 
@@ -191,11 +191,15 @@ export class BpComponent implements OnInit {
     });
   }
 
-  getHist(bem) {
+  getHistorico(bem) {
     this.bemService.getHist(bem).subscribe(data => {
+      console.log(data);
       this.bem = data.bem;
       this.movimentacoes = data.movimentacoes;
+      this.movimentacoes.sort((a, b) => new Date(a.dataEntrada).getTime() - new Date(b.dataEntrada).getTime());
       this.ordens = data.ordens;
+      this.ordens.sort((a, b) => new Date(a.dataAbertura).getTime() - new Date(b.dataAbertura).getTime());
+      console.log(data);
     })
   }
 

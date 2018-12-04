@@ -13,16 +13,19 @@ import { Bem } from '../../models/bem.model';
 export class RegistrarOrdemServicoComponent implements OnInit {
 
   bens: Bem[];
-  findOneById: Bem;
-  bool: boolean = false;
+  findOneById: Bem = new Bem();
   id: String;
   ordemServico: OrdemServico = new OrdemServico();
   ordem: OrdemServico;
+  object: any;
 
 
   constructor(private _bemService: BpService, private _ordemService: OrdemServicoService) { }
 
   ngOnInit() {
+    this._bemService.getBensIncorps().subscribe(data => {
+      this.bens = data;
+    })
   }
 
   buscarBems() {
@@ -32,23 +35,30 @@ export class RegistrarOrdemServicoComponent implements OnInit {
   }
 
   criarOrdem() {
+    this.ordemServico.bem = this.findOneById;
+    console.log(this.ordemServico);
     this._ordemService.create(this.ordemServico).subscribe(data => {
       this.ordem = data;
+       this.object = data;
+       console.log(data);
+      if(this.object.error != "OK" ) {
+        alert("Ordem de Serviço registrada com sucesso!");
+      } else{
+        alert("Não foi possível registrar a ordem de serviço. Tente novamente mais tarde!"); 
+      }
     });
+    this.buscarBems();
   }
 
   findOne(bem: Bem): void {
     this._bemService.findOne(bem).subscribe(data => {
       this.findOneById = data;
-      this.ordemServico.bem = data;
-      if(this.findOneById.situacao == "INCORPORADO") {
-        this.bool = true;
-      }
     })
   }
 
   situacao(bem: Bem) {
     return this.findOneById.situacao == "INCORPORADO";
   }
+
 
 }

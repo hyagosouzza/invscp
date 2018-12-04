@@ -18,6 +18,7 @@ import { PredioComponent } from './funcionalidades/cruds/predio/predio.component
 import { SalaComponent } from './funcionalidades/cruds/sala/sala.component';
 import { CriarSalaComponent } from './funcionalidades/cruds/sala/criar-sala/criar-sala.component';
 import { RegistrarOrdemServicoComponent } from './funcionalidades/registrar-ordem-servico/registrar-ordem-servico.component';
+import { ConcluirOrdemComponent } from './funcionalidades/registrar-ordem-servico/concluir-ordem/concluir-ordem.component';
 import { EmitirInventarioComponent } from './funcionalidades/emitir-inventario/emitir-inventario.component';
 import { RelatorioComponent } from './funcionalidades/relatorio/relatorio.component';
 import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo-mateiral-por-sala/grupo-mateiral-por-sala.component';
@@ -51,7 +52,8 @@ const routes: Routes = [
   { path: 'admin/entradas', component: MovimentacaoEntradaComponent},
   { path: 'admin/saidas', component: MovimentacaoSaidaComponent},
   { path: 'admin/guia', component: GuiaComponent},
-  { path: 'admin/pesquisar-bens', component: PesquisarBensComponent}
+  { path: 'admin/pesquisar-bens', component: PesquisarBensComponent},
+  { path: 'admin/concord', component: ConcluirOrdemComponent}
 ];
 
 @NgModule({

@@ -25,7 +25,7 @@ public class OrdemServico {
 	@Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int id;
 	@Temporal(TemporalType.DATE)
 	private Date dataAbertura;
 	@Temporal(TemporalType.DATE)
@@ -33,9 +33,9 @@ public class OrdemServico {
 	@ManyToOne
     @JoinColumn(name = "bem_patrimonial")
 	private Bem bem;
-	
+	@Column
 	private String motivo;
-	
+	@Column
 	private String prestadoraDeServico;
 	
 	private float valor;

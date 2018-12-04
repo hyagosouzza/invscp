@@ -16,5 +16,7 @@ public interface OrdemServicoService {
 	OrdemServico findOne(int id);
 
 	OrdemServico save(OrdemServico ordemServico);
+	
+	OrdemServico update(OrdemServico ordem);
 
 }

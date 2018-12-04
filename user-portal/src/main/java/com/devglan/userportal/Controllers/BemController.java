@@ -1,8 +1,8 @@
 package com.devglan.userportal.Controllers;
 
+import com.devglan.userportal.Enums.Situacao;
 import com.devglan.userportal.Models.Bem;
 import com.devglan.userportal.Models.HistoricoBp;
-import com.devglan.userportal.Models.OrdemServico;
 import com.devglan.userportal.Services.BemService;
 import com.devglan.userportal.Services.MovimentacaoService;
 import com.devglan.userportal.Services.OrdemServicoService;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.devglan.userportal.Enums.Situacao.BAIXADO;
@@ -44,11 +45,6 @@ public class BemController {
     public Bem findOne(@PathVariable("id") int id){
         return bemService.findById(id);
     }
-    
-   /* @GetMapping(path = {"historico/{id}"})
-    public Bem historico(@PathVariable("id") int id){
-        return bemService.findById(id);
-    }*/
 
     @PutMapping(path = {"/{id}"})
     public Bem update(@PathVariable("id") int id, @RequestBody Bem bem){
@@ -94,6 +90,24 @@ public class BemController {
     	historico.setBem(bemService.findById(id));
     	historico.setMovimentacoes(movServ.findByBem(historico.getBem()));
     	historico.setOrdens(ordmServ.findByBem(historico.getBem()));
+    	historico.getMovimentacoes().stream().sorted((o1, o2)-> {
+    		return o1.getDataSaida().compareTo(o2.getDataEntrada());
+    	});
+    	historico.getOrdens().stream().sorted((o1, o2)-> {
+    		return o1.getDataAbertura().compareTo(o2.getDataAbertura());
+    	});
         return historico;
+    }
+    
+    @GetMapping(path = {"/incorps"})
+    public List<Bem> findAllIncorp(){
+    	List<Bem> bens = bemService.findAll();
+    	List<Bem> bens1 = new ArrayList<>();
+    	for (Bem bem : bens) {
+			if(bem.getSituacao() == Situacao.INCORPORADO) {
+				bens1.add(bem);
+			}
+		}
+        return bens1;
     }
 }

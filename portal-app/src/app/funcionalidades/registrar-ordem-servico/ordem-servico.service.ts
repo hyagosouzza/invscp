@@ -30,16 +30,16 @@ export class OrdemServicoService {
     return this.http.put(this.url + "/update/"+ ordem.id, ordem);
   }
 
-  public concluir(ordem) {
-    return this.http.put(this.url + "/concluir/"+ ordem.id, ordem);
+  public concluir(ordem: OrdemServico) {
+    return this.http.put<OrdemServico>(this.url + "/concluir/" + ordem.id, ordem);
   }
 
   public baixarBem(ordem) {
-    return this.http.put(this.url + "/"+ ordem.id, ordem);
+    return this.http.put<OrdemServico>(this.url + "/"+ ordem.id, ordem);
   }
 
   public findOne(ordem) {
-    return this.http.get(this.url + "/"+ ordem.id);
+    return this.http.get<OrdemServico>(this.url + "/"+ ordem.id);
   }
 
   public findById(id: String) {

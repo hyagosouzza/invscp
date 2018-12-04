@@ -45,7 +45,7 @@ public class SalaServiceImpl implements SalaService{
     @Override
     public List<Sala> findAllPerDepart(String depart){
         List<Sala> listaTotal = repository.findAll();
-        List<Sala> listaFiltrada = new ArrayList();
+        List<Sala> listaFiltrada = new ArrayList<>();
 
         for(int contador = 0; contador < listaTotal.size(); contador ++){
             if(listaTotal.get(contador).getDepartamento().getNome().equals(depart)){
