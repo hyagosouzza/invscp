@@ -169,13 +169,12 @@ export class BpComponent implements OnInit {
   }
 
   registrarMovimentacao(): void {
-    if(this.solicitacao.destino == null) {
-        alert("Todos os campos devem ser preenchidos.");
+    if (this.solicitacao.destino == null) {
+        alert('Todos os campos devem ser preenchidos.');
         return;
       }
     this.solicitacao.bem = this.findOneById;
     this.solicitacao.solicitante = JSON.parse(localStorage.getItem('user'));
-    console.log(this.solicitacao);
     this.movService.registrarMovimentacao(this.solicitacao).subscribe(data => {
       let response: MovimentacaoResponse;
       response = data;

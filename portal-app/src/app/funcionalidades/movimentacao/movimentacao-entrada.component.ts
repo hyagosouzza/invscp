@@ -49,9 +49,8 @@ export class MovimentacaoEntradaComponent implements OnInit {
   }
 
   cancelar(movimentacao) {
-    console.log(this.motivo);
-    if(this.motivo == '') {
-      alert("O motivo do cancelamento é obrigatório.");
+    if (this.motivo === '') {
+      alert('O motivo do cancelamento é obrigatório.');
       return;
     }
     const acao = new AcaoMovimentacao();

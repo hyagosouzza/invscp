@@ -48,11 +48,24 @@ export class MovimentacaoSaidaComponent implements OnInit {
   }
 
   cancelar(movimentacao) {
+    if (this.motivo === '') {
+      alert('O motivo do cancelamento é obrigatório.');
+      return;
+    }
     const acao = new AcaoMovimentacao();
     acao.movimentacao = movimentacao;
     acao.movimentacao.motivoCancelamento = this.motivo;
     acao.solicitante = this.user;
-    this.movService.cancelar(acao);
+    this.movService.cancelar(acao).subscribe(data => {
+      if (data) {
+        alert('Movimentação cancelada!');
+        location.reload();
+      } else {
+        alert('Erro no cancelamento');
+        location.reload();
+      }
+    });
+    this.motivo = '';
   }
 
   findOne(mov: Movimentacao): void {

@@ -10,8 +10,8 @@ export class GuiaComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    let html = localStorage.getItem('guia');
-    document.getElementById("guia").innerHTML = html;
+    const html = localStorage.getItem('guia');
+    document.getElementById('guia').innerHTML = html;
     localStorage.removeItem('guia');
   }
 
