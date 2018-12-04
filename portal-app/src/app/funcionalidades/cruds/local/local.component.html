@@ -24,9 +24,9 @@
           <button class="btn btn-info" (click)="findOne(local)" data-toggle="modal" data-target="#modalVer">
             Ver
           </button>
-          <button type="button" class="btn btn-primary" (click)="findOne(local)" data-toggle="modal" data-target="#modalEditar">
+          <button *ngIf="local.id != 7" type="button" class="btn btn-primary" (click)="findOne(local)" data-toggle="modal" data-target="#modalEditar">
             Editar
-          </button><button class="btn btn-danger" (click)="deleteLocal(local)"> Deletar</button></td>
+          </button><button *ngIf="local.id != 7"  class="btn btn-danger" (click)="deleteLocal(local)"> Deletar</button></td>
       </tr>
     </tbody>
   </table>

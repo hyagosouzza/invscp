@@ -18,6 +18,10 @@ public class Sala {
     @JoinColumn(name = "id_departamento")
     private Departamento departamento;
 
+    public Local getLocal() {
+        return this.getDepartamento().getPredio().getLocal();
+    }
+
     public int getId() {
         return id;
     }

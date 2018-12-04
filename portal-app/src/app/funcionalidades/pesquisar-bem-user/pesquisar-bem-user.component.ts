@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { BpService } from '../../funcionalidades/cruds/bp/bp.service';
 import {Bem} from '../../models/bem.model';
-import {Local} from "../../models/local.model";
-import {Predio} from "../../models/predio.model";
-import {Departamento} from "../../models/departamento.model";
-import {Sala} from "../../models/sala.model";
-import {LocalService} from "../cruds/local/local.service";
-import {PredioService} from "../cruds/predio/predio.service";
-import {DeptoService} from "../cruds/depto/depto.service";
-import {SalaService} from "../cruds/sala/sala.service";
-import {SolicitacaoMov} from "../../models/solicitacao-mov.model";
+import {Local} from '../../models/local.model';
+import {Predio} from '../../models/predio.model';
+import {Departamento} from '../../models/departamento.model';
+import {Sala} from '../../models/sala.model';
+import {LocalService} from '../cruds/local/local.service';
+import {PredioService} from '../cruds/predio/predio.service';
+import {DeptoService} from '../cruds/depto/depto.service';
+import {SalaService} from '../cruds/sala/sala.service';
+import {SolicitacaoMov} from '../../models/solicitacao-mov.model';
+import {MovimentacaoService} from '../movimentacao/movimentacao.service';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-pesquisar-bem-user',
   templateUrl: './pesquisar-bem-user.component.html',
   styleUrls: ['./pesquisar-bem-user.component.css'],
-  providers: [BpService, LocalService, PredioService, DeptoService, SalaService]
+  providers: [BpService, LocalService, PredioService, DeptoService, SalaService, MovimentacaoService]
 })
 
 
@@ -23,7 +25,7 @@ export class PesquisarBemUserComponent implements OnInit {
 
   constructor(private bemService: BpService, private localService: LocalService,
               private predioService: PredioService, private deptoService: DeptoService,
-              private salaService: SalaService) { }
+              private salaService: SalaService, private movService: MovimentacaoService) { }
 
   escolha: String;
   itemPesquisa: String;
@@ -40,8 +42,13 @@ export class PesquisarBemUserComponent implements OnInit {
   local: Local;
   departamento: Departamento;
   predio: Predio;
+  user: User = new User();
 
   ngOnInit() {
+    if (localStorage.length > 0) {
+      this.user = JSON.parse(localStorage.getItem('user'));
+    }
+
     this.localService.getLocais()
       .subscribe( data => {
         this.locais = data;
@@ -63,18 +70,18 @@ export class PesquisarBemUserComponent implements OnInit {
       });
   }
 
-  searchBPFilter(): void{
-    if (this.escolha === "numTomb") {
+  searchBPFilter(): void {
+    if (this.escolha === 'numTomb') {
       this.bemService.findNumTomb(this.itemPesquisa)
         .subscribe(data => {
           this.bens = data;
         });
-    }else if (this.escolha === "denomi") {
+    }else if (this.escolha === 'denomi') {
       this.bemService.findDenomi(this.itemPesquisa)
         .subscribe(data => {
           this.bens = data;
         });
-    } else if (this.escolha === "marca") {
+    } else if (this.escolha === 'marca') {
       this.bemService.findMarca(this.itemPesquisa)
         .subscribe( data => {
           this.bens = data;
@@ -86,30 +93,44 @@ export class PesquisarBemUserComponent implements OnInit {
     this.bemService.findOne(bem)
       .subscribe(data => {
         this.findOneById = data;
-      })
-  };
+      });
+  }
 
-  filterPredio() : void {
+  filterPredio(): void {
     this.predios1 = this.predios.filter(prd => {
       return prd.local.id === this.local.id;
-    })
-  };
+    });
+  }
 
-  filterDepto() : void {
+  filterDepto(): void {
+    console.table(this.departamentos);
+    console.log(this.predio);
     this.departamentos1 = this.departamentos.filter(dpt => {
-      return dpt.predio.id === this.predio.id;
-    })
-  };
+      if (dpt.predio) {
+        return dpt.predio.id === this.predio.id;
+      } else {
+        return false;
+      }
+    });
+  }
 
-  filterSala() : void {
+  filterSala(): void {
     this.salas1 = this.salas.filter(sl => {
       return sl.departamento.id === this.departamento.id;
-    })
-  };
+    });
+  }
 
-  registrarMovimentacao() : void {
+  registrarMovimentacao(): void {
     this.solicitacao.bem = this.findOneById;
-    // TODO: Passar usuário junto / Fazer solicitação pro back / Implementar back
-  };
+    this.solicitacao.solicitante = JSON.parse(localStorage.getItem('user'));
+    console.log(this.solicitacao);
+    this.movService.registrarMovimentacao(this.solicitacao).subscribe(data => {
+      if (data) {
+        alert('Movimentação registrada.');
+      } else {
+        alert('Erro na movimentação');
+      }
+    });
+  }
 
 }

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './funcionalidades/cruds/user/user.component';
 import { AppRoutingModule } from './app.routing.module';
 import {UserService} from './funcionalidades/cruds/user/user.service';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
 import {AddUserComponent} from './funcionalidades/cruds/user/add-user.component';
 import { LocalComponent } from './funcionalidades/cruds/local/local.component';
 import { AddLocalComponent } from './funcionalidades/cruds/local/add-local/add-local.component';
@@ -15,7 +15,7 @@ import { UsuariosComponent } from './profiles/usuarios/usuarios.component';
 import { ChefeComponent } from './profiles/chefe/chefe.component';
 import { AdminComponent } from './profiles/admin/admin.component';
 import { PesquisarBemComponent } from './funcionalidades/pesquisar-bem/pesquisar-bem.component';
-import { RegistrarMovimentacaoComponent } from './funcionalidades/registrar-movimentacao/registrar-movimentacao.component';
+import { RegistrarMovimentacaoComponent } from './funcionalidades/movimentacao/registrar-movimentacao.component';
 import { BaixarBemComponent } from './funcionalidades/baixar-bem/baixar-bem.component';
 import { CriarDepComponent } from './funcionalidades/cruds/depto/criar-dep/criar-dep.component';
 import { CriarBpComponent } from './funcionalidades/cruds/bp/criar-bp/criar-bp.component';
@@ -25,10 +25,16 @@ import { SalaComponent } from './funcionalidades/cruds/sala/sala.component';
 import { CriarSalaComponent } from './funcionalidades/cruds/sala/criar-sala/criar-sala.component';
 import { PredioComponent } from './funcionalidades/cruds/predio/predio.component';
 import { CriarPredioComponent } from './funcionalidades/cruds/predio/criar-predio/criar-predio.component';
-import {AnonimoService} from "./profiles/anonimo/anonimo.service";
-import {PesquisarBemUserComponent} from "./funcionalidades/pesquisar-bem-user/pesquisar-bem-user.component";
+import {PesquisarBemUserComponent} from './funcionalidades/pesquisar-bem-user/pesquisar-bem-user.component';
+import { EmitirInventarioComponent } from './funcionalidades/emitir-inventario/emitir-inventario.component';
+import { RelatorioComponent } from './funcionalidades/relatorio/relatorio.component';
+import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo-mateiral-por-sala/grupo-mateiral-por-sala.component';
+import {MovimentacaoEntradaComponent} from './funcionalidades/movimentacao/movimentacao-entrada.component';
+import {MovimentacaoSaidaComponent} from './funcionalidades/movimentacao/movimentacao-saida.component';
+import { GuiaComponent } from './funcionalidades/guia/guia.component';
 import { RegistrarOrdemServicoComponent } from './funcionalidades/registrar-ordem-servico/registrar-ordem-servico.component';
 import { BpService } from './funcionalidades/cruds/bp/bp.service';
+import { OrdemServicoService } from './funcionalidades/registrar-ordem-servico/ordem-servico.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +50,7 @@ import { BpService } from './funcionalidades/cruds/bp/bp.service';
     PesquisarBemComponent,
     PesquisarBemUserComponent,
     RegistrarMovimentacaoComponent,
+    RegistrarOrdemServicoComponent,
     BaixarBemComponent,
     CriarDepComponent,
     CriarBpComponent,
@@ -53,7 +60,12 @@ import { BpService } from './funcionalidades/cruds/bp/bp.service';
     CriarSalaComponent,
     PredioComponent,
     CriarPredioComponent,
-    RegistrarOrdemServicoComponent
+    EmitirInventarioComponent,
+    RelatorioComponent,
+    GrupoMateiralPorSalaComponent,
+    MovimentacaoEntradaComponent,
+    MovimentacaoSaidaComponent,
+    GuiaComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +73,7 @@ import { BpService } from './funcionalidades/cruds/bp/bp.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [UserService, BpService],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

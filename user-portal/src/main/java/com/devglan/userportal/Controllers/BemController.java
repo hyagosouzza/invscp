@@ -1,11 +1,18 @@
 package com.devglan.userportal.Controllers;
 
 import com.devglan.userportal.Models.Bem;
+import com.devglan.userportal.Models.HistoricoBp;
+import com.devglan.userportal.Models.OrdemServico;
 import com.devglan.userportal.Services.BemService;
+import com.devglan.userportal.Services.MovimentacaoService;
+import com.devglan.userportal.Services.OrdemServicoService;
 import com.devglan.userportal.Services.SalaService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static com.devglan.userportal.Enums.Situacao.BAIXADO;
@@ -13,18 +20,21 @@ import static com.devglan.userportal.Enums.Situacao.INCORPORADO;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-//@RequestMapping({"/api"})
 @RequestMapping({"/bens"})
 public class BemController {
     @Autowired
     private BemService bemService;
     @Autowired
     private SalaService salaService;
+    @Autowired
+    private MovimentacaoService movServ;
+    @Autowired
+    private OrdemServicoService ordmServ;
 
     @PostMapping
     public Bem create(@RequestBody Bem bem){
         if(bem.getSala() == null) {
-            bem.setSala(salaService.findById(3));
+            bem.setSala(salaService.findById(17));
         }
         bem.setSituacao(INCORPORADO);
         return bemService.create(bem);
@@ -72,4 +82,18 @@ public class BemController {
     @GetMapping(path = {"/denomi/{denominacao}"})
     public List<Bem> findAllByDenominacao(@PathVariable("denominacao") String denominacao) { return bemService.findAllByDenominacao(denominacao); }
 
+    @GetMapping(path = {"/inventario"})
+    public List<Bem> findInventario() throws ParseException { return bemService.findInventario(); }
+
+    @GetMapping(path = {"/relat/{sala}"})
+    public List<Bem> findAllBySalaGm(@PathVariable("sala") String sala) { return bemService.findAllBySalaGm(sala);}
+
+    @GetMapping(path = {"/hist/{id}"})
+    public HistoricoBp historico(@PathVariable("id")  int id) {
+    	HistoricoBp historico = new HistoricoBp();
+    	historico.setBem(bemService.findById(id));
+    	historico.setMovimentacoes(movServ.findByBem(historico.getBem()));
+    	historico.setOrdens(ordmServ.findByBem(historico.getBem()));
+        return historico;
+    }
 }

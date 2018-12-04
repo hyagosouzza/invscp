@@ -17,6 +17,7 @@ import com.devglan.userportal.Enums.Situacao;
 import com.devglan.userportal.Enums.SituacaoServico;
 import com.devglan.userportal.Models.Bem;
 import com.devglan.userportal.Models.OrdemServico;
+import com.devglan.userportal.Services.BemServiceImpl;
 import com.devglan.userportal.Services.OrdemServicoServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -26,17 +27,22 @@ public class OrdemServicoController {
 
 	@Autowired
 	private OrdemServicoServiceImpl service;
+	
+	@Autowired
+	private BemServiceImpl bemService;
 
 	@PostMapping
 	public OrdemServico create(@RequestBody OrdemServico ordemServico) {
-		Bem bem = ordemServico.getBem();
-		if (bem.getSituacao() == Situacao.EM_CONSERTO) {
-			return null;
-		}
-		bem.setSituacao(Situacao.EM_CONSERTO);
-		ordemServico.setBem(bem);
-		ordemServico.setSituacao(SituacaoServico.EM_CONSERTO);
-		return service.save(ordemServico);
+		Bem bem = bemService.findById(ordemServico.getBem().getId());
+		
+		if (bem.getSituacao() == Situacao.INCORPORADO) {
+			bem.setSituacao(Situacao.EM_CONSERTO);
+			ordemServico.setBem(bem);
+			ordemServico.setSituacao(SituacaoServico.EM_CONSERTO);
+			bemService.update(bem);
+			return service.save(ordemServico);
+		} 
+		return null;
 	}
 	
 	@PutMapping(path = "/concluir/{id}")
@@ -47,6 +53,7 @@ public class OrdemServicoController {
 			bem.setSituacao(Situacao.INCORPORADO);
 			ordemServico.setBem(bem);
 			ordemServico.setSituacao(SituacaoServico.CONCLUIDA);
+			bemService.update(bem);
 			return service.save(ordemServico);
 		}
 		return null;

@@ -6,24 +6,92 @@
         <label for="campo">Bem Patrimônial:</label>
         <input required [(ngModel)]="id" placeholder="Número de tombamento" name="id" id="id" class="form-control" id="bem">
       </div>
-      <button class="btn btn-success" (click)="buscarBem()">Buscar</button>
-      <div *ngIf="bool">
+      <button class="btn btn-success" (click)="buscarBems()">Buscar</button>
+    </form>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th class="hidden">Id</th>
+          <th>Num. Tombamento</th>
+          <th>Marca</th>
+          <th>Denominação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bem of bens">
+          <td class="hidden" >{{bem.id}}</td>
+          <td>{{bem.numTombamento}}</td>
+          <td>{{bem.marca}}</td>
+          <td>{{bem.denominacao}}</td>
+          <td><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
+                      data-target="#modalVer">
+            Registrar
+          </button></td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Registrar Ordem de Serviço</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <h4>Bem Patrimonial</h4>
+      <div *ngIf="findOneById != null" class="modal-body">
         <div class="row">
-          <div class="col-3">
+          <p class="col-5"><b>ID:</b> {{findOneById.id}}</p>
+          <p class="col-5"><b>Situação:</b> {{findOneById.situacao}}</p>
+        </div>
+        <div class="row">
+          <p class="col-5" ><b>Denominação:</b> {{findOneById.denominacao}}</p>
+          <p class="col-5"><b>Espeficicação:</b> {{findOneById.especificacao}}</p>
+        </div>
+        <div class="row">
+          <p class="col-3"><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
+          <p class="col-3"><b>Marca:</b> {{findOneById.marca}}</p>
+          <p class="col-5"><b>Garantia:</b> {{findOneById.garantia}}</p>
+        </div>
+        <div class="row">
+          <p class="col-4"><b>Valor da Compra:</b> {{findOneById.valorCompra}}</p>
+          <p class="col-4"><b>Valor Atual:</b> {{findOneById.valorAtual}}</p>
+          <p class="col-4"><b>Vida útil:</b> {{findOneById.vidaUtil}}</p>
+        </div>
+        <div class="row">
+          <p class="col-6"><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
+          <p class="col-6"><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
+        </div>
+        <div class="row">
+          <p class="col-6"><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
+          <p class="col-6"><b>ID da Sala:</b> {{findOneById.idSala}}</p>
+        </div>
+        <div class="row">
+          <div class="col-6">
             <label for="campo">Data de Abertura:</label>
-            <input required [(ngModel)]="this.ordemServico.dataAbertura" class="form-control" type="date" id="dataAbertura" name="dataAbertura">
-          </div>
-          <div class="col-3">
-            <label for="valorCompra">Valor do Serviço:</label>
-            <input type="number" [(ngModel)]="this.ordemServico.valor" placeholder="Valor da Compra" name="valorCompra" class="form-control">
+            <input required [(ngModel)]="ordemServico.dataAbertura" class="form-control" type="date" id="dataAbertura" name="dataAbertura">
           </div>
           <div class="col-6">
-            <label for="campo">Prestadora de Serviço:</label>
-            <input required [(ngModel)]="this.ordemServico.prestadoraDeServico" placeholder="Prestadora de Serviço" class="form-control" id="prestadoraDeServico" name="prestadoraDeServico">
+            <label for="valorCompra">Valor do Serviço:</label>
+            <input type="number" [(ngModel)]="ordemServico.valor" placeholder="Valor da Compra" name="valorCompra" class="form-control">
           </div>
-          <button class="btn btn-success" (click)="criarOrdem()">Criar</button>
+        </div>
+        <div class="row">
+          <div class="col-10">
+            <label for="campo">Prestadora de Serviço:</label>
+            <input required [(ngModel)]="ordemServico.prestadoraDeServico" placeholder="Prestadora de Serviço" class="form-control" id="prestadoraDeServico" name="prestadoraDeServico">
+          </div>
         </div>
       </div>
-    </form>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="criarOrdem()">Registrar Ordem</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
 </div>
 

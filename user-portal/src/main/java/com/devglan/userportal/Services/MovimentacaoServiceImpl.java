@@ -1,5 +1,7 @@
 package com.devglan.userportal.Services;
 
+import com.devglan.userportal.Models.Bem;
+import com.devglan.userportal.Models.Departamento;
 import com.devglan.userportal.Models.Movimentacao;
 import com.devglan.userportal.Repo.MovimentacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,16 @@ public class MovimentacaoServiceImpl implements MovimentacaoService{
     }
 
     @Override
+    public List<Movimentacao> findAllEntradas(Departamento departamento) {
+        return repository.findAllEntradas(departamento);
+    }
+
+    @Override
+    public List<Movimentacao> findAllSaidas(Departamento departamento) {
+        return repository.findAllSaidas(departamento);
+    }
+
+    @Override
     public Movimentacao findById(int id) {
         return repository.findOne(id);
     }
@@ -40,4 +52,9 @@ public class MovimentacaoServiceImpl implements MovimentacaoService{
     public Movimentacao update(Movimentacao mov) {
         return repository.save(mov);
     }
+
+	@Override
+	public List<Movimentacao> findByBem(Bem bem) {
+		return repository.findByBem(bem);
+	}
 }

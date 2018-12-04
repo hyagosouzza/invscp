@@ -12,8 +12,7 @@ export class UsuariosComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.length > 0) {
-      let user = JSON.parse(localStorage.getItem('user'));
-      //console.log(user);
+      const user = JSON.parse(localStorage.getItem('user'));
       if (user.profile == 'CHEFE_DEPART') {
         this.router.navigate(['/admin']);
       }

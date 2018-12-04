@@ -18,6 +18,12 @@ import { PredioComponent } from './funcionalidades/cruds/predio/predio.component
 import { SalaComponent } from './funcionalidades/cruds/sala/sala.component';
 import { CriarSalaComponent } from './funcionalidades/cruds/sala/criar-sala/criar-sala.component';
 import { RegistrarOrdemServicoComponent } from './funcionalidades/registrar-ordem-servico/registrar-ordem-servico.component';
+import { EmitirInventarioComponent } from './funcionalidades/emitir-inventario/emitir-inventario.component';
+import { RelatorioComponent } from './funcionalidades/relatorio/relatorio.component';
+import { GrupoMateiralPorSalaComponent } from './funcionalidades/relatorio/grupo-mateiral-por-sala/grupo-mateiral-por-sala.component';
+import {MovimentacaoEntradaComponent} from './funcionalidades/movimentacao/movimentacao-entrada.component';
+import {MovimentacaoSaidaComponent} from './funcionalidades/movimentacao/movimentacao-saida.component';
+import { GuiaComponent } from './funcionalidades/guia/guia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'anonimo', pathMatch: 'full' },
@@ -37,7 +43,13 @@ const routes: Routes = [
   { path: 'admin/addsala', component: CriarSalaComponent },
   { path: 'admin/addpredio', component: CriarPredioComponent },
   { path: 'admin/predios', component: PredioComponent },
-  { path: 'admin/regords', component: RegistrarOrdemServicoComponent}
+  { path: 'admin/regords', component: RegistrarOrdemServicoComponent},
+  { path: 'admin/invent', component: EmitirInventarioComponent },
+  { path: 'admin/relat', component: RelatorioComponent},
+  { path: 'admin/relat/gm', component: GrupoMateiralPorSalaComponent},
+  { path: 'admin/entradas', component: MovimentacaoEntradaComponent},
+  { path: 'admin/saidas', component: MovimentacaoSaidaComponent},
+  { path: 'admin/guia', component: GuiaComponent}
 ];
 
 @NgModule({

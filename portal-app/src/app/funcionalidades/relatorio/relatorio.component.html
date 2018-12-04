@@ -1,0 +1,28 @@
+<app-admin></app-admin>
+<div>
+  <h2> Lista de Salas</h2>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Departamento</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let sala of salas" >
+      <td>{{sala.id}}</td>
+      <td>{{sala.num}}</td>
+      <td>{{sala.departamento.nome}}</td>
+
+      <td style="width: 40%"><button class="btn btn-info" (click)="verGms(sala.num)">
+        Grupo de Materiais
+      </button>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

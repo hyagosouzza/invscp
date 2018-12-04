@@ -38,8 +38,6 @@ public class Bem {
     @Column
     private String denominacao;
     @Enumerated(EnumType.STRING)
-    private CatDepre catDepre;
-    @Enumerated(EnumType.STRING)
     private GrupoMaterialEnum grupoMaterial;
     @Enumerated(EnumType.STRING)
     private Situacao situacao;
@@ -48,6 +46,10 @@ public class Bem {
     @ManyToOne
     @JoinColumn(name = "sala_atual")
     private Sala sala;
+
+    public Local getLocal() {
+        return this.getSala().getDepartamento().getPredio().getLocal();
+    }
 
     public int getId() {
         return id;
@@ -98,7 +100,7 @@ public class Bem {
     }
 
     public String getMarca() {
-        return marca;
+            return marca;
     }
 
     public void setMarca(String marca) {
@@ -106,7 +108,7 @@ public class Bem {
     }
 
     public String getNumNotaFiscal() {
-        return numNotaFiscal;
+            return numNotaFiscal;
     }
 
     public void setNumNotaFiscal(String numNotaFiscal) {
@@ -114,7 +116,7 @@ public class Bem {
     }
 
     public String getNumTombamento() {
-        return numTombamento;
+            return numTombamento;
     }
 
     public void setNumTombamento(String numTombamento) {
@@ -151,14 +153,6 @@ public class Bem {
 
     public void setDenominacao(String denominacao) {
         this.denominacao = denominacao;
-    }
-
-    public CatDepre getCatDepre() {
-        return catDepre;
-    }
-
-    public void setCatDepre(CatDepre catDepre) {
-        this.catDepre = catDepre;
     }
 
     public GrupoMaterialEnum getGrupoMaterial() {

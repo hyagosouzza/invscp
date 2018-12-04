@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BpService } from '../cruds/bp/bp.service';
 import { OrdemServico } from '../../models/ordem-servico.model';
 import { OrdemServicoService } from './ordem-servico.service';
+import { Bem } from '../../models/bem.model';
 
 @Component({
   selector: 'app-registrar-ordem-servico',
@@ -11,10 +12,12 @@ import { OrdemServicoService } from './ordem-servico.service';
 })
 export class RegistrarOrdemServicoComponent implements OnInit {
 
-  findById: any;
+  bens: Bem[];
+  findOneById: Bem;
   bool: boolean = false;
   id: String;
   ordemServico: OrdemServico = new OrdemServico();
+  ordem: OrdemServico;
 
 
   constructor(private _bemService: BpService, private _ordemService: OrdemServicoService) { }
@@ -22,26 +25,30 @@ export class RegistrarOrdemServicoComponent implements OnInit {
   ngOnInit() {
   }
 
-  buscarBem() {
-    this._bemService.findById(this.id).subscribe(data => {
-      console.log(data);
-      this.findById = data;
-      if(String(this.findById.situacao) == 'INCORPORADO') {
-        this.bool = true;
-        this.ordemServico.bem = this.findById; 
-      } else {
-        this.bool = false;
-      }
+  buscarBems() {
+    this._bemService.findNumTomb(this.id).subscribe(data => {
+      this.bens = data;
     });
   }
 
   criarOrdem() {
     this._ordemService.create(this.ordemServico).subscribe(data => {
-      this.ordemServico = data;
+      this.ordem = data;
+    });
+  }
+
+  findOne(bem: Bem): void {
+    this._bemService.findOne(bem).subscribe(data => {
+      this.findOneById = data;
+      this.ordemServico.bem = data;
+      if(this.findOneById.situacao == "INCORPORADO") {
+        this.bool = true;
+      }
     })
-    if(!(this.ordemServico.id == '')){
-      alert("Ordem Criada com Sucesso!");
-    }
+  }
+
+  situacao(bem: Bem) {
+    return this.findOneById.situacao == "INCORPORADO";
   }
 
 }

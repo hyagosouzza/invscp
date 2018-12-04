@@ -1,7 +1,7 @@
 import { Bem } from "./bem.model";
 
 export class OrdemServico {
-    id: string;
+    id: number;
     dataAbertura: Date;
     dataFechamento: Date;
     bem: Bem;

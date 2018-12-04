@@ -1,0 +1,127 @@
+<app-admin></app-admin>
+<div>
+  <h2>Entradas</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Bem Patrimonial</th>
+        <th>Sala Origem</th>
+        <th>Sala Destino</th>
+        <th>Solicitante</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let mov of entradas">
+        <td>{{mov.bem.denominacao}} - {{mov.bem.id}}</td>
+        <td>{{mov.origem.num}}</td>
+        <td>{{mov.destino.num}}</td>
+        <td>{{mov.solicitante.nome}}</td>
+        <td>
+          <button class="btn btn-info" (click)="findOne(mov)" data-toggle="modal" data-target="#modalVer">
+            Ver
+          </button>
+          <button type="button" class="btn btn-primary" (click)="findOne(mov)" data-toggle="modal" data-target="#modalAprovar">
+            Aprovar
+          </button>
+          <button class="btn btn-danger" (click)="findOne(mov)" data-toggle="modal" data-target="#modalCancelar">Cancelar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Movimentação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="findOneById != null" class="modal-body">
+        <p><b>ID:</b> {{findOneById.id}}</p>
+        <p><b>Bem Patrimonial:</b> {{findOneById.bem.denominacao}} - {{findOneById.bem.id}}</p>
+        <p><b>Origem:</b> {{findOneById.origem.departamento.nome}} - {{findOneById.origem.num}}</p>
+        <p><b>Destino:</b> {{findOneById.destino.departamento.nome}} - {{findOneById.destino.num}}</p>
+        <p><b>Solicitante:</b> {{findOneById.solicitante.nome}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalAprovar" tabindex="-1" role="dialog" aria-labelledby="modalAprovarTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAprovarTitle">Movimentação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="findOneById != null">
+          <p><b>ID:</b> {{findOneById.id}}</p>
+          <p><b>Bem Patrimonial:</b> {{findOneById.bem.denominacao}} - {{findOneById.bem.id}}</p>
+          <p><b>Origem:</b> {{findOneById.origem.departamento.nome}} - {{findOneById.origem.num}}</p>
+          <p><b>Destino:</b> {{findOneById.destino.departamento.nome}} - {{findOneById.destino.num}}</p>
+          <p><b>Solicitante:</b> {{findOneById.solicitante.nome}}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="aprovarEntrada(findOneById)">Aprovar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCancelar" tabindex="-1" role="dialog" aria-labelledby="modalCancelarTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCancelarTitle">Movimentação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="findOneById != null">
+          <p><b>ID:</b> {{findOneById.id}}</p>
+          <p><b>Bem Patrimonial:</b> {{findOneById.bem.denominacao}} - {{findOneById.bem.id}}</p>
+          <p><b>Origem:</b> {{findOneById.origem.departamento.nome}} - {{findOneById.origem.num}}</p>
+          <p><b>Destino:</b> {{findOneById.destino.departamento.nome}} - {{findOneById.destino.num}}</p>
+          <p><b>Solicitante:</b> {{findOneById.solicitante.nome}}</p>
+        </div>
+        <hr>
+        <h3 align="center">Cancelar Movimentação</h3>
+        <div>
+          <form>
+            <div class="row">
+              <div class="col-12">
+                <h4 class="text-center">Informações de Cancelamento</h4>
+                <hr>
+              </div>
+              <div class="col-12">
+                <label for="motivo">Motivo do cancelamento:</label>
+                <input [(ngModel)]="motivo" placeholder="Motivo" name="motivo" class="form-control" id="motivo"
+                  required>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="cancelar(findOneById)">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>

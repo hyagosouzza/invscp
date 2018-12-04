@@ -1,16 +1,17 @@
 package com.devglan.userportal.Controllers;
 
 import com.devglan.userportal.Enums.Etapa;
-import com.devglan.userportal.Enums.ProfileEnum;
-import com.devglan.userportal.Models.AcaoMovimentacao;
-import com.devglan.userportal.Models.Bem;
-import com.devglan.userportal.Models.Movimentacao;
-import com.devglan.userportal.Models.SolicitacaoMovimentacao;
+import com.devglan.userportal.Models.*;
 import com.devglan.userportal.Services.BemService;
 import com.devglan.userportal.Services.MovimentacaoService;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -24,38 +25,66 @@ public class MovimentacaoController {
     private BemService bemPatrimonialService;
 
     @PostMapping(path = "/registrar")
-    public boolean create(@RequestBody SolicitacaoMovimentacao solicitacao) {
+    public MovimentacaoResponse create(@RequestBody SolicitacaoMovimentacao solicitacao) {
+        MovimentacaoResponse response = new MovimentacaoResponse();
         Movimentacao mov = new Movimentacao();
-        Bem bemPatrimonial = solicitacao.getBemPatrimonial();
+        Bem bemPatrimonial = solicitacao.getBem();
 
-        mov.setBem(solicitacao.getBemPatrimonial());
+        mov.setBem(solicitacao.getBem());
         mov.setSolicitante(solicitacao.getSolicitante());
         mov.setOrigem(bemPatrimonial.getSala());
         mov.setDestino(solicitacao.getDestino());
 
         //Caso o solicitante seja o chefe do departamento, o aceite de saída será automático
-        if (solicitacao.getSolicitante().getProfile().equals(ProfileEnum.CHEFE_DEPART)) {
-            mov.setEtapa(Etapa.AC_ENTRADA);
-            mov.setDataSaida(new Date());
-            mov.setAprovadorSaida(solicitacao.getSolicitante());
+        if (solicitacao.isChefe()) {
+            mov.aceiteSaida(solicitacao.getSolicitante());
         } else {
             mov.setEtapa(Etapa.AC_SAIDA);
         }
 
         //RF 2 - Movimentação de Bem Patrimonial Interna - MBPi
-        if (bemPatrimonial.getSala().getDepartamento().equals(solicitacao.getDestino().getDepartamento())) {
-            mov.setDataSaida(new Date());
-            mov.setAprovadorSaida(solicitacao.getSolicitante());
-            mov.setDataEntrada(new Date());
-            mov.setAprovadorEntrada(solicitacao.getSolicitante());
-            mov.setEtapa(Etapa.FINALIZADA);
+        if (solicitacao.isInternalMov()) {
+            mov.execInternalMov(solicitacao.getSolicitante());
             bemPatrimonial.setSala(solicitacao.getDestino());
 
-            return movimentacaoService.update(mov) != null &&
-                    bemPatrimonialService.update(bemPatrimonial) != null;
+            if (movimentacaoService.update(mov) != null) {
+                response.setSuccess(true);
+            } else {
+                response.setSuccess(false);
+            }
         }
 
-        return movimentacaoService.create(mov) != null;
+        if (movimentacaoService.create(mov) != null) {
+            // RF 6 - Emitir guia de autorização de transporte
+            response.setSuccess(true);
+            if (solicitacao.isCrossCity()) {
+                try {
+                    BufferedReader rd = new BufferedReader(new FileReader("C:\\Users\\hyago\\Desktop\\invscp\\user-portal\\src\\main\\resources\\guia_autorizacao.html"));
+                    String retorno = IOUtils.toString(rd);
+                    retorno = retorno.replace("&cidade_origem&", bemPatrimonial.getLocal().getCidade());
+                    retorno = retorno.replace("&estado_origem&", bemPatrimonial.getLocal().getEstado());
+                    retorno = retorno.replace("&cidade_destino&", solicitacao.getDestino().getLocal().getCidade());
+                    retorno = retorno.replace("&estado_destino&", solicitacao.getDestino().getLocal().getEstado());
+                    retorno = retorno.replace("&denominacao&", bemPatrimonial.getDenominacao());
+                    retorno = retorno.replace("&marca&", bemPatrimonial.getMarca());
+                    retorno = retorno.replace("&numero_tombamento&", bemPatrimonial.getNumTombamento());
+                    retorno = retorno.replace("&numero_nf&", bemPatrimonial.getNumNotaFiscal());
+
+                    response.setCrossCity(true);
+                    response.setHtml(retorno);
+                    rd.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                response.setSuccess(true);
+            }
+        } else {
+            response.setSuccess(false);
+        }
+        return response;
     }
 
     @GetMapping(path = {"/{id}"})
@@ -63,27 +92,39 @@ public class MovimentacaoController {
         return movimentacaoService.findById(id);
     }
 
-    @PutMapping(path = {"/aceite-saida/{id}"})
-    public boolean aceiteSaida(@PathVariable("id") int id, @RequestBody AcaoMovimentacao acao) {
+    @PutMapping(path = {"/cancelar/{id}"})
+    public boolean cancelar(@PathVariable("id") int id,
+                               @RequestBody AcaoMovimentacao acao) {
         Movimentacao movimentacao = acao.getMovimentacao();
 
         movimentacao.setId(id);
-        movimentacao.setAprovadorSaida(acao.getSolicitante());
-        movimentacao.setDataSaida(new Date());
-        movimentacao.setEtapa(Etapa.AC_ENTRADA);
+        movimentacao.setUserCancelamento(acao.getSolicitante());
+        movimentacao.setEtapa(Etapa.CANCELADA);
+        movimentacao.setDataCancelamento(new Date());
+        movimentacao.setMotivoCancelamento(acao.getMovimentacao().getMotivoCancelamento());
+
+        return movimentacaoService.update(movimentacao) != null;
+    }
+
+    @PutMapping(path = {"/aceite-saida/{id}"})
+    public boolean aceiteSaida(@PathVariable("id") int id,
+                               @RequestBody AcaoMovimentacao acao) {
+        Movimentacao movimentacao = acao.getMovimentacao();
+
+        movimentacao.setId(id);
+        movimentacao.aceiteSaida(acao.getSolicitante());
 
         return movimentacaoService.update(movimentacao) != null;
     }
 
     @PutMapping(path = {"/aceite-entrada/{id}"})
-    public boolean aceiteEntrada(@PathVariable("id") int id, @RequestBody AcaoMovimentacao acao) {
+    public boolean aceiteEntrada(@PathVariable("id") int id,
+                                 @RequestBody AcaoMovimentacao acao) {
         Movimentacao movimentacao = acao.getMovimentacao();
         Bem bemPatrimonial = movimentacao.getBem();
 
         movimentacao.setId(id);
-        movimentacao.setAprovadorEntrada(acao.getSolicitante());
-        movimentacao.setDataEntrada(new Date());
-        movimentacao.setEtapa(Etapa.FINALIZADA);
+        movimentacao.aceiteEntrada(acao.getSolicitante());
 
         bemPatrimonial.setSala(movimentacao.getDestino());
 
@@ -99,5 +140,15 @@ public class MovimentacaoController {
     @GetMapping
     public List<Movimentacao> findAll() {
         return movimentacaoService.findAll();
+    }
+
+    @PostMapping(path = {"/saidas"})
+    public List<Movimentacao> findAllSaidas(@RequestBody Departamento departamento) {
+        return movimentacaoService.findAllSaidas(departamento);
+    }
+
+    @PostMapping(path = {"/entradas"})
+    public List<Movimentacao> findAllEntradas(@RequestBody Departamento departamento) {
+        return movimentacaoService.findAllEntradas(departamento);
     }
 }

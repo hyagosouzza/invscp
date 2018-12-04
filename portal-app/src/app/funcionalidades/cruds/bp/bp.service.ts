@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Bem } from '../../../models/bem.model';
+import { Historico } from '../../../models/historico.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,10 +18,17 @@ export class BpService {
   private bemUrlNumTomb = 'http://localhost:8080/user-portal/bens/numTomb';
   private bemUrlMarca = 'http://localhost:8080/user-portal/bens/marca';
   private bemUrlDenomi = 'http://localhost:8080/user-portal/bens/denomi';
+  private bemUrlInvent = 'http://localhost:8080/user-portal/bens/inventario';
+  private bemUrlRelat = 'http://localhost:8080/user-portal/bens/relat';
+  private bemUrlHist = 'http://localhost:8080/user-portal/bens/hist'
   //private bemUrl = '/api';
 
   public getBens() {
     return this.http.get<Bem[]>(this.bemUrl);
+  }
+
+  public getInventario(){
+    return this.http.get<Bem[]>(this.bemUrlInvent);
   }
 
   public deleteBem(bem) {
@@ -40,7 +48,7 @@ export class BpService {
   }
 
   public findOne(bem) {
-    return this.http.get(this.bemUrl + "/"+ bem.id);
+    return this.http.get<Bem>(this.bemUrl + "/"+ bem.id);
   }
 
   public findById(id: String) {
@@ -58,6 +66,14 @@ export class BpService {
 
   public findDenomi(denomi) {
     return this.http.get<Bem[]>(this.bemUrlDenomi + "/"+ denomi);
+  }
+
+  public findAllBySalaGm(sala) {
+    return this.http.get<Bem[]>(this.bemUrlRelat + "/"+ sala);
+  }
+
+  public getHist(bem) {
+    return this.http.get<Historico>(this.bemUrlHist + "/"+ bem.id);
   }
 
 }

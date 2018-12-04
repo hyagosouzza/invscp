@@ -21,11 +21,11 @@
                         data-target="#modalVer">
                         Ver
                     </button>
-                    <button type="button" class="btn btn-primary" (click)="findOne(sala)" data-toggle="modal"
+                    <button *ngIf="sala.id != 17" type="button" class="btn btn-primary" (click)="findOne(sala)" data-toggle="modal"
                         data-target="#modalEditar">
                         Editar
                     </button>
-                    <button class="btn btn-danger" (click)="deleteSala(sala)"> Deletar</button>
+                    <button *ngIf="sala.id != 17" class="btn btn-danger" (click)="deleteSala(sala)"> Deletar</button>
                 </td>
             </tr>
         </tbody>
@@ -81,15 +81,6 @@
                             <label for="num">Número da sala:</label>
                             <input required [(ngModel)]="salaUpdate.num" placeholder="Número da Sala" name="num" class="form-control"
                                 id="num">
-                        </div>
-
-                        <div class="form-group" *ngIf="departamentos != null">
-                            <label for="idDepartamento">Departamento:</label>
-                            <select required id="idDepartamento" [(ngModel)]="id_departamento" class="form-control"
-                                name="idDepartamento" id="idDepartamento">
-                                <option *ngFor="let departamento of departamentos" [value]="departamento.id">{{departamento.nome}}
-                                    - {{departamento.id}}</option>
-                            </select>
                         </div>
 
                         <button class="btn btn-success" (click)="updateSala()">Editar</button>

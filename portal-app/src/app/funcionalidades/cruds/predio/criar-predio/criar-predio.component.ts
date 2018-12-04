@@ -29,7 +29,10 @@ export class CriarPredioComponent implements OnInit {
   };
 
   createPredio(): void {
-
+    if(this.predio.local == null || this.predio.nome == null || this.predio.nome == '') {
+      alert('Todos os campos devem ser preenchidos!');
+      return;
+    }
     this.predioService.createPredio(this.predio)
       .subscribe(data => {
         alert("Predio criado com sucesso.");

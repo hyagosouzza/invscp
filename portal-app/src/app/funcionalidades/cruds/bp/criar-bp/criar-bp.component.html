@@ -12,13 +12,13 @@
             <div class="col-4">
                 <label for="denominacao">Denominação:</label>
                 <input [(ngModel)]="bem.denominacao" placeholder="Denominação" name="denominacao" class="form-control"
-                    id="denominacao" required>
+                    id="denominacao" required="required">
             </div>
 
             <div class="col-6">
-                <label for="espeficicacao">Espeficicação:</label>
-                <input [(ngModel)]="bem.espeficicacao" placeholder="Espeficicação" name="espeficicacao" class="form-control"
-                    id="espeficicacao" required>
+                <label for="especificacao">Espeficicação:</label>
+                <input [(ngModel)]="bem.especificacao" placeholder="Especificação" name="especificacao" class="form-control"
+                    id="especificacao" required>
             </div>
 
             <div class="col-4">
@@ -73,14 +73,10 @@
                     <option value="1">Informática</option>
                     <option value="2">Didático</option>
                     <option value="3">Móveis</option>
-                </select>
-            </div>
-
-            <div class="col-3">
-                <label for="catDepre">Categoria de Depreciação:</label>
-                <select required id="catDepre" [(ngModel)]="bem.catDepre" class="form-control" name="catDepre" id="catDepre">
-                    <option value="0">Bem de Consumo</option>
-                    <option value="1">Bem Permanente</option>
+                    <option value="4">Ferramenta</option>
+                    <option value="5">Máquina ou equipamento industrial</option>
+                    <option value="6">Veículo leve</option>
+                    <option value="7">Veículo Pesado</option>
                 </select>
             </div>
 

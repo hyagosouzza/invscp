@@ -21,11 +21,11 @@
                         data-target="#modalVer">
                         Ver
                     </button>
-                    <button type="button" class="btn btn-primary" (click)="findOne(predio)" data-toggle="modal"
+                    <button *ngIf="predio.id != 6"  type="button" class="btn btn-primary" (click)="findOne(predio)" data-toggle="modal"
                         data-target="#modalEditar">
                         Editar
                     </button>
-                    <button class="btn btn-danger" (click)="deletePredio(predio)"> Deletar</button>
+                    <button *ngIf="predio.id != 6" class="btn btn-danger" (click)="deletePredio(predio)"> Deletar</button>
                 </td>
             </tr>
         </tbody>
@@ -80,14 +80,6 @@
                             <label for="nome">Nome:</label>
                             <input required [(ngModel)]="predioUpdate.nome" placeholder="Nome" name="nome" class="form-control"
                                 id="nome">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="idLocal">Localização:</label>
-                            <select required id="idLocal" [(ngModel)]="id_local" class="form-control" name="idLocal"
-                                id="idLocal">
-                                <option *ngFor="let local of locais" [value]="local.id">{{local.nome}}</option>
-                            </select>
                         </div>
 
                         <button class="btn btn-success" (click)="updatePredio()">Editar</button>

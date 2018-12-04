@@ -1,0 +1,72 @@
+<app-admin></app-admin>
+<div>
+  <h2> Iventário dos Bens Patrimoniais</h2>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Num Tomb.</th>
+      <th>Descrição</th>
+      <th>Grupo Material</th>
+      <th>Sala</th>
+      <th>Data Aquisição</th>
+      <th>Valor de Compra(R$)</th>
+      <th>Valor Atual(R$)</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let bem of bens">
+      <td>{{bem.numTombamento}}</td>
+      <td>{{bem.denominacao}}</td>
+      <td>{{bem.grupoMaterial}}</td>
+      <td>{{bem.sala.num}} - {{bem.sala.id}}</td>
+      <td>{{bem.dataAquis}}</td>
+      <td>{{bem.valorCompra}}</td>
+      <td>{{bem.valorAtual}}</td>
+
+      <td><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
+                                     data-target="#modalVer">
+        Ver
+      </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalVer" tabindex="-1" role="dialog" aria-labelledby="modalVerTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVerTitle">Bem Patrimonial</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="findOneById != null" class="modal-body">
+        <p><b>ID:</b> {{findOneById.id}}</p>
+        <p><b>Situação:</b> {{findOneById.situacao}}</p>
+        <p><b>Denominação:</b> {{findOneById.denominacao}}</p>
+        <p><b>Espeficicação:</b> {{findOneById.especificacao}}</p>
+        <p><b>Nº NF:</b> {{findOneById.numNotaFiscal}}</p>
+        <p><b>Marca:</b> {{findOneById.marca}}</p>
+        <p><b>Garantia:</b> {{findOneById.garantia}}</p>
+        <p><b>Valor da Compra:</b> {{findOneById.valorCompra}}</p>
+        <p><b>Valor Atual:</b> {{findOneById.valorAtual}}</p>
+        <p><b>Vida útil:</b> {{findOneById.vidaUtil}}</p>
+        <p><b>Data de Aquisição:</b> {{findOneById.dataAquis}}</p>
+        <p><b>Nº de Tombamento:</b> {{findOneById.numTombamento}}</p>
+        <p><b>Grupo Material:</b> {{findOneById.grupoMaterial}}</p>
+        <p><b>Sala:</b> {{findOneById.sala.num}} - {{findOneById.sala.id}}</p>
+        <p><b>Data da Baixa:</b> {{findOneById.dataDaBaixa}}</p>
+        <p><b>Motivo da Baixa:</b> {{findOneById.motivoDaBaixa}}</p>
+        <p><b>Observações da Baixa:</b> {{findOneById.obsrBaixa}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,10 @@ export class CriarDepComponent implements OnInit {
   };
 
   createDepartamento(): void {
+    if(this.departamento.predio == null || this.departamento.nome == null || this.departamento.nome == '') {
+      alert('Todos os campos devem ser preenchidos!');
+      return;
+    }
 
     this.departamentoService.createDepartamento(this.departamento)
       .subscribe(data => {

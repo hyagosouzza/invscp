@@ -41,6 +41,25 @@ public class Movimentacao {
     @ManyToOne
     @JoinColumn(name = "user_cancelamento")
     private User userCancelamento;
+    @Column
+    private String motivoCancelamento;
+
+    public void execInternalMov(User user) {
+        this.aceiteSaida(user);
+        this.aceiteEntrada(user);
+    }
+
+    public void aceiteSaida(User user) {
+        this.setEtapa(Etapa.AC_ENTRADA);
+        this.setDataSaida(new Date());
+        this.setAprovadorSaida(user);
+    }
+
+    public void aceiteEntrada(User user) {
+        this.setEtapa(Etapa.FINALIZADA);
+        this.setDataEntrada(new Date());
+        this.setAprovadorEntrada(user);
+    }
 
     public int getId() {
         return id;
@@ -136,5 +155,13 @@ public class Movimentacao {
 
     public void setUserCancelamento(User userCancelamento) {
         this.userCancelamento = userCancelamento;
+    }
+
+    public String getMotivoCancelamento() {
+        return motivoCancelamento;
+    }
+
+    public void setMotivoCancelamento(String motivoCancelamento) {
+        this.motivoCancelamento = motivoCancelamento;
     }
 }

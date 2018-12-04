@@ -18,6 +18,11 @@ export class AddLocalComponent {
   }
 
   createLocal(): void {
+    if(this.local.nome == (null || '') || this.local.estado == (null || '') || this.local.cidade == (null || '')
+     || this.local.unidadeAdminstra == null ) {
+       alert("Todos os campos devem ser preenchidos.");
+       return;
+     }
     this.localService.createLocal(this.local)
         .subscribe( data => {
           alert("Localização criada com sucesso.");
