@@ -21,7 +21,7 @@
       <td *ngIf="bem.situacao == 'BAIXADO'">Bem Patrimonial Baixado - Não esta mais nos dominios da
         instituição</td>
 
-      <td style="width: 40%"><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
+      <td style="width: 45%"><button class="btn btn-info" (click)="findOne(bem)" data-toggle="modal"
                                      data-target="#modalVer">
         Ver
       </button>
@@ -392,9 +392,9 @@
           <tbody>
           <tr *ngFor="let movs of movimentacoes">
             <td>{{movs.id}}</td>
-            <td>{{movs.origem.departamento +" "+ movs.origem.num}}</td>
-            <td>{{movs.destino.departamento +" "+ movs.destino.num}}</td>
-            <td>{{movs.solicitante}}</td>
+            <td>{{movs.origem.departamento.nome +" - "+ movs.origem.num}}</td>
+            <td>{{movs.destino.departamento.nome +" - "+ movs.destino.num}}</td>
+            <td>{{movs.solicitante.nome}}</td>
             <td>{{movs.dataSaida}}</td>
             <td>{{movs.dataEntrada}}</td>
             <td>{{movs.dataCancelamento}}</td>

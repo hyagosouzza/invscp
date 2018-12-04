@@ -37,6 +37,7 @@ export class ConcluirOrdemComponent implements OnInit {
       console.log(data);
       if(this.object.error != "OK" ) {
         alert("Ordem de Serviço foi concluida com sucesso!");
+        location.reload();
       } else{
         alert("Não foi possível concluir a ordem de serviço. Tente novamente mais tarde!"); 
       }
